@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TuController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
+//
+Route::get('/sign-in', [LoginController::class, 'index']);
+Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
+Route::get('/home', [TuController::class, 'index'])->name('home');
+//
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
 Route::view('/crypto', 'crypto');
