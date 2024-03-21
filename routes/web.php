@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
 //
-Route::get('/sign-in', [LoginController::class, 'index']);
+Route::get('/sign-in', [LoginController::class, 'index'])->name('sign-in');
 Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 //

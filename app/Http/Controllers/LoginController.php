@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\tu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JetBrains\PhpStorm\NoReturn;
@@ -29,8 +29,24 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-//        var_dump($request);die();
-        return redirect()->route('home');
+        //validasi username requeire, password required
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        // get data tu berdasarkan username dan password
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        if($tu = tu::where('username', $username)
+            ->where('password', $password)
+            ->first()){
+            return redirect()->route('home');
+        }else {
+            //kalau ga ada di redirect lagi ke halaman login dengan error user not found
+            return redirect()->route('sign-in')->with('error', 'Invalid username or password, Masukkan kembali username dan password');
+        }
     }
 
     /**

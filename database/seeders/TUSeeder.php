@@ -16,10 +16,10 @@ class TUSeeder extends Seeder
     {
         //
         DB::table('tu')->insert([
-            'nama' => Str::random(10).'nameanexample',
-            'alamat' => Str::random(20).'alamatexample',
-            'username' => Str::random(10).'example',
-            'password' => Str::random(20).'password',
+            'nama' => 'izmi',
+            'alamat' => 'jakarta',
+            'username' => 'izminabilah',
+            'password' => 'izmi',
         ]);
     }
 }

@@ -11,6 +11,11 @@
                     <div class="absolute top-6 end-6">
                     </div>
                     <div class="mx-auto w-full max-w-[440px]">
+                        @if(session('error'))
+                            <script>
+                                alert("{{ session('error') }}");
+                            </script>
+                        @endif
                         <div class="mb-10">
                             <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Sign in</h1>
                             <p class="text-base font-bold leading-normal text-white-dark">Enter your username and password to login</p>
@@ -20,7 +25,7 @@
                             <div>
                                 <label for="username">Username</label>
                                 <div class="relative text-white-dark">
-                                    <input id="username" type="Username" placeholder="Enter username" class="form-input ps-10 placeholder:text-white-dark" />
+                                    <input id="username" name="username" type="text" placeholder="Enter username" class="form-input ps-10 placeholder:text-white-dark"/>
                                     <span class="absolute start-4 top-1/2 -translate-y-1/2">
                                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                                             <path opacity="0.5"
@@ -36,7 +41,7 @@
                             <div>
                                 <label for="password">Password</label>
                                 <div class="relative text-white-dark">
-                                    <input id="password" type="password" placeholder="Enter password" class="form-input ps-10 placeholder:text-white-dark" />
+                                    <input id="password" name="password" type="password" placeholder="Enter password" class="form-input ps-10 placeholder:text-white-dark"/>
                                     <span class="absolute start-4 top-1/2 -translate-y-1/2">
                                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                                             <path opacity="0.5"
