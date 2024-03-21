@@ -39,23 +39,14 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $tu = tu::where('username', $username)->first();
-        if ($tu && $tu->password === $password) {
-            //check kalau ada di redirect ke halaman home
+        if($tu = tu::where('username', $username)
+            ->where('password', $password)
+            ->first()){
             return redirect()->route('home');
-        } else {
+        }else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found
             return redirect()->route('sign-in')->with('error', 'Invalid username or password, Masukkan kembali username dan password');
         }
-
-
-
-
-
-//        if (Auth::attempt($credentials)) {
-//            return redirect()->route('home');
-//        }
-//        return redirect()->route('sign-in');
     }
 
     /**
