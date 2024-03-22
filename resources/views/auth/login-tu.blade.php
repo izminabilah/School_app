@@ -1,5 +1,4 @@
 <x-layout.auth>
-
     <div x-data="auth">
         <div class="absolute inset-0">
             <img src="/assets/images/auth/school-buildings.png" alt="image" class="h-full w-full object-cover" />

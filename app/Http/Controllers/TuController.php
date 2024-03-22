@@ -13,7 +13,13 @@ class TuController extends Controller
     public function index()
     {
         //
-        return view('index');
+        session_start();
+        if(!isset($_SESSION["login"])){
+            return redirect()->route('sign-in');
+        }else{
+            return view('home');
+        }
+//        return view('home');
     }
 
     /**
