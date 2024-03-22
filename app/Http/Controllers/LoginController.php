@@ -77,10 +77,14 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         //
-
+        session_start();
+        $_SESSION =[];
+        session_unset();
+        session_destroy();
+        return redirect()->route('sign-in');
     }
 }
 
