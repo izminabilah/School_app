@@ -12,12 +12,10 @@ class TuController extends Controller
      */
     public function index()
     {
-        //
-        session_start();
-        if(!isset($_SESSION["login"])){
-            return redirect()->route('sign-in');
-        }else{
+        if(session()->exists('login')){
             return view('home');
+        }else {
+            return redirect()->route('sign-in');
         }
 //        return view('home');
     }

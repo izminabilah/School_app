@@ -40,9 +40,7 @@ class LoginController extends Controller
 
         if($tu = tu::where('username', $username)->where('password', $password)->first())
         {
-            session_start();
-            $_SESSION["login"]=true;
-
+            session(['login' => true]);
             return redirect()->route('home');
         }else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found
@@ -80,10 +78,7 @@ class LoginController extends Controller
     public function destroy()
     {
         //
-        session_start();
-        $_SESSION =[];
-        session_unset();
-        session_destroy();
+        session()->flush();
         return redirect()->route('sign-in');
     }
 }
