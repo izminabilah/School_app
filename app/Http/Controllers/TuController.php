@@ -12,7 +12,7 @@ class TuController extends Controller
      */
     public function index()
     {
-        if(session()->exists('login')){
+        if(session()->exists('username')){
             return view('home');
         }else {
             return redirect()->route('sign-in');

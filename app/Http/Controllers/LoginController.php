@@ -40,7 +40,7 @@ class LoginController extends Controller
 
         if($tu = tu::where('username', $username)->where('password', $password)->first())
         {
-            session(['login' => true]);
+            session(['username' => $username]);
             return redirect()->route('home');
         }else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found
