@@ -12,8 +12,12 @@ class TuController extends Controller
      */
     public function index()
     {
-        //
-        return view('index');
+        if(session()->exists('username')){
+            return view('home');
+        }else {
+            return redirect()->route('sign-in');
+        }
+//        return view('home');
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\tu;
 use Illuminate\Http\Request;
@@ -39,9 +38,9 @@ class LoginController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        if($tu = tu::where('username', $username)
-            ->where('password', $password)
-            ->first()){
+        if($tu = tu::where('username', $username)->where('password', $password)->first())
+        {
+            session(['username' => $username]);
             return redirect()->route('home');
         }else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found
@@ -76,9 +75,11 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         //
+        session()->flush();
+        return redirect()->route('sign-in');
     }
 }
 
