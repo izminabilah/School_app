@@ -10,6 +10,9 @@ Route::get('/sign-in', [LoginController::class, 'index'])->name('sign-in');
 Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
 Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
+Route::view('/card', 'card');
+Route::view('/profile/teacher','profileGuru');
+Route::view('/payment','paymentValidation');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
