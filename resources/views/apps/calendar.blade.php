@@ -11,19 +11,19 @@
                         <div class="flex items-center mt-2 flex-wrap sm:justify-start justify-center">
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-primary"></div>
-                                <div>Work</div>
+                                <div>Flag Ceremony</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-info"></div>
-                                <div>Travel</div>
+                                <div>Spesial Event</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-success"></div>
-                                <div>Personal</div>
+                                <div>Exam</div>
                             </div>
                             <div class="flex items-center">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-danger"></div>
-                                <div>Important</div>
+                                <div>Holiday</div>
                             </div>
                         </div>
                     </div>
