@@ -124,7 +124,7 @@
                 </li>
 
                 <li class="menu nav-item">
-                    <a href="/users/profile">
+                    <a href="/calender/semester">
                         <div class="flex items-center">
 
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

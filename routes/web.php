@@ -13,6 +13,7 @@ Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 Route::view('/profile/teacher','profileGuru');
 Route::view('/payment','paymentValidation');
+Route::view('calender/semester','CalenderSemester');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');

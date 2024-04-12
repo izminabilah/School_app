@@ -17,7 +17,7 @@ class TuController extends Controller
         }else {
             return redirect()->route('sign-in');
         }
-//        return view('home');
+        // return view('home');
     }
 
     /**
