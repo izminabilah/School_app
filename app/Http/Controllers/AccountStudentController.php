@@ -10,7 +10,7 @@ class AccountStudentController extends Controller
     public function index()
     {
         //
-        
+
     }
 
     /**
