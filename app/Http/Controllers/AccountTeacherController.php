@@ -1,23 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\tu;
 use Illuminate\Http\Request;
 
-class TuController extends Controller
+class AccountTeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(session()->exists('username')){
-            return view('home');
-        }else {
-            return redirect()->route('sign-in');
-        }
-        // return view('home');
+        //
+        return view('AccountTeacher');
     }
 
     /**
@@ -33,13 +27,13 @@ class TuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(tu $tu)
+    public function show(string $id)
     {
         //
     }
@@ -47,7 +41,7 @@ class TuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tu $tu)
+    public function edit(string $id)
     {
         //
     }
@@ -55,7 +49,7 @@ class TuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tu $tu)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -63,8 +57,8 @@ class TuController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tu $tu)
+    public function destroy()
     {
-        //
+
     }
 }
