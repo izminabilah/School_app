@@ -77,10 +77,10 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'dashboard'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="/">Student</a>
+                            <a href="/analytics">Student</a>
                         </li>
                         <li>
-                            <a href="/analytics">Teacher</a>
+                            <a href="/account/Teacher">Teacher</a>
                         </li>
                         <li>
                             <a href="/finance">Parents</a>

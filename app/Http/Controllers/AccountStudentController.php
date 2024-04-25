@@ -1,17 +1,16 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AccountTeacherController extends Controller
+class AccountStudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //
     public function index()
     {
         //
-        return view('AccountTeacher');
+        
     }
 
     /**
