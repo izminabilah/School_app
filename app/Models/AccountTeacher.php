@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentValidation extends Model
+class AccountTeacher extends Model
 {
     use HasFactory;
 
-    protected $table="PaymentValidation";
+    protected $table="account_teachers";
 
     protected $primaryKey = "id";
 
     protected $fillable =[
-        'bulan',
-        'waktu',
-        'id_siswa',
+        'name',
+        'username',
+        'password',
     ];
 }

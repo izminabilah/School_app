@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PaymentValidationController extends Controller
+class AccountTeacherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,7 +11,6 @@ class PaymentValidationController extends Controller
     public function index()
     {
         //
-        return view('paymentValidation');
     }
 
     /**
@@ -28,7 +26,7 @@ class PaymentValidationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -58,8 +56,8 @@ class PaymentValidationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+
     }
 }

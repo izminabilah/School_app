@@ -13,8 +13,8 @@ Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 Route::view('/profile/teacher','profileGuru');
-Route::view('/payment', [PaymentValidationController::class, 'index']);
-Route::view('payment/val','paymentValidation');
+Route::view('/activity', 'paymentValidation');
+Route::view('payment','paymentValidation');
 Route::view('calender/semester','CalenderSemester');
 //
 Route::view('/analytics', 'analytics');
