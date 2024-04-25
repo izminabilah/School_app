@@ -1,6 +1,6 @@
 <x-layout.default>
 
-    <div x-data="contacts">
+    <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="text-xl">Account Student</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
@@ -118,7 +118,7 @@
                 <div class="relative ">
                     <input type="text" placeholder="Search Account"
                            class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" x-model="searchUser"
-                           @keyup="searchContacts" />
+                           @keyup="searchAccount" />
                     <div
                         class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
 
@@ -142,51 +142,27 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Password</th>
-                            <th class="!text-center">Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <template x-for="contact in filterdContactsList" :key="contact.id">
+                        @forelse ($accountStudents as $accountStudent)
                             <tr>
-                                <td>
-                                    <div class="flex items-center w-max">
-                                        <div x-show="contact.path" class="w-max">
-                                            <img :src="`/assets/images/${contact.path}`"
-                                                 class="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2"
-                                                 alt="avatar" />
-                                        </div>
-                                        <div x-show="!contact.path && contact.name"
-                                             class="grid place-content-center h-8 w-8 ltr:mr-2 rtl:ml-2 rounded-full bg-primary text-white text-sm font-semibold"
-                                             x-text="contact.name.charAt(0) + '' + contact.name.charAt(contact.name.indexOf(' ') + 1)">
-                                        </div>
-                                        <div x-show="!contact.path && !contact.name"
-                                             class="border border-gray-300 dark:border-gray-800 rounded-full p-2 ltr:mr-2 rtl:ml-2">
-
-                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                 class="w-4.5 h-4.5">
-                                                <circle cx="12" cy="6" r="4"
-                                                        stroke="currentColor" stroke-width="1.5"></circle>
-                                                <ellipse opacity="0.5" cx="12" cy="17"
-                                                         rx="7" ry="4" stroke="currentColor"
-                                                         stroke-width="1.5"></ellipse>
-                                            </svg>
-                                        </div>
-                                        <div x-text="contact.name"></div>
-                                    </div>
-                                </td>
-                                <td x-text="contact.username"></td>
-                                <td x-text="contact.password" class="whitespace-nowrap"></td>
+                                <td>{{ $accountStudent->name }}</td>
+                                <td>{{ $accountStudent->username }}</td>
+                                <td class="whitespace-nowrap">{{ $accountStudent->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                                @click="editUser(contact)">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                                @click="deleteUser(contact)">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" @click="editUser(contact)">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" @click="deleteUser(contact)">Delete</button>
                                     </div>
                                 </td>
                             </tr>
-                        </template>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -194,7 +170,7 @@
         </div>
         <template x-if="displayType === 'grid'">
             <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 w-full">
-                <template x-for="contact in filterdContactsList" :key="contact.id">
+                <template x-for="contact in filterdAccountList" :key="contact.id">
                     <div class="bg-white dark:bg-[#1c232f] rounded-md overflow-hidden text-center shadow relative">
                         <div
                             class="bg-white/40 rounded-t-md bg-[url('/assets/images/notification-bg.png')] bg-center bg-cover p-6 pb-0">
@@ -206,85 +182,13 @@
                         <div class="px-6 pb-24 -mt-10 relative">
                             <div class="shadow-md bg-white dark:bg-gray-900 rounded-md px-2 py-4">
                                 <div class="text-xl" x-text="contact.name"></div>
-                                <div class="text-white-dark" x-text="contact.role"></div>
-                                <div class="flex items-center justify-between flex-wrap mt-6 gap-3">
-                                    <div class="flex-auto">
-                                        <div class="text-info" x-text="contact.posts"></div>
-                                        <div>Posts</div>
-                                    </div>
-                                    <div class="flex-auto">
-                                        <div class="text-info" x-text="contact.following"></div>
-                                        <div>Following</div>
-                                    </div>
-                                    <div class="flex-auto">
-                                        <div class="text-info" x-text="contact.followers"></div>
-                                        <div>Followers</div>
-                                    </div>
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5">Username :</div>
+                                    <div class="truncate text-white-dark" x-text="contact.username"></div>
                                 </div>
-                                <div class="mt-4">
-                                    <ul class="flex space-x-4 rtl:space-x-reverse items-center justify-center">
-                                        <li>
-                                            <a href="javascript:;"
-                                               class="btn btn-outline-primary p-0 h-7 w-7 rounded-full">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="w-4 h-4">
-                                                    <path
-                                                        d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;"
-                                               class="btn btn-outline-primary p-0 h-7 w-7 rounded-full">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="w-4 h-4">
-                                                    <rect x="2" y="2" width="20"
-                                                          height="20" rx="5" ry="5"></rect>
-                                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                                    <line x1="17.5" y1="6.5" x2="17.51"
-                                                          y2="6.5"></line>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;"
-                                               class="btn btn-outline-primary p-0 h-7 w-7 rounded-full">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="w-4 h-4">
-                                                    <path
-                                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                                    </path>
-                                                    <rect x="2" y="9" width="4"
-                                                          height="12"></rect>
-                                                    <circle cx="4" cy="4" r="2"></circle>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;"
-                                               class="btn btn-outline-primary p-0 h-7 w-7 rounded-full">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="w-4 h-4">
-                                                    <path
-                                                        d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5">Password :</div>
+                                    <div class="text-white-dark" x-text="contact.password"></div>
                                 </div>
                             </div>
                             <div class="mt-6 grid grid-cols-1 gap-4 ltr:text-left rtl:text-right">
@@ -312,14 +216,12 @@
 
     <script>
         document.addEventListener("alpine:init", () => {
-            Alpine.data("contacts", () => ({
+            Alpine.data("account", () => ({
                 defaultParams: {
                     id: null,
                     name: '',
                     username: '',
-                    role: '',
                     password: '',
-                    location: ''
                 },
                 displayType: 'list',
                 addContactModal: false,
@@ -327,31 +229,25 @@
                     id: null,
                     name: '',
                     username: '',
-                    role: '',
                     password: '',
-                    location: ''
                 },
-                filterdContactsList: [],
+                filterdAccountList: [],
                 searchUser: '',
                 contactList: [{
                     id: 1,
                     path: 'profile-35.png',
                     name: 'Alan Green',
-                    role: 'Web Developer',
                     username: 'alan@mail.com',
-                    location: 'Boston, USA',
                     password: '+1 202 555 0197',
                     posts: 25,
-                    followers: '5K',
-                    following: 500,
                 }],
 
                 init() {
-                    this.searchContacts();
+                    this.searchAccount();
                 },
 
-                searchContacts() {
-                    this.filterdContactsList = this.contactList.filter((d) => d.name.toLowerCase()
+                searchAccount() {
+                    this.filterdAccountList = this.contactList.filter((d) => d.name.toLowerCase()
                         .includes(this.searchUser.toLowerCase()));
                 },
 
@@ -384,9 +280,7 @@
                         let user = this.contactList.find((d) => d.id === this.params.id);
                         user.name = this.params.name;
                         user.username = this.params.username;
-                        user.role = this.params.role;
                         user.password = this.params.password;
-                        user.location = this.params.location;
                     } else {
                         //add user
                         let maxUserId = this.contactList.length ? this.contactList.reduce((max,
@@ -398,15 +292,11 @@
                             path: 'profile-35.png',
                             name: this.params.name,
                             username: this.params.username,
-                            role: this.params.role,
                             password: this.params.password,
-                            location: this.params.location,
                             posts: 20,
-                            followers: '5K',
-                            following: 500,
                         };
                         this.contactList.splice(0, 0, user);
-                        this.searchContacts();
+                        this.searchAccount();
                     }
 
                     this.showMessage('User has been saved successfully.');
@@ -415,7 +305,7 @@
 
                 deleteUser(user) {
                     this.contactList = this.contactList.filter((d) => d.id != user.id);
-                    this.searchContacts();
+                    this.searchAccount();
                     this.showMessage('User has been deleted successfully.');
                 },
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccountStudent;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class AccountStudentController extends Controller
@@ -11,8 +11,8 @@ class AccountStudentController extends Controller
     public function index()
     {
         //
-
-        return view('AccountStudent');
+        $accountStudents = Student::all();
+        return view('Student')->with('accountStudents', $accountStudents);
     }
 
     /**
@@ -34,7 +34,7 @@ class AccountStudentController extends Controller
             'password' => 'required',
         ]);
 
-        $accountStudent = new AccountStudent();
+        $accountStudent = new Student();
         $accountStudent->name = $request->input('name');
         $accountStudent->username = $request->input('username');;
         $accountStudent->password = $request->input('password');;

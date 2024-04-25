@@ -1,14 +1,15 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountTeacher extends Model
+class AccountParent extends Model
 {
     use HasFactory;
 
-    protected $table="account_teachers";
+    protected $table="parents";
 
     protected $primaryKey = "id";
 

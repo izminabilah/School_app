@@ -11,7 +11,7 @@ class AccountTeacherController extends Controller
     public function index()
     {
         //
-        return view('AccountTeacher');
+        return view('Teacher');
     }
 
     /**
