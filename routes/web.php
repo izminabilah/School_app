@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TuController;
-use App\Http\Controllers\PaymentValidationController;
+use App\Http\Controllers\AccountTeacherController;
+use App\Http\Controllers\AccountStudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -13,7 +14,10 @@ Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 Route::view('/profile/teacher','profileGuru');
-Route::view('/account/Teacher', [AccountTeacherController::class, 'index']);
+Route::view('/AccountStudent','AccountStudent');//
+Route::get('/account/student', [AccountStudentController::class, 'index']);
+Route::post('/account/student/add', [AccountStudentController::class, 'store']);
+Route::get('/account/teacher', [AccountTeacherController::class, 'index']);
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
 //

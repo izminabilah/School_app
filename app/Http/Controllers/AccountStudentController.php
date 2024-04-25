@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountStudent;
 use Illuminate\Http\Request;
 
 class AccountStudentController extends Controller
@@ -11,6 +12,7 @@ class AccountStudentController extends Controller
     {
         //
 
+        return view('AccountStudent');
     }
 
     /**
@@ -26,7 +28,20 @@ class AccountStudentController extends Controller
      */
     public function store(Request $request)
     {
+         $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
+        $accountStudent = new AccountStudent();
+        $accountStudent->name = $request->input('name');
+        $accountStudent->username = $request->input('username');;
+        $accountStudent->password = $request->input('password');;
+        $accountStudent->save();
+
+        // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Student data has been saved successfully!');
     }
 
     /**
