@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class AccountStudentController extends Controller
@@ -12,7 +13,7 @@ class AccountStudentController extends Controller
     {
         //
         $accountStudents = Student::all();
-        return view('Student')->with('accountStudents', $accountStudents);
+        return view('AccountStudent')->with('accountStudents', $accountStudents);
     }
 
     /**
@@ -71,8 +72,16 @@ class AccountStudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(string $id)
     {
 
+        $accountStudent = Student::whereId($id) -> delete();
+//        $accountStudent = Student::find($id);
+//        if(!$accountStudent){
+//            return redirect()->route('account-student')->with('error', 'Student data not found');
+//        }
+//
+//        $accountStudent -> delete();
+        return redirect()->back()->with('success', 'Student data has been deleted successfully!');
     }
 }

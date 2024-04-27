@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->string('Gender');
+            $table->string('address')->nullable();
+            $table->string('Gender')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->foreignId('subject_id')->constrained();
+            $table->unsignedBigInteger('subject_id')->nullable();
+
+            $table->foreign("subject_id")->references("id")->on("subjects");
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('account_teachers');
+        Schema::dropIfExists('teachers');
     }
 };

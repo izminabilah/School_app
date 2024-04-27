@@ -153,8 +153,8 @@
                                 <td class="whitespace-nowrap">{{ $accountStudent->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" @click="editUser(contact)">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" @click="deleteUser(contact)">Delete</button>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" @click="editUser(contact)">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-stu', ['id' => $accountStudent->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -205,8 +205,7 @@
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
                             <button type="button" class="btn btn-outline-primary w-1/2"
                                     @click="editUser(contact)">Edit</button>
-                            <button type="button" class="btn btn-outline-danger w-1/2"
-                                    @click="deleteUser(contact)">Delete</button>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-stu', ['id' => $accountStudent->id]) }}">Delete</a>
                         </div>
                     </div>
                 </template>
