@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AccountStudentController extends Controller
 {
@@ -59,6 +60,8 @@ class AccountStudentController extends Controller
     public function edit(string $id)
     {
         //
+        $accountStudents = Student::findOrFail($id);
+        return view('editFormAccStu')-> with(['accountStudents' => $accountStudents]);
     }
 
     /**
@@ -67,6 +70,12 @@ class AccountStudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $accountStudents = Student::findOrFail($id);
+        $accountStudents->name = $request->input('name');
+        $accountStudents->username = $request->input('username');
+        $accountStudents->password = $request->input('password');
+        $accountStudents->save();
+        return redirect()->route('account-student');
     }
 
     /**
@@ -74,14 +83,7 @@ class AccountStudentController extends Controller
      */
     public function destroy(string $id)
     {
-
         $accountStudent = Student::whereId($id) -> delete();
-//        $accountStudent = Student::find($id);
-//        if(!$accountStudent){
-//            return redirect()->route('account-student')->with('error', 'Student data not found');
-//        }
-//
-//        $accountStudent -> delete();
         return redirect()->back()->with('success', 'Student data has been deleted successfully!');
     }
 }

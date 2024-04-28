@@ -20,8 +20,7 @@
                             </svg>
                             Add Account
                         </button>
-                        <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden"
-                             :class="addContactModal && '!block'">
+                        <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" :class="addContactModal && '!block'">
                             <div class="flex items-center justify-center min-h-screen px-4"
                                  @click.self="addContactModal = false">
                                 <div x-show="addContactModal" x-transition x-transition.duration.300
@@ -40,30 +39,30 @@
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
                                         x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
                                     <div class="p-5">
-                                        <form action="/account/student/add" method="POST">
-                                            @csrf
-                                            <div class="mb-5">
-                                                <label for="name">Name</label>
-                                                <input id="name" name="name" type="text" placeholder="Enter Name"
-                                                       class="form-input" x-model="params.name" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="username">Username</label>
-                                                <input id="username" name="username" type="text" placeholder="Enter Username"
-                                                       class="form-input" x-model="params.username" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="password">Password</label>
-                                                <input id="password" name="password" type="text" placeholder="Enter Password"
-                                                       class="form-input" x-model="params.password" />
-                                            </div>
-                                            <div class="flex justify-end items-center mt-8">
-                                                <button type="button" class="btn btn-outline-danger"
-                                                        @click="addContactModal = false">Cancel</button>
-                                                <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                        x-text="params.id ? 'Update' : 'Add'"></button>
-                                            </div>
-                                        </form>
+                                            <form action="/account/student/add" method="POST">
+                                                @csrf
+                                                <div class="mb-5">
+                                                    <label for="name">Name</label>
+                                                    <input id="name" name="name" type="text" placeholder="Enter Name"
+                                                           class="form-input" x-model="params.name" />
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label for="username">Username</label>
+                                                    <input id="username" name="username" type="text" placeholder="Enter Username"
+                                                           class="form-input" x-model="params.username" />
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label for="password">Password</label>
+                                                    <input id="password" name="password" type="text" placeholder="Enter Password"
+                                                           class="form-input" x-model="params.password" />
+                                                </div>
+                                                <div class="flex justify-end items-center mt-8">
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                            @click="addContactModal = false">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
+                                                            x-text="params.id ? 'Update' : 'Add'"></button>
+                                                </div>
+                                            </form>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +152,7 @@
                                 <td class="whitespace-nowrap">{{ $accountStudent->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" @click="editUser(contact)">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $accountStudent->id])}}">Edit</a>
                                         <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-stu', ['id' => $accountStudent->id])}}">Delete</a>
                                     </div>
                                 </td>
@@ -203,8 +202,7 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <button type="button" class="btn btn-outline-primary w-1/2"
-                                    @click="editUser(contact)">Edit</button>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $accountStudent->id])}}">Edit</a>
                             <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-stu', ['id' => $accountStudent->id]) }}">Delete</a>
                         </div>
                     </div>
