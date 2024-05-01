@@ -2,7 +2,7 @@
 
     <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Account Student</h2>
+            <h2 class="text-xl">Account Teacher</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                 <div class="flex gap-3">
                     <div>
@@ -39,7 +39,7 @@
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
                                         x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
                                     <div class="p-5">
-                                        <form action="/account/student/add" method="POST">
+                                        <form action="/account/teacher/add" method="POST">
                                             @csrf
                                             <div class="mb-5">
                                                 <label for="name">Name</label>
@@ -114,29 +114,25 @@
                 <!-- live search -->
                 <div class="relative ">
                     <!-- searchbar -->
-                    <form class="mx-auto w-full sm:w-1/2 mb-5" action="{{ route('search-account-stu') }}" method="GET">
+                    <form class="mx-auto w-full" action="{{ route('search-account-tea') }}" method="GET">
                         <div class="relative">
-                            <input type="text" id="search-stu"  name="search-stu" placeholder="Search Account" class="form-input shadow-[0_0_4px_2px_rgb(31_45_61_/_10%)] bg-white rounded-full h-11 placeholder:tracking-wider" x-model="search" />
-                            <button type="button" class="btn btn-primary absolute ltr:right-1 rtl:left-1 inset-y-0 m-auto rounded-full w-9 h-9 p-0 flex items-center justify-center">
-                                <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-                                            stroke-width="1.5" opacity="0.5"></circle>
-                                    <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-                                          stroke-linecap="round"></path>
-                                </svg>
-                            </button>
+                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
+                            <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
+                                <a type="button">
+                                    <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
+                                                stroke-width="1.5" opacity="0.5"></circle>
+                                        <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
+                                              stroke-linecap="round"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </form>
-
-
-
                 </div>
-
             </div>
         </div>
-
-        <!-- result -->
         <div class="mt-5 panel p-0 border-0 overflow-hidden">
             <template x-if="displayType === 'list'">
                 <div class="table-responsive">
@@ -150,15 +146,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($students as $student)
+                        @forelse ($accountTeachers as $accountTeacher)
                             <tr>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->username }}</td>
-                                <td class="whitespace-nowrap">{{ $student->password }}</td>
+                                <td>{{ $accountTeacher->name }}</td>
+                                <td>{{ $accountTeacher->username }}</td>
+                                <td class="whitespace-nowrap">{{ $accountTeacher->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $student->id])}}">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-stu', ['id' => $student->id])}}">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -172,7 +168,6 @@
                 </div>
             </template>
         </div>
-
         <template x-if="displayType === 'grid'">
             <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 w-full">
                 <template x-for="contact in filterdAccountList" :key="contact.id">
@@ -208,8 +203,8 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $student->id])}}">Edit</a>
-                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-stu', ['id' => $student->id]) }}">Delete</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
                         </div>
                     </div>
                 </template>

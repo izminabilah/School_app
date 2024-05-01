@@ -22,7 +22,13 @@ Route::put('/account/student/update/{id}', [AccountStudentController::class, 'up
 Route::get('/account/student/delete/{id}', [AccountStudentController::class, 'destroy'])->name('delete-account-stu');
 Route::get('/account/student/search', [AccountStudentController::class, 'search'])->name('search-account-stu');
 
-Route::get('/account/teacher', [AccountTeacherController::class, 'index']);
+Route::get('/account/teacher', [AccountTeacherController::class, 'index'])->name('account-teacher');
+Route::post('/account/teacher/add', [AccountTeacherController::class, 'store']);
+Route::get('/account/teacher/edit/{id}', [AccountTeacherController::class, 'edit'])->name('edit-account-tea');
+Route::put('/account/teacher/update/{id}', [AccountTeacherController::class, 'update'])->name('update-account-tea');
+Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'destroy'])->name('delete-account-tea');
+Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
+
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
 //

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class AccountTeacherController extends Controller
@@ -11,7 +12,8 @@ class AccountTeacherController extends Controller
     public function index()
     {
         //
-        return view('Teacher');
+        $accountTeachers = Teacher::all();
+        return view('AccountTeacher')->with('accountTeachers', $accountTeachers);
     }
 
     /**
@@ -27,7 +29,20 @@ class AccountTeacherController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
+        $accountTeacher = new Teacher();
+        $accountTeacher->name = $request->input('name');
+        $accountTeacher->username = $request->input('username');;
+        $accountTeacher->password = $request->input('password');;
+        $accountTeacher->save();
+
+        // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Teacher data has been saved successfully!');
     }
 
     /**
@@ -44,6 +59,8 @@ class AccountTeacherController extends Controller
     public function edit(string $id)
     {
         //
+        $accountTeachers = Teacher::findOrFail($id);
+        return view('editFormAccTea')-> with(['accountTeachers' => $accountTeachers]);
     }
 
     /**
@@ -52,13 +69,27 @@ class AccountTeacherController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $accountTeachers = Teacher::findOrFail($id);
+        $accountTeachers->name = $request->input('name');
+        $accountTeachers->username = $request->input('username');
+        $accountTeachers->password = $request->input('password');
+        $accountTeachers->save();
+        return redirect()->route('account-teacher');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(string $id)
     {
-
+        $accountTeacher = Teacher::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Teacher data has been deleted successfully!');
+    }
+    public function search(Request $request){
+//        $teachers = DB::table('teachers')->where('name', 'LIKE', "$search%")->get();
+//        return view('AccountTeacher')-> with(['teachers' => $teachers], ['accountTeachers' => $accountTeachers]);
+        $search = $request->input('search-tea');
+        $accountTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
+        return view('AccountTeacher', compact( 'accountTeachers'));
     }
 }
