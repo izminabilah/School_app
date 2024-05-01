@@ -86,4 +86,12 @@ class AccountStudentController extends Controller
         $accountStudent = Student::whereId($id) -> delete();
         return redirect()->back()->with('success', 'Student data has been deleted successfully!');
     }
+
+    public function search(Request $request){
+//        $students = DB::table('students')->where('name', 'LIKE', "$search%")->get();
+//        return view('AccountStudent')-> with(['students' => $students], ['accountStudents' => $accountStudents]);
+        $search = $request->input('search-stu');
+        $accountStudents = Student::where('name', 'LIKE', "$search%")->get();
+        return view('AccountStudent', compact( 'accountStudents'));
+    }
 }

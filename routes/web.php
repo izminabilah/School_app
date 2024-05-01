@@ -20,6 +20,7 @@ Route::post('/account/student/add', [AccountStudentController::class, 'store']);
 Route::get('/account/student/edit/{id}', [AccountStudentController::class, 'edit'])->name('edit-account-stu');
 Route::put('/account/student/update/{id}', [AccountStudentController::class, 'update'])->name('update-account-stu');
 Route::get('/account/student/delete/{id}', [AccountStudentController::class, 'destroy'])->name('delete-account-stu');
+Route::get('/account/student/search', [AccountStudentController::class, 'search'])->name('search-account-stu');
 
 Route::get('/account/teacher', [AccountTeacherController::class, 'index']);
 Route::view('activity','analytics');
