@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TuController;
-use App\Http\Controllers\PaymentValidationController;
+use App\Http\Controllers\AccountTeacherController;
+use App\Http\Controllers\AccountStudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -13,7 +14,15 @@ Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 Route::view('/profile/teacher','profileGuru');
-Route::view('/account/Teacher', [AccountTeacherController::class, 'index']);
+Route::view('/Student','Student');//
+Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
+Route::post('/account/student/add', [AccountStudentController::class, 'store']);
+Route::get('/account/student/edit/{id}', [AccountStudentController::class, 'edit'])->name('edit-account-stu');
+Route::put('/account/student/update/{id}', [AccountStudentController::class, 'update'])->name('update-account-stu');
+Route::get('/account/student/delete/{id}', [AccountStudentController::class, 'destroy'])->name('delete-account-stu');
+Route::get('/account/student/search', [AccountStudentController::class, 'search'])->name('search-account-stu');
+
+Route::get('/account/teacher', [AccountTeacherController::class, 'index']);
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
 //

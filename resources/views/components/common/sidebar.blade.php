@@ -68,8 +68,7 @@
                         </div>
                         <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'dashboard' }">
 
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
                                       stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -77,10 +76,10 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'dashboard'" x-collapse class="sub-menu text-gray-500">
                         <li>
-                            <a href="/analytics">Student</a>
+                            <a href="/account/student">Student</a>
                         </li>
                         <li>
-                            <a href="/account/Teacher">Teacher</a>
+                            <a href="/account/teacher">Teacher</a>
                         </li>
                         <li>
                             <a href="/finance">Parents</a>

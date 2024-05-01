@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountParent extends Model
+class Student extends Model
 {
     use HasFactory;
 
-    protected $table="account_parents";
+    protected $table="students";
 
     protected $primaryKey = "id";
 
@@ -17,5 +17,8 @@ class AccountParent extends Model
         'name',
         'username',
         'password',
+        'address',
+        'Gender',
+        'parent_id',
     ];
 }
