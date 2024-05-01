@@ -60,7 +60,7 @@ class AccountTeacherController extends Controller
     {
         //
         $accountTeachers = Teacher::findOrFail($id);
-        return view('editFormAccTea')-> with(['accountTeachers' => $accountTeachers]);
+        return view('editFormAccTeac')-> with(['accountTeachers' => $accountTeachers]);
     }
 
     /**
