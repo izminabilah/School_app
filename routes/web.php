@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
@@ -28,6 +29,10 @@ Route::get('/account/teacher/edit/{id}', [AccountTeacherController::class, 'edit
 Route::put('/account/teacher/update/{id}', [AccountTeacherController::class, 'update'])->name('update-account-tea');
 Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'destroy'])->name('delete-account-tea');
 Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
+
+Route::get('/account/parent', [AccountParentController::class, 'index']);
+
+//Route::view('/account/parent1', 'AccountParent');
 
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
