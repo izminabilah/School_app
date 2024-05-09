@@ -31,6 +31,7 @@ Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'de
 Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
 
 Route::get('/account/parent', [AccountParentController::class, 'index']);
+Route::post('/account/parent/add', [AccountParentController::class, 'store']);
 
 //Route::view('/account/parent1', 'AccountParent');
 

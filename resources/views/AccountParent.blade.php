@@ -40,7 +40,7 @@
                                         x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
                                     <div class="p-5">
                                         <form action="/account/parent/add" method="POST">
-
+                                            @csrf
                                             <div class="mb-5">
                                                 <label for="name">Name</label>
                                                 <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />

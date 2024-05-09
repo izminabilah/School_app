@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\StudentParent;
 use Illuminate\Http\Request;
 
 class AccountParentController extends Controller
@@ -10,8 +10,8 @@ class AccountParentController extends Controller
     public function index()
     {
         //
-
-        return view('AccountParent');
+        $accountParent = StudentParent::all();
+        return view('AccountParent')->with('accountParents', $accountParent);
     }
 
     /**
@@ -27,9 +27,21 @@ class AccountParentController extends Controller
      */
     public function store(Request $request)
     {
+//        var_dump('haloo');
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
+        $accountParent = new StudentParent();
+        $accountParent->name = $request->input('name');
+        $accountParent->username = $request->input('username');;
+        $accountParent->password = $request->input('password');;
+        $accountParent->save();
 
-
+        // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
+        return redirect()->back()->with('success', 'Parent data has been saved successfully!');
     }
 
     /**
