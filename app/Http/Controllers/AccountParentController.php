@@ -58,7 +58,8 @@ class AccountParentController extends Controller
     public function edit(string $id)
     {
         //
-
+        $accountParents = StudentParent::findOrFail($id);
+        return view('editFormAccPar')-> with(['accountParents' => $accountParents]);
     }
 
     /**
@@ -67,7 +68,12 @@ class AccountParentController extends Controller
     public function update(Request $request, string $id)
     {
         //
-
+        $accountParents = StudentParent::findOrFail($id);
+        $accountParents->name = $request->input('name');
+        $accountParents->username = $request->input('username');
+        $accountParents->password = $request->input('password');
+        $accountParents->save();
+        return redirect()->route('account-parent');
     }
 
     /**

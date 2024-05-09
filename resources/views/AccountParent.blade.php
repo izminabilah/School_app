@@ -153,7 +153,7 @@
                                 <td class="whitespace-nowrap">{{$accountParent->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-par', ['id' => $accountParent->id])}}">Edit</a>
                                         <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-par', ['id' => $accountParent->id])}}">Delete</a>
                                     </div>
                                 </td>
@@ -203,7 +203,7 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-par', ['id' => $accountParent->id])}}">Edit</a>
                             <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-par', ['id' => $accountParent->id]) }}">Delete</a>
                         </div>
                     </div>

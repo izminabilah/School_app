@@ -30,8 +30,10 @@ Route::put('/account/teacher/update/{id}', [AccountTeacherController::class, 'up
 Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'destroy'])->name('delete-account-tea');
 Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
 
-Route::get('/account/parent', [AccountParentController::class, 'index']);
+Route::get('/account/parent', [AccountParentController::class, 'index'])->name('account-parent');
 Route::post('/account/parent/add', [AccountParentController::class, 'store']);
+Route::get('/account/parent/edit/{id}', [AccountParentController::class, 'edit'])->name('edit-account-par');
+Route::put('/account/parent/update/{id}', [AccountParentController::class, 'update'])->name('update-account-par');
 Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
 
 //Route::view('/account/parent1', 'AccountParent');
