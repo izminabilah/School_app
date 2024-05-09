@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
@@ -28,6 +29,15 @@ Route::get('/account/teacher/edit/{id}', [AccountTeacherController::class, 'edit
 Route::put('/account/teacher/update/{id}', [AccountTeacherController::class, 'update'])->name('update-account-tea');
 Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'destroy'])->name('delete-account-tea');
 Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
+
+Route::get('/account/parent', [AccountParentController::class, 'index'])->name('account-parent');
+Route::post('/account/parent/add', [AccountParentController::class, 'store']);
+Route::get('/account/parent/edit/{id}', [AccountParentController::class, 'edit'])->name('edit-account-par');
+Route::put('/account/parent/update/{id}', [AccountParentController::class, 'update'])->name('update-account-par');
+Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
+Route::get('/account/parent/search', [AccountParentController::class, 'search'])->name('search-account-par');
+
+//Route::view('/account/parent1', 'AccountParent');
 
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');

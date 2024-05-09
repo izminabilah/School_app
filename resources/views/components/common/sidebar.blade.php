@@ -82,7 +82,7 @@
                             <a href="/account/teacher">Teacher</a>
                         </li>
                         <li>
-                            <a href="/finance">Parents</a>
+                            <a href="/account/parent">Parents</a>
                         </li>
                     </ul>
                 </li>
