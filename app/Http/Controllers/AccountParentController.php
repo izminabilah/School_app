@@ -86,6 +86,8 @@ class AccountParentController extends Controller
     }
 
     public function search(Request $request){
-
+        $search = $request->input('search-par');
+        $accountParents = StudentParent::where('name', 'LIKE', "$search%")->get();
+        return view('AccountParent', compact( 'accountParents'));
     }
 }

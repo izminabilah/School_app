@@ -114,9 +114,9 @@
                 <!-- live search -->
                 <div class="relative ">
                     <!-- searchbar -->
-                    <form class="mx-auto w-full" action="/" method="GET">
+                    <form class="mx-auto w-full" action="{{ route('search-account-par') }}" method="GET">
                         <div class="relative">
-                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-par"  name="search-stu" oninput="this.form.submit()"/>
+                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-par"  name="search-par" oninput="this.form.submit()"/>
                             <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
                                 <a type="button">
                                     <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"

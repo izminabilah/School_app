@@ -35,6 +35,7 @@ Route::post('/account/parent/add', [AccountParentController::class, 'store']);
 Route::get('/account/parent/edit/{id}', [AccountParentController::class, 'edit'])->name('edit-account-par');
 Route::put('/account/parent/update/{id}', [AccountParentController::class, 'update'])->name('update-account-par');
 Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
+Route::get('/account/parent/search', [AccountParentController::class, 'search'])->name('search-account-par');
 
 //Route::view('/account/parent1', 'AccountParent');
 
