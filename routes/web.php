@@ -32,6 +32,7 @@ Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'
 
 Route::get('/account/parent', [AccountParentController::class, 'index']);
 Route::post('/account/parent/add', [AccountParentController::class, 'store']);
+Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
 
 //Route::view('/account/parent1', 'AccountParent');
 

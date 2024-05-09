@@ -75,7 +75,8 @@ class AccountParentController extends Controller
      */
     public function destroy(string $id)
     {
-
+        $accountParent = StudentParent::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Parent data has been deleted successfully!');
     }
 
     public function search(Request $request){
