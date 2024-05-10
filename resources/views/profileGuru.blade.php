@@ -44,27 +44,31 @@
                                             <div class="mb-5">
                                                 <label for="name">Name</label>
                                                 <input id="name" type="text" placeholder="Enter Name"
-                                                       class="form-input" x-model="params.name" />
+                                                       class="form-input" />
                                             </div>
                                             <div class="mb-5">
                                                 <label for="email">Email</label>
                                                 <input id="email" type="email" placeholder="Enter Email"
-                                                       class="form-input" x-model="params.email" />
+                                                       class="form-input"/>
                                             </div>
                                             <div class="mb-5">
                                                 <label for="number">Phone Number</label>
                                                 <input id="number" type="text" placeholder="Enter Phone Number"
-                                                       class="form-input" x-model="params.phone" />
+                                                       class="form-input"/>
                                             </div>
                                             <div class="mb-5">
-                                                <label for="occupation">Occupation</label>
-                                                <input id="occupation" type="text" placeholder="Enter Occupation"
-                                                       class="form-input" x-model="params.role" />
+                                                <div class="flex-1">
+                                                    <label for="gender">Gender</label>
+                                                    <select id="gender" class="form-select" >
+                                                        <option value="">Select Gender</option>
+                                                        <option value="team">Male</option>
+                                                        <option value="update">Female</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="mb-5">
                                                 <label for="address">Address</label>
-                                                <textarea id="address" rows="3" placeholder="Enter Address" class="form-textarea resize-none min-h-[130px]"
-                                                          x-model="params.location"></textarea>
+                                                <textarea id="address" rows="3" placeholder="Enter Address" class="form-textarea resize-none min-h-[130px]"></textarea>
                                             </div>
                                             <div class="flex justify-end items-center mt-8">
                                                 <button type="button" class="btn btn-outline-danger"

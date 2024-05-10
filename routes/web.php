@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileTeacherController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
@@ -14,7 +15,8 @@ Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
 Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
-Route::view('/profile/teacher','profileGuru');
+//Route::view('/profile/teacher','profileGuru');
+Route::get('/profile/teacher', [ProfileTeacherController::class, 'index']);
 Route::view('/Student','Student');//
 Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
 Route::post('/account/student/add', [AccountStudentController::class, 'store']);
@@ -37,7 +39,7 @@ Route::put('/account/parent/update/{id}', [AccountParentController::class, 'upda
 Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
 Route::get('/account/parent/search', [AccountParentController::class, 'search'])->name('search-account-par');
 
-//Route::view('/account/parent1', 'AccountParent');
+
 
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
