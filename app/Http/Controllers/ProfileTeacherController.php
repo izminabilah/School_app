@@ -76,6 +76,8 @@ class ProfileTeacherController extends Controller
     public function edit(string $id)
     {
         //
+        $profileTeachers = Teacher::findOrFail($id);
+        return view('editFormProTeac')-> with(['profileTeachers' => $profileTeachers]);
     }
 
     /**
@@ -84,6 +86,16 @@ class ProfileTeacherController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $profileTeachers = Teacher::findOrFail($id);
+        $profileTeachers->name = $request->input('name');
+        $profileTeachers->email = $request->input('email');
+        $profileTeachers->gender = $request->input('gender');
+        $profileTeachers->address = $request->input('address');
+        $profileTeachers->subject_id = $request->input('subject_id');
+        $profileTeachers->username = $request->input('username');
+        $profileTeachers->password = $request->input('password');
+        $profileTeachers->save();
+        return redirect()->route('profile-teacher');
     }
 
     /**
@@ -92,6 +104,8 @@ class ProfileTeacherController extends Controller
     public function destroy(string $id)
     {
         //
+        $profileTeacher = Teacher::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Teacher data has been deleted successfully!');
     }
 
     public function search(Request $request){

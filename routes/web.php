@@ -17,10 +17,12 @@ Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 //Route::view('/profile/teacher','profileGuru');
 
-Route::get('/profile/teacher', [ProfileTeacherController::class, 'index']);
+Route::get('/profile/teacher', [ProfileTeacherController::class, 'index'])->name('profile-teacher');
 Route::post('/profile/teacher/add', [ProfileTeacherController::class, 'store']);
-
-Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('profile-account-tea');
+Route::get('/profile/teacher/edit/{id}', [ProfileTeacherController::class, 'edit'])->name('edit-profile-tea');
+Route::put('/profile/teacher/update/{id}', [ProfileTeacherController::class, 'update'])->name('update-profile-tea');
+Route::get('/profile/teacher/delete/{id}', [ProfileTeacherController::class, 'destroy'])->name('delete-profile-tea');
+Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('search-profile-tea');
 
 Route::view('/Student','Student');//
 Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');

@@ -137,7 +137,7 @@
                 <!-- live search -->
                 <div class="relative ">
                     <!-- searchbar -->
-                    <form class="mx-auto w-full" action="{{ route('profile-account-tea') }}" method="GET">
+                    <form class="mx-auto w-full" action="{{ route('search-profile-tea') }}" method="GET">
                         <div class="relative">
                             <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
                             <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
@@ -178,8 +178,8 @@
                                 <td>{{ $profileTeacher->subject_id }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="/">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-profile-tea', ['id' => $profileTeacher->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-profile-tea', ['id' => $profileTeacher->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
