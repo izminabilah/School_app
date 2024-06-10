@@ -37,8 +37,8 @@ class AccountTeacherController extends Controller
 
         $accountTeacher = new Teacher();
         $accountTeacher->name = $request->input('name');
-        $accountTeacher->username = $request->input('username');;
-        $accountTeacher->password = $request->input('password');;
+        $accountTeacher->username = $request->input('username');
+        $accountTeacher->password = $request->input('password');
         $accountTeacher->save();
 
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
