@@ -40,35 +40,41 @@
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
                                         x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
                                     <div class="p-5">
-                                        <form @submit.prevent="saveUser">
+                                        <form action="/profile/teacher/add" method="POST">
+                                            @csrf
                                             <div class="mb-5">
                                                 <label for="name">Name</label>
-                                                <input id="name" type="text" placeholder="Enter Name"
-                                                       class="form-input" />
+                                                <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />
                                             </div>
                                             <div class="mb-5">
                                                 <label for="email">Email</label>
-                                                <input id="email" type="email" placeholder="Enter Email"
-                                                       class="form-input"/>
+                                                <input id="email" name="email" type="email" placeholder="Enter Email" class="form-input"/>
                                             </div>
                                             <div class="mb-5">
-                                                <label for="number">Phone Number</label>
-                                                <input id="number" type="text" placeholder="Enter Phone Number"
-                                                       class="form-input"/>
+                                                <label for="number">Teach Subject Code</label>
+                                                <input id="subject_id" name="subject_id" type="text" placeholder="Enter Teach Subject Code" class="form-input"/>
+                                            </div>
+                                            <div class="mb-5">
+                                                <label for="username">Username</label>
+                                                <input id="username" name="username" type="text" placeholder="Enter Username" class="form-input" />
+                                            </div>
+                                            <div class="mb-5">
+                                                <label for="password">Password</label>
+                                                <input id="password" name="password" type="text" placeholder="Enter Password" class="form-input" />
                                             </div>
                                             <div class="mb-5">
                                                 <div class="flex-1">
                                                     <label for="gender">Gender</label>
-                                                    <select id="gender" class="form-select" >
+                                                    <select id="gender" name="gender" class="form-select" >
                                                         <option value="">Select Gender</option>
-                                                        <option value="team">Male</option>
-                                                        <option value="update">Female</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="mb-5">
                                                 <label for="address">Address</label>
-                                                <textarea id="address" rows="3" placeholder="Enter Address" class="form-textarea resize-none min-h-[130px]"></textarea>
+                                                <textarea id="address" name="address" rows="3" placeholder="Enter Address" class="form-textarea resize-none min-h-[130px]"></textarea>
                                             </div>
                                             <div class="flex justify-end items-center mt-8">
                                                 <button type="button" class="btn btn-outline-danger"
@@ -128,21 +134,25 @@
                     </div>
                 </div>
 
+                <!-- live search -->
                 <div class="relative ">
-                    <input type="text" placeholder="Search Contacts"
-                           class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" x-model="searchUser"
-                           @keyup="searchContacts" />
-                    <div
-                        class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
-
-                        <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-                                    stroke-width="1.5" opacity="0.5"></circle>
-                            <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-                                  stroke-linecap="round"></path>
-                        </svg>
-                    </div>
+                    <!-- searchbar -->
+                    <form class="mx-auto w-full" action="{{ route('profile-account-tea') }}" method="GET">
+                        <div class="relative">
+                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
+                            <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
+                                <a type="button">
+                                    <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
+                                                stroke-width="1.5" opacity="0.5"></circle>
+                                        <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
+                                              stroke-linecap="round"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -154,54 +164,30 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Location</th>
-                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Teach Subject Code</th>
                             <th class="!text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <template x-for="contact in filterdContactsList" :key="contact.id">
+                        @forelse ($profileTeachers as $profileTeacher)
                             <tr>
-                                <td>
-                                    <div class="flex items-center w-max">
-                                        <div x-show="contact.path" class="w-max">
-                                            <img :src="`/assets/images/${contact.path}`"
-                                                 class="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2"
-                                                 alt="avatar" />
-                                        </div>
-                                        <div x-show="!contact.path && contact.name"
-                                             class="grid place-content-center h-8 w-8 ltr:mr-2 rtl:ml-2 rounded-full bg-primary text-white text-sm font-semibold"
-                                             x-text="contact.name.charAt(0) + '' + contact.name.charAt(contact.name.indexOf(' ') + 1)">
-                                        </div>
-                                        <div x-show="!contact.path && !contact.name"
-                                             class="border border-gray-300 dark:border-gray-800 rounded-full p-2 ltr:mr-2 rtl:ml-2">
-
-                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                 fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                 class="w-4.5 h-4.5">
-                                                <circle cx="12" cy="6" r="4"
-                                                        stroke="currentColor" stroke-width="1.5"></circle>
-                                                <ellipse opacity="0.5" cx="12" cy="17"
-                                                         rx="7" ry="4" stroke="currentColor"
-                                                         stroke-width="1.5"></ellipse>
-                                            </svg>
-                                        </div>
-                                        <div x-text="contact.name"></div>
-                                    </div>
-                                </td>
-                                <td x-text="contact.email"></td>
-                                <td x-text="contact.location" class="whitespace-nowrap"></td>
-                                <td x-text="contact.phone" class="whitespace-nowrap"></td>
+                                <td>{{ $profileTeacher->name }}</td>
+                                <td>{{ $profileTeacher->email }}</td>
+                                <td class="whitespace-nowrap">{{ $profileTeacher->address }}</td>
+                                <td>{{ $profileTeacher->subject_id }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                                @click="editUser(contact)">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                                @click="deleteUser(contact)">Delete</button>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="/">Delete</a>
                                     </div>
                                 </td>
                             </tr>
-                        </template>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -411,91 +397,7 @@
                         posts: 30,
                         followers: '20K',
                         following: 350,
-                    },
-                    {
-                        id: 6,
-                        path: 'profile-35.png',
-                        name: 'Xavier',
-                        role: 'UX/UI Designer',
-                        email: 'xavier@mail.com',
-                        location: 'New York, USA',
-                        phone: '+1 202 555 0155',
-                        posts: 25,
-                        followers: '21.5K',
-                        following: 350,
-                    },
-                    {
-                        id: 7,
-                        path: 'profile-35.png',
-                        name: 'Susan',
-                        role: 'Project Manager',
-                        email: 'susan@mail.com',
-                        location: 'Miami, USA',
-                        phone: '+1 202 555 0118',
-                        posts: 40,
-                        followers: '21.5K',
-                        following: 350,
-                    },
-                    {
-                        id: 8,
-                        path: 'profile-35.png',
-                        name: 'Raci Lopez',
-                        role: 'Web Developer',
-                        email: 'traci@mail.com',
-                        location: 'Edinburgh, UK',
-                        phone: '+1 202 555 0135',
-                        posts: 25,
-                        followers: '21.5K',
-                        following: 350,
-                    },
-                    {
-                        id: 9,
-                        path: 'profile-35.png',
-                        name: 'Steven Mendoza',
-                        role: 'HR',
-                        email: 'sokol@verizon.net',
-                        location: 'Monrovia, US',
-                        phone: '+1 202 555 0100',
-                        posts: 40,
-                        followers: '21.8K',
-                        following: 300,
-                    },
-                    {
-                        id: 10,
-                        path: 'profile-35.png',
-                        name: 'James Cantrell',
-                        role: 'Web Developer',
-                        email: 'sravani@comcast.net',
-                        location: 'Michigan, US',
-                        phone: '+1 202 555 0134',
-                        posts: 100,
-                        followers: '28K',
-                        following: 520,
-                    },
-                    {
-                        id: 11,
-                        path: 'profile-35.png',
-                        name: 'Reginald Brown',
-                        role: 'Web Designer',
-                        email: 'drhyde@gmail.com',
-                        location: 'Entrimo, Spain',
-                        phone: '+1 202 555 0153',
-                        posts: 35,
-                        followers: '25K',
-                        following: 500,
-                    },
-                    {
-                        id: 12,
-                        path: 'profile-35.png',
-                        name: 'Stacey Smith',
-                        role: 'Chief technology officer',
-                        email: 'maikelnai@optonline.net',
-                        location: 'Lublin, Poland',
-                        phone: '+1 202 555 0115',
-                        posts: 21,
-                        followers: '5K',
-                        following: 200,
-                    },
+                    }
                 ],
 
                 init() {

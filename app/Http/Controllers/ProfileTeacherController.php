@@ -13,7 +13,11 @@ class ProfileTeacherController extends Controller
     public function index()
     {
         //
-        return view('profileGuru');
+//        return view('profileGuru');
+
+        $profileTeachers = Teacher::all();
+//        var_dump($profileTeachers);
+        return view('profileGuru')->with('profileTeachers', $profileTeachers);
     }
 
     /**
@@ -30,22 +34,31 @@ class ProfileTeacherController extends Controller
     public function store(Request $request)
     {
         //
+//        var_dump($request);
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'address' => 'required',
-            'gender' => 'required',
             'subject_id'=>'required',
+            'username'=>'required',
+            'password'=>'required',
+            'gender' => 'required',
+            'address' => 'required',
         ]);
-
-        $accountTeacher = new Teacher();
-        $accountTeacher->name = $request->input('name');
-        $accountTeacher->username = $request->input('username');;
-        $accountTeacher->password = $request->input('password');;
-        $accountTeacher->save();
+//        dd($request->all());
+//        var_dump($tezt);
+        $profileTeacher = new Teacher();
+        $profileTeacher->name = $request->input('name');
+        $profileTeacher->email = $request->input('email');
+        $profileTeacher->gender = $request->input('gender');
+        $profileTeacher->address = $request->input('address');
+        $profileTeacher->subject_id = $request->input('subject_id');
+        $profileTeacher->username = $request->input('username');
+        $profileTeacher->password = $request->input('password');
+//        var_dump($profileTeacher);
+        $profileTeacher->save();
 
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
-        return redirect()->back()->with('success', 'Teacher data has been saved successfully!');
+        return redirect()->back()->with('success', 'Profile Teacher data has been saved successfully!');
     }
 
     /**
@@ -54,6 +67,7 @@ class ProfileTeacherController extends Controller
     public function show(string $id)
     {
         //
+
     }
 
     /**
@@ -78,5 +92,12 @@ class ProfileTeacherController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function search(Request $request){
+        $search = $request->input('search-tea');
+        $profileTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
+//        var_dump($profileTeachers);
+        return view('profileGuru', compact( 'profileTeachers'));
     }
 }

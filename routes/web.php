@@ -16,7 +16,12 @@ Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 //Route::view('/profile/teacher','profileGuru');
+
 Route::get('/profile/teacher', [ProfileTeacherController::class, 'index']);
+Route::post('/profile/teacher/add', [ProfileTeacherController::class, 'store']);
+
+Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('profile-account-tea');
+
 Route::view('/Student','Student');//
 Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
 Route::post('/account/student/add', [AccountStudentController::class, 'store']);
