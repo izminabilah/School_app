@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileTeacherController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
+use App\Http\Controllers\CalendersmsController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -50,6 +51,7 @@ Route::get('/account/parent/search', [AccountParentController::class, 'search'])
 
 Route::view('activity','analytics');
 Route::view('calender/semester','CalenderSemester');
+Route::post('/calender/add', [CalendersmsController::class, 'store']);
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');

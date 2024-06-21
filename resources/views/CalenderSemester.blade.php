@@ -14,7 +14,7 @@
                                 <div>Flag Ceremony</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
-                                <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-info"></div>
+                                <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-secondary"></div>
                                 <div>Spesial Event</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
@@ -57,56 +57,54 @@
                                 <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
                                     x-text="params.id ? 'Edit Event' : 'Add Event'"></h3>
                                 <div class="p-5">
-                                    <form @submit.prevent="saveEvent">
+                                    <form action="/calender/add" method="POST">
+                                        @csrf
                                         <div class="mb-5">
-                                            <label for="title">Event Title :</label>
-                                            <input id="title" type="text" name="title" id="title"
-                                                   class="form-input" placeholder="Enter Event Title"
-                                                   x-model="params.title" required />
+                                            <label for="event">Event Title :</label>
+                                            <input id="event" type="text" name="event"
+                                                   class="form-input" placeholder="Enter Event Title" required />
                                             <div class="text-danger mt-2" id="titleErr"></div>
                                         </div>
 
                                         <div class="mb-5">
-                                            <label for="dateStart">From :</label>
-                                            <input id="dateStart" type="datetime-local" name="start" id="start"
-                                                   class="form-input" placeholder="Event Start Date" x-model="params.start"
-                                                   :min="minStartDate" @change="startDateChange($event)" required />
+                                            <label for="from">From :</label>
+                                            <input id="from" type="datetime-local" name="from"
+                                                   class="form-input" placeholder="Event Start Date" required />
                                             <div class="text-danger mt-2" id="startDateErr"></div>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="dateEnd">To :</label>
-                                            <input id="dateEnd" type="datetime-local" name="end" id="end"
-                                                   class="form-input" placeholder="Event End Date" x-model="params.end"
-                                                   :min="minEndDate" required />
+                                            <label for="to">To :</label>
+                                            <input id="to" type="datetime-local" name="to"
+                                                   class="form-input" placeholder="Event End Date" required />
                                             <div class="text-danger mt-2" id="endDateErr"></div>
                                         </div>
                                         <div class="mb-5">
                                             <label for="description">Event Description :</label>
-                                            <textarea id="description" name="description" id="description" class="form-textarea min-h-[130px]"
-                                                      placeholder="Enter Event Description" x-model="params.description"></textarea>
+                                            <textarea id="description" name="description" class="form-textarea min-h-[130px]"
+                                                      placeholder="Enter Event Description"></textarea>
                                         </div>
                                         <div class="mb-5">
-                                            <label>Badge:</label>
-                                            <div class="mt-3">
+                                            <label>Event:</label>
+                                            <div class="mt-3" id="type_event">
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
-                                                    <input type="radio" class="form-radio" name="badge"
-                                                           value="primary" x-model="params.type" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Work</span>
+                                                    <input type="radio" class="form-radio" name="type_event"
+                                                           value="flagCeremony" />
+                                                    <span class="ltr:pl-2 rtl:pr-2">Flag Ceremony</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
-                                                    <input type="radio" class="form-radio text-info" name="badge"
-                                                           value="info" x-model="params.type" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Travel</span>
+                                                    <input type="radio" class="form-radio text-secondary" name="type_event"
+                                                           value="spesialEvent" />
+                                                    <span class="ltr:pl-2 rtl:pr-2">Spesial Event</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
                                                     <input type="radio" class="form-radio text-success"
-                                                           name="badge" value="success" x-model="params.type" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Personal</span>
+                                                           name="type_event" value="exam" />
+                                                    <span class="ltr:pl-2 rtl:pr-2">Exam</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer">
                                                     <input type="radio" class="form-radio text-danger"
-                                                           name="badge" value="danger" x-model="params.type" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Important</span>
+                                                           name="type_event" value="holiday" />
+                                                    <span class="ltr:pl-2 rtl:pr-2">Holiday</span>
                                                 </label>
                                             </div>
                                         </div>
