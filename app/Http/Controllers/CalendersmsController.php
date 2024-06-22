@@ -13,6 +13,8 @@ class CalendersmsController extends Controller
     public function index()
     {
         //
+        $events = Calendersms::all();
+        return view('CalenderSemester', ['events' => $events]);
     }
 
     /**
@@ -48,6 +50,7 @@ class CalendersmsController extends Controller
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
         return redirect()->back()->with('success', 'Teacher data has been saved successfully!');
     }
+
 
     /**
      * Display the specified resource.
