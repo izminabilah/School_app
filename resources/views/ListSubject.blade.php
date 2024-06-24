@@ -65,13 +65,15 @@
                     <table class="table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Subject</th>
+                            <th></th>
+                            <th class="text-center">Subject</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse ($subjects as $subject)
                             <tr>
+                                <td class="whitespace-nowrap"></td>
                                 <td>{{ $subject->name }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
