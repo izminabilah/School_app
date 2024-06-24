@@ -37,7 +37,7 @@
                                         </svg>
                                     </button>
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                        x-text="params.id ? 'Edit Subject' : 'Add Subject'"></h3>
+                                       >Add Subject</h3>
                                     <div class="p-5">
                                         <form action="/listSubject/add" method="POST">
                                             @csrf
@@ -75,8 +75,8 @@
                                 <td>{{ $subject->name }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="/">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-subject', ['id' => $subject->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-subject', ['id' => $subject->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -125,8 +125,8 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
-                            <a type="button" class="btn btn-outline-danger w-1/2" href="/">Delete</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-subject', ['id' => $subject->id])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-subject', ['id' => $subject->id])}}">Delete</a>
                         </div>
                     </div>
                 </template>

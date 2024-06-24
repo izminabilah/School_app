@@ -59,7 +59,7 @@ class ListSubjectController extends Controller
     {
         //
         $subjects = Subject::findOrFail($id);
-        return view('CalenderSemesterEdit')-> with(['events' =>  $subjects]);
+        return view('ListSubjectEdit')-> with(['subjects' =>  $subjects]);
     }
 
     /**
@@ -68,6 +68,10 @@ class ListSubjectController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $subjects = Subject::findOrFail($id);
+        $subjects->name = $request->input('name');
+        $subjects->save();
+        return redirect()->route('listSubject');
     }
 
     /**
@@ -76,5 +80,7 @@ class ListSubjectController extends Controller
     public function destroy(string $id)
     {
         //
+        $subjects = Subject::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Subject data has been deleted successfully!');
     }
 }

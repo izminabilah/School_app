@@ -48,8 +48,11 @@ Route::put('/account/parent/update/{id}', [AccountParentController::class, 'upda
 Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
 Route::get('/account/parent/search', [AccountParentController::class, 'search'])->name('search-account-par');
 
-Route::get('/listSubject',[ListSubjectController::class, 'index']);
+Route::get('/listSubject',[ListSubjectController::class, 'index'])->name('listSubject');
 Route::post('/listSubject/add', [ListSubjectController::class, 'store']);
+Route::get('/listSubject/edit/{id}', [ListSubjectController::class, 'edit'])->name('edit-subject');
+Route::put('/listSubject/update/{id}', [ListSubjectController::class, 'update'])->name('update-subject');
+Route::get('/listSubject/delete/{id}', [ListSubjectController::class, 'destroy'])->name('delete-subject');
 
 Route::view('activity','analytics');
 Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
