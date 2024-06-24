@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Calendersms;
 use Illuminate\Http\Request;
 
@@ -66,6 +66,12 @@ class CalendersmsController extends Controller
     public function edit(string $id)
     {
         //
+        $events = Calendersms::findOrFail($id);
+//        $events = Calendersms::whereDate('from', '=', $id)->get();
+//        var_dump($events);
+        $events->from = Carbon::parse($events->from)->format('Y-m-d\TH:i');
+        $events->to = Carbon::parse($events->to)->format('Y-m-d\TH:i');
+        return view('CalenderSemesterEdit')-> with(['events' =>  $events]);
     }
 
     /**
@@ -74,6 +80,14 @@ class CalendersmsController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $events = Calendersms::findOrFail($id);
+        $events->event = $request->input('event');
+        $events->from = $request->input('from');
+        $events->to = $request->input('to');
+        $events->description = $request->input('description');
+        $events->type_event = $request->input('type_event');
+        $events->save();
+        return redirect()->route('CalenderSemester');
     }
 
     /**

@@ -50,9 +50,10 @@ Route::get('/account/parent/search', [AccountParentController::class, 'search'])
 
 
 Route::view('activity','analytics');
-Route::get('calender/semester',[CalendersmsController::class, 'index']);
+Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
 Route::post('/calender/add', [CalendersmsController::class, 'store']);
-Route::get('/calender/events', [CalendersmsController::class, 'events']);
+Route::get('/calender/edit/{id}', [CalendersmsController::class, 'edit'])->name('edit-calender');
+Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->name('update-calender');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
