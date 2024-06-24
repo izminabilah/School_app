@@ -245,7 +245,7 @@
 }
 
 /* .dark .calendar-wrapper .fc-theme-standard .fc-popover */
-.dark .fc-theme-standard .fc-popover {    
+.dark .fc-theme-standard .fc-popover {
   background-color: #3b3f5c !important;
   border-color:  #3b3f5c !important;
 }
@@ -254,4 +254,25 @@
 .dark .fc-theme-standard .fc-popover-header{
   background-color: #0e1726 !important;
   color: #888ea8 !important;
+}
+
+/* Tambahan */
+.bg-primary {
+    background-color: #337ab7; /* Primary color */
+}
+
+.bg-secondary {
+    background-color: #666; /* Secondary color */
+}
+
+.bg-success {
+    background-color: #3e8e41; /* Success color */
+}
+
+.bg-danger {
+    background-color: #e74c3c; /* Danger color */
+}
+.calendar-wrapper .fc-event {
+    color: white; /* */
+    padding: 2px 4px;
 }
