@@ -105,24 +105,24 @@
                         </div>
                         <div class="px-6 pb-24 -mt-10 relative">
                             <div class="shadow-md bg-white dark:bg-gray-900 rounded-md px-2 py-4">
-                                <div class="text-xl" x-text="contact.name"></div>
+                                <div class="text-xl" ></div>
                                 <div class="flex items-center">
-                                    <div class="flex-none ltr:mr-2 rtl:ml-5">Username :</div>
-                                    <div class="truncate text-white-dark" x-text="contact.username"></div>
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5"></div>
+                                    <div class="truncate text-white-dark" ></div>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="flex-none ltr:mr-2 rtl:ml-5">Password :</div>
-                                    <div class="text-white-dark" x-text="contact.password"></div>
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5"></div>
+                                    <div class="text-white-dark"></div>
                                 </div>
                             </div>
                             <div class="mt-6 grid grid-cols-1 gap-4 ltr:text-left rtl:text-right">
                                 <div class="flex items-center">
-                                    <div class="flex-none ltr:mr-2 rtl:ml-2">Username :</div>
-                                    <div class="truncate text-white-dark" x-text="contact.username"></div>
+                                    <div class="flex-none ltr:mr-2 rtl:ml-2"></div>
+                                    <div class="truncate text-white-dark"></div>
                                 </div>
                                 <div class="flex items-center">
-                                    <div class="flex-none ltr:mr-2 rtl:ml-2">Password :</div>
-                                    <div class="text-white-dark" x-text="contact.password"></div>
+                                    <div class="flex-none ltr:mr-2 rtl:ml-2"></div>
+                                    <div class="text-white-dark"></div>
                                 </div>
                             </div>
                         </div>

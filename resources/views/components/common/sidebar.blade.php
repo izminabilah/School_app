@@ -122,7 +122,7 @@
                     </a>
                 </li>
                 <li class="menu nav-item">
-                    <a href="/users/profile">
+                    <a href="/Schedule">
                         <div class="flex items-center">
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

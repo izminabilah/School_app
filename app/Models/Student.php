@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-
     protected $table="students";
 
     protected $primaryKey = "id";
@@ -20,5 +19,7 @@ class Student extends Model
         'address',
         'Gender',
         'parent_id',
+        'class_student_id',
     ];
+
 }

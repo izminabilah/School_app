@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherController;
+use App\Http\Controllers\SubjectScheduleController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
@@ -53,6 +54,9 @@ Route::post('/listSubject/add', [ListSubjectController::class, 'store']);
 Route::get('/listSubject/edit/{id}', [ListSubjectController::class, 'edit'])->name('edit-subject');
 Route::put('/listSubject/update/{id}', [ListSubjectController::class, 'update'])->name('update-subject');
 Route::get('/listSubject/delete/{id}', [ListSubjectController::class, 'destroy'])->name('delete-subject');
+
+Route::get('/Schedule',[SubjectScheduleController::class, 'index'])->name('Schedule');
+Route::post('/Schedule/add', [SubjectScheduleController::class, 'store']);
 
 Route::view('activity','analytics');
 Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
