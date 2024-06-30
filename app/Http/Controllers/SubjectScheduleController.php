@@ -110,5 +110,7 @@ class SubjectScheduleController extends Controller
     public function destroy(string $id)
     {
         //
+        $subjectSchedule = SubjectSchedule::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Schedule data has been deleted successfully!');
     }
 }
