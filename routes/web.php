@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherController;
+use App\Http\Controllers\SubjectScheduleController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
@@ -53,6 +54,13 @@ Route::post('/listSubject/add', [ListSubjectController::class, 'store']);
 Route::get('/listSubject/edit/{id}', [ListSubjectController::class, 'edit'])->name('edit-subject');
 Route::put('/listSubject/update/{id}', [ListSubjectController::class, 'update'])->name('update-subject');
 Route::get('/listSubject/delete/{id}', [ListSubjectController::class, 'destroy'])->name('delete-subject');
+
+Route::get('/Schedule',[SubjectScheduleController::class, 'index'])->name('Schedule');
+Route::post('/Schedule/add', [SubjectScheduleController::class, 'store']);
+Route::get('/Schedule/edit/{id}', [SubjectScheduleController::class, 'edit'])->name('edit-schedule');
+Route::put('/Schedule/update/{id}', [SubjectScheduleController::class, 'update'])->name('update-schedule');
+Route::get('/Schedule/delete/{id}', [SubjectScheduleController::class, 'destroy'])->name('delete-schedule');
+Route::get('/Schedule/search', [SubjectScheduleController::class, 'search'])->name('search-schedule');
 
 Route::view('activity','analytics');
 Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');

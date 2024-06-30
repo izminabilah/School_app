@@ -27,8 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" @click="editEvent()">
-
+                    <button type="button" class="btn btn-primary" onclick="myFunction()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
                              fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                              stroke-linejoin="round" class="w-5 h-5 ltr:mr-2 rtl:ml-2">
@@ -37,15 +36,14 @@
                         </svg>
                         Create Event
                     </button>
-                    <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden"
-                         :class="isAddEventModal && '!block'">
+                    <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-calendersms"
+                         >
                         <div class="flex items-center justify-center min-h-screen px-4"
-                             @click.self="isAddEventModal = false">
-                            <div x-show="isAddEventModal" x-transition x-transition.duration.300
+                             >
+                            <div  x-transition x-transition.duration.300
                                  class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
                                 <button type="button"
-                                        class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark"
-                                        @click="isAddEventModal = false">
+                                        class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -125,6 +123,9 @@
         </div>
     </div>
     <script>
+        function myFunction() {
+            document.getElementById("form-add-calendersms").classList.remove("hidden");
+        }
         document.addEventListener("alpine:init", () => {
             Alpine.data("calendar", () => ({
                 defaultParams: ({
