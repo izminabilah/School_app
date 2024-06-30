@@ -19,7 +19,8 @@ class SubjectScheduleController extends Controller
         $subjects = Subject::all();
         $teachers = Teacher::all();
         $class_students = ClassStudent::all();
-        return view('subjectSchedule', compact('subjects', 'teachers', 'class_students'));
+        $subjectSchedules = SubjectSchedule::all();
+        return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules'));
     }
 
     /**
@@ -71,6 +72,12 @@ class SubjectScheduleController extends Controller
     public function edit(string $id)
     {
         //
+        $subjectSchedules = SubjectSchedule::findOrFail($id);
+        $subjects = Subject::all();
+        $teachers = Teacher::all();
+        $class_students = ClassStudent::all();
+        return view('subjectScheduleEdit', compact('subjectSchedules', 'subjects', 'teachers', 'class_students'));
+        // return view('subjectScheduleEdit')-> with(['subjectSchedules' => $subjectSchedules]);
     }
 
     /**
@@ -79,6 +86,22 @@ class SubjectScheduleController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'day' => 'required',
+            'hour' => 'required',
+            'subject' => 'required|exists:subjects,id',
+            'teacher' => 'required|exists:teachers,id',
+            'class_student' => 'required|exists:class_students,id',
+        ]);
+
+        $subjectSchedule = SubjectSchedule::findOrFail($id);
+        $subjectSchedule->day = $request->input('day');
+        $subjectSchedule->hour = $request->input('hour');
+        $subjectSchedule->subject_id = $request->input('subject');
+        $subjectSchedule->teacher_id = $request->input('teacher');
+        $subjectSchedule->class_student_id = $request->input('class_student');
+        $subjectSchedule->save();
+        return redirect()->route('Schedule');
     }
 
     /**
