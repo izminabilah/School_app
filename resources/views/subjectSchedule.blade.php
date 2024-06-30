@@ -50,19 +50,19 @@
                     <div class="mb-2 text-center text-xl font-bold dark:text-white md:text-3xl">Wanna know your schedule?</div>
                 </div>
                 <p class="mb-9 text-center text-base font-semibold">Search your class to get the schedule</p>
-                <form action="" method="" class="mb-6">
+                <form action="{{ route('search-schedule') }}" method="GET" class="mb-6">
                     <div class="relative mx-auto max-w-[580px]">
-                        <input type="text" placeholder="Input your class" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]">
-                        <button type="button" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
+                        <input type="text" placeholder="Input your class" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" id="search-schedule"  name="search-schedule">
+                        <button type="submit" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
                     </div>
                 </form>
             </div>
         </div>
 
         <!-- Contextual -->
-        <div class="panel">
-            <div>
-                <div class="flex items-center justify-between mb-5">
+        <div class="panel @if($search_results_available) @else hidden @endif" id="tables-schedule">
+            <div class="panel">
+                <div class="flex items-center justify-between mb-5 ">
                     <h5 class="font-semibold text-lg dark:text-white-light">Schedule Class</h5>
                     <button type="button" class="btn btn-primary" onclick="myFunction()">
 
@@ -175,7 +175,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($subjectSchedules as $subjectSchedule)
+                        @forelse($subjectSchedules as $subjectSchedule)
                         <tr>
                             <td class="font-bold border-2">{{ $subjectSchedule->day}}</td>
                             <td class="font-bold border-2">{{ $subjectSchedule->hour}}</td>
@@ -188,8 +188,11 @@
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
-
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">No schedules found for the specified class.</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>

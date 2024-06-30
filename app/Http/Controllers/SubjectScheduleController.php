@@ -20,7 +20,8 @@ class SubjectScheduleController extends Controller
         $teachers = Teacher::all();
         $class_students = ClassStudent::all();
         $subjectSchedules = SubjectSchedule::all();
-        return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules'));
+        $search_results_available = false;
+        return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
     }
 
     /**
@@ -112,5 +113,30 @@ class SubjectScheduleController extends Controller
         //
         $subjectSchedule = SubjectSchedule::whereId($id) -> delete();
         return redirect()->back()->with('success', 'Schedule data has been deleted successfully!');
+    }
+
+    public function search(Request $request){
+//        $search = $request->input('class_student');
+//        $subjectSchedules = SubjectSchedule::where('class_student_id', 'LIKE', "$search%")->get();
+//        $subjects = Subject::all();
+//        $teachers = Teacher::all();
+//        $class_students = ClassStudent::all();
+//        return view('subjectSchedule', compact( 'subjectSchedules','subjects', 'teachers', 'class_students'));
+        $search = $request->input('search-schedule');
+        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+
+        if ($class_student) {
+            $subjectSchedules = SubjectSchedule::where('class_student_id', $class_student->id)->get();
+        } else {
+            $subjectSchedules = collect(); // return an empty collection if no matching class is found
+        }
+
+        $subjects = Subject::all();
+        $teachers = Teacher::all();
+        $class_students = ClassStudent::all();
+        $search_results_available = true;
+
+        return view('subjectSchedule', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available'));
+
     }
 }

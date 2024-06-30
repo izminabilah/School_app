@@ -60,6 +60,7 @@ Route::post('/Schedule/add', [SubjectScheduleController::class, 'store']);
 Route::get('/Schedule/edit/{id}', [SubjectScheduleController::class, 'edit'])->name('edit-schedule');
 Route::put('/Schedule/update/{id}', [SubjectScheduleController::class, 'update'])->name('update-schedule');
 Route::get('/Schedule/delete/{id}', [SubjectScheduleController::class, 'destroy'])->name('delete-schedule');
+Route::get('/Schedule/search', [SubjectScheduleController::class, 'search'])->name('search-schedule');
 
 Route::view('activity','analytics');
 Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
