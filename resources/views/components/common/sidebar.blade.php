@@ -154,9 +154,9 @@
                 </li>
 
                 <li class="menu nav-item">
-                    <a href="/activity">
+                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'activity' }"
+                            @click="activeDropdown === 'activity' ? activeDropdown = null : activeDropdown = 'activity'">
                         <div class="flex items-center">
-
                             <svg class="group-hover:!text-primary shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.5" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="currentColor" stroke-width="1.5"></path>
                                 <path d="M7 18L7 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -166,7 +166,29 @@
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Activity Student</span>
                         </div>
-                    </a>
+
+                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'activity' }">
+
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </button>
+                    <ul x-cloak x-show="activeDropdown === 'activity'" x-collapse class="sub-menu text-gray-500">
+                        <li>
+                            <a href="/">Summary</a>
+                        </li>
+                        <li>
+                            <a href="/">Student Activity List</a>
+                        </li>
+                        <li>
+                            <a href="/">Absent</a>
+                        </li>
+                        <li>
+                            <a href="/">Subject Grades</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <h2
