@@ -183,7 +183,7 @@
                             <a href="/">Student Activity List</a>
                         </li>
                         <li>
-                            <a href="/">Absent</a>
+                            <a href="/activity/absent">Absent</a>
                         </li>
                         <li>
                             <a href="/">Subject Grades</a>

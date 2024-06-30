@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsentStudentController;
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
@@ -62,11 +63,13 @@ Route::put('/Schedule/update/{id}', [SubjectScheduleController::class, 'update']
 Route::get('/Schedule/delete/{id}', [SubjectScheduleController::class, 'destroy'])->name('delete-schedule');
 Route::get('/Schedule/search', [SubjectScheduleController::class, 'search'])->name('search-schedule');
 
-Route::view('activity','analytics');
 Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
 Route::post('/calender/add', [CalendersmsController::class, 'store']);
 Route::get('/calender/edit/{id}', [CalendersmsController::class, 'edit'])->name('edit-calender');
 Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->name('update-calender');
+
+Route::view('/activity','analytics');
+Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('absent-student');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
