@@ -186,7 +186,7 @@
                             <a href="/activity/absent">Absent</a>
                         </li>
                         <li>
-                            <a href="/">Subject Grades</a>
+                            <a href="/activity/subject/grade">Subject Grades</a>
                         </li>
                     </ul>
                 </li>

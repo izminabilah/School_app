@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
 use Illuminate\Http\Request;
 
-class AbsentStudentController extends Controller
+class SubjectGradeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,8 @@ class AbsentStudentController extends Controller
         //
         $subjects = Subject::all();
         $students = Student::all();
-        return view('AbsentStudent', compact('students','subjects'));
+        return view('SubjectGrade', compact('students','subjects'));
+//        return view('SubjectGrade', compact( 'class_students','subjects'));
     }
 
     /**
@@ -33,20 +35,6 @@ class AbsentStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-//        $request->validate([
-//            'student_id'=>'required',
-//            'subject_id' => 'required',
-//            'quiz1' => 'nullable',
-//            'quiz2' => 'nullable',
-//            'midterm_test' => 'nullable',
-//            'quiz3' => 'nullable',
-//            'quiz4' => 'nullable',
-//            'final_test' => 'nullable',
-//            'homework' => 'nullable',
-//        ]);
-
-//        var_dump($request->all());
         $request->validate([
             'student_ids' => 'required|array',
             'subject_id' => 'required',
@@ -82,29 +70,7 @@ class AbsentStudentController extends Controller
             $subjectGrade->homework = $homework[$index];
             $subjectGrade->save();
         }
-        return redirect()->route('absent-student');
-//        n=0;
-//        for (n>count(student->id)){
-//        $subject_id = $request->input('subject_id');
-//        $students = Subject::find($subject_id)->students;
-//
-//        foreach ($students as $student) {
-//        $subjectGrade = new SubjectGrade();
-//        $subjectGrade->subject_id = $request->input('subject_id');
-//        $subjectGrade ->student_id = $request->input('id_Student');
-//        $subjectGrade ->quiz1 = $request->input('quiz1');
-//        $subjectGrade ->quiz2= $request->input('quiz2');
-//        $subjectGrade->midterm_test = $request->input('midterm_test');
-//        $subjectGrade->quiz3 = $request->input('quiz3');
-//        $subjectGrade->quiz4 = $request->input('quiz4');
-//        $subjectGrade->final_test = $request->input('final_test');
-//        $subjectGrade->homework = $request->input('homework');
-//        $subjectGrade->save();
-//        }
-
-//        n++;
-//        endfor
-//        return redirect()->route('subject-grade');
+        return redirect()->route('subject-grade');
     }
 
     /**
@@ -137,5 +103,11 @@ class AbsentStudentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function search(Request $request){
+        $search = $request->input('search-class');
+        $subjects = SubjectGrade::where('name', 'LIKE', "$search%")->get();
+
+        return view('SubjectGrade', compact( 'subjects'));
     }
 }

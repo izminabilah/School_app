@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherController;
+use App\Http\Controllers\SubjectGradeController;
 use App\Http\Controllers\SubjectScheduleController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
@@ -70,6 +71,11 @@ Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->n
 
 Route::view('/activity','analytics');
 Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('absent-student');
+Route::post('/activity/absent/add', [AbsentStudentController::class, 'store']);
+
+Route::get('/activity/subject/grade',[SubjectGradeController::class, 'index'])->name('subject-grade');
+Route::post('/activity/subject/grade/add', [SubjectGradeController::class, 'store']);
+Route::get('/activity/subject/grade/search', [SubjectGradeController::class, 'search'])->name('search-class');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
