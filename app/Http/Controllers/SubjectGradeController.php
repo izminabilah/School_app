@@ -18,7 +18,8 @@ class SubjectGradeController extends Controller
         //
         $subjects = Subject::all();
         $students = Student::all();
-        return view('SubjectGrade', compact('students','subjects'));
+        $subjectGrades = SubjectGrade::all();
+        return view('SubjectGrade', compact('students','subjects','subjectGrades'));
 //        return view('SubjectGrade', compact( 'class_students','subjects'));
     }
 
@@ -104,10 +105,24 @@ class SubjectGradeController extends Controller
     {
         //
     }
-    public function search(Request $request){
-        $search = $request->input('search-class');
-        $subjects = SubjectGrade::where('name', 'LIKE', "$search%")->get();
+//    public function search(Request $request){
+//        $search = $request->input('search-subject');
+//        $students = SubjectGrade::where('subject_id', 'LIKE', "$search%")->get();
+//        $subjects = Subject::all();
+//        return view('SubjectGrade', compact( 'students','subjects'));
+//    }
+    public function search(Request $request)
+    {
+        $search = $request->input('search-subject');
+        $subject_table = Subject::where('name', 'LIKE', "%$search%")->first();
+        $subjects = Subject::all();
 
-        return view('SubjectGrade', compact( 'subjects'));
+        if ($subject_table) {
+            $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
+            $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
+            return view('SubjectGrade', compact('subjectGrades', 'subject_table', 'students','subjects'));
+        } else {
+            return redirect()->route('subject-grade');
+        }
     }
 }
