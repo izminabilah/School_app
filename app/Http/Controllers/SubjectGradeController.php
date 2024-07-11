@@ -91,13 +91,9 @@ class SubjectGradeController extends Controller
         $subjects = Subject::all();
         $students = Student::all();
 
-        // Temukan SubjectGrade berdasarkan ID yang diberikan
         $subjectGrade = SubjectGrade::findOrFail($id);
-
-        // Dapatkan subject_id dari objek $subjectGrade
         $subject_id = $subjectGrade->subject_id;
 
-        // Query untuk mendapatkan semua SubjectGrade yang memiliki subject_id yang sama
         $subjectGrades = SubjectGrade::where('subject_id', $subject_id)->get();
 
         return view('EditSubjectGrade', compact('subjects', 'students', 'subjectGrades'));
@@ -106,10 +102,63 @@ class SubjectGradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
+//        $subjectGrade = SubjectGrade::findOrFail($id);
 
+        $request->validate([
+            'student_ids' => 'required|array',
+            'subject_id' => 'required',
+            'quiz1' => 'nullable|array',
+            'quiz2' => 'nullable|array',
+            'midterm_test' => 'nullable|array',
+            'quiz3' => 'nullable|array',
+            'quiz4' => 'nullable|array',
+            'final_test' => 'nullable|array',
+            'homework' => 'nullable|array',
+        ]);
+
+        $subject_id = $request->input('subject_id');
+        $student_ids = $request->input('student_ids');
+        $quiz1 = $request->input('quiz1');
+        $quiz2 = $request->input('quiz2');
+        $midterm_test = $request->input('midterm_test');
+        $quiz3 = $request->input('quiz3');
+        $quiz4 = $request->input('quiz4');
+        $final_test = $request->input('final_test');
+        $homework = $request->input('homework');
+
+        foreach ($student_ids as $index => $student_id) {
+            $subjectGrade = SubjectGrade::where('subject_id', $subject_id)
+                ->where('student_id', $student_id)
+                ->first();
+
+            if ($subjectGrade) {
+                $subjectGrade->quiz1 = $quiz1[$index];
+                $subjectGrade->quiz2 = $quiz2[$index];
+                $subjectGrade->midterm_test = $midterm_test[$index];
+                $subjectGrade->quiz3 = $quiz3[$index];
+                $subjectGrade->quiz4 = $quiz4[$index];
+                $subjectGrade->final_test = $final_test[$index];
+                $subjectGrade->homework = $homework[$index];
+                $subjectGrade->save();
+            } else {
+                $newSubjectGrade = new SubjectGrade();
+                $newSubjectGrade->subject_id = $subject_id;
+                $newSubjectGrade->student_id = $student_id;
+                $newSubjectGrade->quiz1 = $quiz1[$index];
+                $newSubjectGrade->quiz2 = $quiz2[$index];
+                $newSubjectGrade->midterm_test = $midterm_test[$index];
+                $newSubjectGrade->quiz3 = $quiz3[$index];
+                $newSubjectGrade->quiz4 = $quiz4[$index];
+                $newSubjectGrade->final_test = $final_test[$index];
+                $newSubjectGrade->homework = $homework[$index];
+                $newSubjectGrade->save();
+            }
+        }
+
+        return redirect()->route('subject-grade');
     }
 
     /**

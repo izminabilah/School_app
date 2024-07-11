@@ -96,7 +96,7 @@
                             >Edit Subject Grade
                             </h3>
                             <div class="p-5">
-                                <form name="form-edit" method="POST" action="/">
+                                <form name="form-edit" method="POST" action="{{route('update-grade')}}">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-5">
