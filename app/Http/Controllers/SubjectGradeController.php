@@ -88,6 +88,19 @@ class SubjectGradeController extends Controller
     public function edit(string $id)
     {
         //
+        $subjects = Subject::all();
+        $students = Student::all();
+
+        // Temukan SubjectGrade berdasarkan ID yang diberikan
+        $subjectGrade = SubjectGrade::findOrFail($id);
+
+        // Dapatkan subject_id dari objek $subjectGrade
+        $subject_id = $subjectGrade->subject_id;
+
+        // Query untuk mendapatkan semua SubjectGrade yang memiliki subject_id yang sama
+        $subjectGrades = SubjectGrade::where('subject_id', $subject_id)->get();
+
+        return view('EditSubjectGrade', compact('subjects', 'students', 'subjectGrades'));
     }
 
     /**
@@ -96,6 +109,7 @@ class SubjectGradeController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**

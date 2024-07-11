@@ -50,7 +50,7 @@
                     <div class="mb-2 text-center text-xl font-bold dark:text-white md:text-3xl">Wanna know your subject grade?</div>
                 </div>
                 <p class="mb-9 text-center text-base font-semibold">Search your subject to get the grade</p>
-                <form action="{{ route('search-subject') }}" method="GET" class="mb-6">
+                <form action="/" method="GET" class="mb-6">
                     <div class="relative mx-auto max-w-[580px]">
                         <input type="text" placeholder="Input your subject" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" id="search-subject"  name="search-subject">
                         <button type="submit" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
@@ -59,7 +59,6 @@
             </div>
         </div>
     </div>
-    @isset($subjectGrades)
     <div class="panel" id="tables-grade">
         <div class="panel">
             <div class="flex items-center justify-between flex-wrap mb-5 ">
@@ -81,7 +80,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-schedule">
+                <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto " id="form-add-schedule">
                     <div class="flex items-center justify-center min-h-screen px-4">
                         <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full w-[90%] my-8">
                             <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/subject/grade'">
@@ -94,17 +93,18 @@
                                 </svg>
                             </button>
                             <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                            >Add Subject Grade
+                            >Edit Subject Grade
                             </h3>
                             <div class="p-5">
-                                <form action="/activity/subject/grade/add" method="POST">
+                                <form name="form-edit" method="POST" action="/">
                                     @csrf
+                                    @method('PUT')
                                     <div class="mb-5">
                                         <label for="subject">Subject</label>
                                         <select id="subject_id" name="subject_id" class="form-input">
                                             <option value="">-- Select Subject --</option>
                                             @foreach($subjects as $subject)
-                                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                <option value="{{ $subject->id }}" {{ $subjectGrades->first()->subject_id == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -123,46 +123,41 @@
                                         </thead>
                                         <tbody>
                                         @foreach($students as $student)
+                                            @php
+                                                $studentGrade = $subjectGrades->where('student_id', $student->id)->first();
+                                            @endphp
                                             <tr>
                                                 <td>
                                                     {{ $student->name }}
                                                     <input type="hidden" name="student_ids[]" value="{{ $student->id }}">
                                                 </td>
                                                 <td>
-                                                    <input id="quiz1" name="quiz1[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="quiz1" name="quiz1[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz1 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="quiz2" name="quiz2[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="quiz2" name="quiz2[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz2 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->midterm_test : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="quiz3" name="quiz3[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="quiz3" name="quiz3[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz3 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="quiz4" name="quiz4[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="quiz4" name="quiz4[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz4 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->final_test : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="homework" name="homework[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
+                                                    <input id="homework" name="homework[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework : '' }}">
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                     <div class="flex justify-end items-center mt-8">
-                                        <button type="button" class="btn btn-outline-danger"
-                                                onclick="location.href='/activity/subject/grade'">Cancel</button>
+                                        <button type="button" class="btn btn-outline-danger" onclick="location.href='/activity/subject/grade'">Cancel</button>
                                         <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
                                     </div>
                                 </form>
@@ -170,57 +165,8 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-        <div class="mb-5">
-            <div class="table-responsive">
-                <table class="border-2">
-                    <thead>
-                    <tr>
-                        <th>Name Student</th>
-                        <th class="border-2">Quiz 1</th>
-                        <th class="border-2">Quiz 2</th>
-                        <th class="border-2">Midterm Test</th>
-                        <th class="border-2">Quiz 3</th>
-                        <th class="border-2">Quiz 4</th>
-                        <th class="border-2">Final Test</th>
-                        <th class="border-2">Homework</th>
-                        <th class="border-2">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($students as $student)
-                        @php
-                            $studentGrades = $subjectGrades->where('student_id', $student->id)->first();
-                        @endphp
-                        @if($studentGrades)
-                            <tr>
-                                <td class="font-bold border-2">{{ $student->name }}</td>
-                                <td class="border-2">{{ $studentGrades->quiz1 }}</td>
-                                <td class="border-2">{{ $studentGrades->quiz2 }}</td>
-                                <td class="border-2">{{ $studentGrades->midterm_test }}</td>
-                                <td class="border-2">{{ $studentGrades->quiz3 }}</td>
-                                <td class="border-2">{{ $studentGrades->quiz4 }}</td>
-                                <td class="border-2">{{ $studentGrades->final_test }}</td>
-                                <td class="border-2">{{ $studentGrades->homework }}</td>
-                                <td class="border-2">
-                                    <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-grade', ['id' => $studentGrades->id])}}">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-    @endisset
-    <script>
-        function myFunction() {
-            document.getElementById("form-add-schedule").classList.remove("hidden");
-        }
-    </script>
+
 </x-layout.default>
