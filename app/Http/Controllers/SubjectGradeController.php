@@ -19,7 +19,8 @@ class SubjectGradeController extends Controller
         $subjects = Subject::all();
         $students = Student::all();
         $subjectGrades = SubjectGrade::all();
-        return view('SubjectGrade', compact('students','subjects','subjectGrades'));
+        $search_results_available = false;
+        return view('SubjectGrade', compact('students','subjects','subjectGrades', 'search_results_available'));
 //        return view('SubjectGrade', compact( 'class_students','subjects'));
     }
 
@@ -179,11 +180,12 @@ class SubjectGradeController extends Controller
         $search = $request->input('search-subject');
         $subject_table = Subject::where('name', 'LIKE', "%$search%")->first();
         $subjects = Subject::all();
+        $search_results_available = true;
 
         if ($subject_table) {
             $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
             $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
-            return view('SubjectGrade', compact('subjectGrades', 'subject_table', 'students','subjects'));
+            return view('SubjectGrade', compact('subjectGrades', 'subject_table', 'students','subjects', 'search_results_available'));
         } else {
             return redirect()->route('subject-grade');
         }

@@ -60,7 +60,7 @@
         </div>
     </div>
     @isset($subjectGrades)
-    <div class="panel" id="tables-grade">
+    <div class="panel" @if($search_results_available) @else hidden @endif id="tables-grade">
         <div class="panel">
             <div class="flex items-center justify-between flex-wrap mb-5 ">
                 <h5 class="font-semibold text-lg dark:text-white-light">Subject Grade</h5>
@@ -81,7 +81,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-schedule">
+                <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-grade">
                     <div class="flex items-center justify-center min-h-screen px-4">
                         <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full w-[90%] my-8">
                             <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/subject/grade'">
@@ -220,7 +220,7 @@
     @endisset
     <script>
         function myFunction() {
-            document.getElementById("form-add-schedule").classList.remove("hidden");
+            document.getElementById("form-add-grade").classList.remove("hidden");
         }
     </script>
 </x-layout.default>
