@@ -16,11 +16,16 @@ class SubjectGrade extends Model
         'student_id',
         'quiz1',
         'quiz2',
-        'midterm_test',
         'quiz3',
         'quiz4',
+        'homework1',
+        'midterm_test',
+        'quiz5',
+        'quiz6',
+        'quiz7',
+        'quiz8',
+        'homework2',
         'final_test',
-        'homework',
         'subject_id',
     ];
 }

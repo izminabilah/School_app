@@ -108,17 +108,22 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <table class="border-2">
+                                    <table class=" table-responsive border-2">
                                         <thead>
                                         <tr>
-                                            <th>Name Student</th>
-                                            <th>Quiz 1</th>
-                                            <th>Quiz 2</th>
-                                            <th>Midterm Test</th>
-                                            <th>Quiz 3</th>
-                                            <th>Quiz 4</th>
-                                            <th>Final Test</th>
-                                            <th>Homework</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Ulangan Harian 1</th>
+                                            <th>Ulangan Harian 2</th>
+                                            <th>Ulangan Harian 3</th>
+                                            <th>Ulangan Harian 4</th>
+                                            <th>Tugas 1</th>
+                                            <th>Ulangan Tengah Semester</th>
+                                            <th>Ulangan Harian 5</th>
+                                            <th>Ulangan Harian 6</th>
+                                            <th>Ulangan Harian 7</th>
+                                            <th>Ulangan Harian 8</th>
+                                            <th>Tugas 2</th>
+                                            <th>Ulangan Akhir Semester</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -138,20 +143,36 @@
                                                     <input id="quiz2" name="quiz2[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz2 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->midterm_test : '' }}">
-                                                </td>
-                                                <td>
                                                     <input id="quiz3" name="quiz3[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz3 : '' }}">
                                                 </td>
                                                 <td>
                                                     <input id="quiz4" name="quiz4[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz4 : '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->final_test : '' }}">
+                                                    <input id="homework1" name="homework1[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework1: '' }}">
                                                 </td>
                                                 <td>
-                                                    <input id="homework" name="homework[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework : '' }}">
+                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->midterm_test : '' }}">
                                                 </td>
+                                                <td>
+                                                    <input id="quiz5" name="quiz5[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz5 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz6" name="quiz6[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz6 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz7" name="quiz7[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz7 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz8" name="quiz8[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz8 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="homework2" name="homework2[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework2 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->final_test : '' }}">
+                                                </td>
+
                                             </tr>
                                         @endforeach
                                         </tbody>

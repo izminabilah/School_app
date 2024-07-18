@@ -91,7 +91,7 @@
                                     </svg>
                                 </button>
                                 <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                >Add Schedule</h3>
+                                >Edit Jadwal</h3>
                                 <div class="p-5">
                                     <form name="form-edit" method="POST" action={{route('update-schedule', ['id' => $subjectSchedules->id])}}>
                                         @csrf
@@ -99,52 +99,52 @@
                                         <div class="mb-5">
                                             <label for="day">Hari</label>
                                             <select id="day" name="day" class="form-input">
-                                                <option value="Monday" {{ $subjectSchedules->day == 'Monday' ? 'selected' : '' }}>Monday</option>
-                                                <option value="Tuesday" {{ $subjectSchedules->day == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
-                                                <option value="Wednesday" {{ $subjectSchedules->day == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
-                                                <option value="Thursday" {{ $subjectSchedules->day == 'Thursday' ? 'selected' : '' }}>Thursday</option>
-                                                <option value="Friday" {{ $subjectSchedules->day == 'Friday' ? 'selected' : '' }}>Friday</option>
-                                                <option value="Saturday" {{ $subjectSchedules->day == 'Saturday' ? 'selected' : '' }}>Saturday</option>
+                                                <option value="Senin" {{ $subjectSchedules->day == 'Senin' ? 'selected' : '' }}>Senin</option>
+                                                <option value="Selasa" {{ $subjectSchedules->day == 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                                <option value="Rabu" {{ $subjectSchedules->day == 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                                <option value="Kamis" {{ $subjectSchedules->day == 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                                <option value="Jumat" {{ $subjectSchedules->day == 'Jumat' ? 'selected' : '' }}>Jumat</option>
+
                                             </select>
                                         </div>
                                         <div class="mb-5">
                                             <label for="hour">Jam</label>
                                             <select id="hour" name="hour" class="form-input">
-                                                <option value="">-- Select Hour --</option>
-                                                <option value="">-- Select Hour --</option>
-                                                <option value="07.30-08.30" {{ $subjectSchedules->hour == '07.30-08.30' ? 'selected' : '' }}>07.30-08.30</option>
-                                                <option value="08.30-09.30" {{ $subjectSchedules->hour == '08.30-09.30' ? 'selected' : '' }}>08.30-09.30</option>
-                                                <option value="09.30-10.00" {{ $subjectSchedules->hour == '09.30-10.00' ? 'selected' : '' }}>09.30-10.00</option>
-                                                <option value="10.30-11.30" {{ $subjectSchedules->hour == '10.30-11.30' ? 'selected' : '' }}>10.30-11.30</option>
-                                                <option value="11.30-13.00" {{ $subjectSchedules->hour == '11.30-13.00' ? 'selected' : '' }}>11.30-13.00</option>
-                                                <option value="13.00-13.30" {{ $subjectSchedules->hour == '13.00-13.30' ? 'selected' : '' }}>13.00-13.30</option>
-                                                <option value="13.30-14.00" {{ $subjectSchedules->hour == '13.30-14.00' ? 'selected' : '' }}>13.30-14.00</option>
-                                                <option value="14.00-14.30" {{ $subjectSchedules->hour == '14.00-14.30' ? 'selected' : '' }}>14.00-14.30</option>
-                                                <option value="14.30-15.00" {{ $subjectSchedules->hour == '14.30-15.00' ? 'selected' : '' }}>14.30-15.00</option>
+                                                <option value="">-- Pilih Jam --</option>
+                                                <option value="07.00-07.45" {{ $subjectSchedules->hour == '07.00-07.45' ? 'selected' : '' }}>07.00-07.45</option>
+                                                <option value="07.45-08.30" {{ $subjectSchedules->hour == '07.45-08.30' ? 'selected' : '' }}>07.45-08.30</option>
+                                                <option value="08.30-09.15" {{ $subjectSchedules->hour == '08.30-09.15' ? 'selected' : '' }}>08.30-09.15</option>
+                                                <option value="09.15-10.00" {{ $subjectSchedules->hour == '09.15-10.00' ? 'selected' : '' }}>09.15-10.00</option>
+                                                <option value="10.20-11.00" {{ $subjectSchedules->hour == '10.20-11.00' ? 'selected' : '' }}>10.20-11.00</option>
+                                                <option value="11.00-11.40" {{ $subjectSchedules->hour == '11.00-11.40' ? 'selected' : '' }}>11.00-11.40</option>
+                                                <option value="11.40-12.20" {{ $subjectSchedules->hour == '11.40-12.20' ? 'selected' : '' }}>11.40-12.20</option>
+                                                <option value="13.00-13.40" {{ $subjectSchedules->hour == '13.00-13.40' ? 'selected' : '' }}>13.00-13.40</option>
+                                                <option value="13.40-14.20" {{ $subjectSchedules->hour == '13.40-14.20' ? 'selected' : '' }}>13.40-14.20</option>
+                                                <option value="14.20-15.00" {{ $subjectSchedules->hour == '14.20-15.00' ? 'selected' : '' }}>14.20-15.00</option>
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="subject">Subject</label>
+                                            <label for="subject">Mapel</label>
                                             <select id="subject" name="subject" class="form-input">
-                                                <option value="">-- Select Subject --</option>
+                                                <option value="">-- Pilih Mapel --</option>
                                                 @foreach($subjects as $subject)
                                                     <option value="{{ $subject->id}}" {{ $subjectSchedules->subject_id == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="teacher">Teacher</label>
+                                            <label for="teacher">Guru</label>
                                             <select id="teacher" name="teacher" class="form-input">
-                                                <option value="">-- Select Subject --</option>
+                                                <option value="">-- Pilih Guru --</option>
                                                 @foreach($teachers as $teacher)
                                                     <option value="{{ $teacher->id }}" {{ $subjectSchedules->teacher_id == $teacher->id ? 'selected' : '' }}>{{ $teacher->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="class_student">Class</label>
+                                            <label for="class_student">Kelas</label>
                                             <select id="class_student" name="class_student" class="form-input">
-                                                <option value="">-- Select Subject --</option>
+                                                <option value="">-- Pilih Kelas --</option>
                                                 @foreach($class_students as $class_student)
                                                     <option value="{{ $class_student->id }}" {{ $subjectSchedules->class_student_id == $class_student->id ? 'selected' : '' }}>{{ $class_student->name }}</option>
                                                 @endforeach

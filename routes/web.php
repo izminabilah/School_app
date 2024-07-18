@@ -69,7 +69,9 @@ Route::post('/calender/add', [CalendersmsController::class, 'store']);
 Route::get('/calender/edit/{id}', [CalendersmsController::class, 'edit'])->name('edit-calender');
 Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->name('update-calender');
 
-Route::view('/activity','analytics');
+Route::view('/activity','Summary');
+
+
 Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('absent-student');
 Route::post('/activity/absent/add', [AbsentStudentController::class, 'store']);
 
@@ -78,6 +80,8 @@ Route::post('/activity/subject/grade/add', [SubjectGradeController::class, 'stor
 Route::get('/activity/subject/grade/edit/{id}', [SubjectGradeController::class, 'edit'])->name('edit-grade');
 Route::put('/activity/subject/grade/update', [SubjectGradeController::class, 'update'])->name('update-grade');
 Route::get('/activity/subject/grade/search', [SubjectGradeController::class, 'search'])->name('search-subject');
+
+
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');

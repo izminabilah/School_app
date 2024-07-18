@@ -13,7 +13,9 @@ class AbsentStudent extends Model
     protected $primaryKey = "id";
 
     protected $fillable =[
-        'date',
+        'day',
+        'month',
+        'year',
         'description',
         'student_id',
     ];

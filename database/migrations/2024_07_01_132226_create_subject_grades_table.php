@@ -17,11 +17,16 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('students');
             $table->integer('quiz1')->nullable();
             $table->integer('quiz2')->nullable();
-            $table->integer('midterm_test')->nullable();
             $table->integer('quiz3')->nullable();
             $table->integer('quiz4')->nullable();
+            $table->integer('homework1')->nullable();
+            $table->integer('midterm_test')->nullable();
+            $table->integer('quiz5')->nullable();
+            $table->integer('quiz6')->nullable();
+            $table->integer('quiz7')->nullable();
+            $table->integer('quiz8')->nullable();
+            $table->integer('homework2')->nullable();
             $table->integer('final_test')->nullable();
-            $table->integer('homework')->nullable();
             $table->unsignedBigInteger('subject_id')->nullable();
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->timestamps();

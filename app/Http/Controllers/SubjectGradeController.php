@@ -42,22 +42,33 @@ class SubjectGradeController extends Controller
             'subject_id' => 'required',
             'quiz1' => 'nullable|array',
             'quiz2' => 'nullable|array',
-            'midterm_test' => 'nullable|array',
             'quiz3' => 'nullable|array',
             'quiz4' => 'nullable|array',
+            'homework1' => 'nullable|array',
+            'midterm_test' => 'nullable|array',
+            'quiz5' => 'nullable|array',
+            'quiz6' => 'nullable|array',
+            'quiz7' => 'nullable|array',
+            'quiz8' => 'nullable|array',
+            'homework2' => 'nullable|array',
             'final_test' => 'nullable|array',
-            'homework' => 'nullable|array',
         ]);
 
         $subject_id = $request->input('subject_id');
         $student_ids = $request->input('student_ids');
         $quiz1 = $request->input('quiz1');
         $quiz2 = $request->input('quiz2');
-        $midterm_test = $request->input('midterm_test');
         $quiz3 = $request->input('quiz3');
         $quiz4 = $request->input('quiz4');
+        $homework1 = $request->input('homework1');
+        $midterm_test = $request->input('midterm_test');
+        $quiz5 = $request->input('quiz5');
+        $quiz6 = $request->input('quiz6');
+        $quiz7 = $request->input('quiz7');
+        $quiz8 = $request->input('quiz8');
+        $homework2 = $request->input('homework2');
         $final_test = $request->input('final_test');
-        $homework = $request->input('homework');
+
 
         foreach ($student_ids as $index => $student_id) {
             $subjectGrade = new SubjectGrade();
@@ -65,11 +76,16 @@ class SubjectGradeController extends Controller
             $subjectGrade->student_id = $student_id;
             $subjectGrade->quiz1 = $quiz1[$index];
             $subjectGrade->quiz2 = $quiz2[$index];
-            $subjectGrade->midterm_test = $midterm_test[$index];
             $subjectGrade->quiz3 = $quiz3[$index];
             $subjectGrade->quiz4 = $quiz4[$index];
+            $subjectGrade->homework1 = $homework1[$index];
+            $subjectGrade->midterm_test = $midterm_test[$index];
+            $subjectGrade->quiz5 = $quiz5[$index];
+            $subjectGrade->quiz6 = $quiz6[$index];
+            $subjectGrade->quiz7 = $quiz7[$index];
+            $subjectGrade->quiz8 = $quiz8[$index];
+            $subjectGrade->homework2 = $homework2[$index];
             $subjectGrade->final_test = $final_test[$index];
-            $subjectGrade->homework = $homework[$index];
             $subjectGrade->save();
         }
         return redirect()->route('subject-grade');
@@ -113,22 +129,33 @@ class SubjectGradeController extends Controller
             'subject_id' => 'required',
             'quiz1' => 'nullable|array',
             'quiz2' => 'nullable|array',
-            'midterm_test' => 'nullable|array',
             'quiz3' => 'nullable|array',
             'quiz4' => 'nullable|array',
+            'homework1' => 'nullable|array',
+            'midterm_test' => 'nullable|array',
+            'quiz5' => 'nullable|array',
+            'quiz6' => 'nullable|array',
+            'quiz7' => 'nullable|array',
+            'quiz8' => 'nullable|array',
+            'homework2' => 'nullable|array',
             'final_test' => 'nullable|array',
-            'homework' => 'nullable|array',
         ]);
 
         $subject_id = $request->input('subject_id');
         $student_ids = $request->input('student_ids');
         $quiz1 = $request->input('quiz1');
         $quiz2 = $request->input('quiz2');
-        $midterm_test = $request->input('midterm_test');
         $quiz3 = $request->input('quiz3');
         $quiz4 = $request->input('quiz4');
+        $homework1 = $request->input('homework1');
+        $midterm_test = $request->input('midterm_test');
+        $quiz5 = $request->input('quiz5');
+        $quiz6 = $request->input('quiz6');
+        $quiz7 = $request->input('quiz7');
+        $quiz8 = $request->input('quiz8');
+        $homework2 = $request->input('homework2');
         $final_test = $request->input('final_test');
-        $homework = $request->input('homework');
+
 
         foreach ($student_ids as $index => $student_id) {
             $subjectGrade = SubjectGrade::where('subject_id', $subject_id)
@@ -138,11 +165,16 @@ class SubjectGradeController extends Controller
             if ($subjectGrade) {
                 $subjectGrade->quiz1 = $quiz1[$index];
                 $subjectGrade->quiz2 = $quiz2[$index];
-                $subjectGrade->midterm_test = $midterm_test[$index];
                 $subjectGrade->quiz3 = $quiz3[$index];
                 $subjectGrade->quiz4 = $quiz4[$index];
+                $subjectGrade->homework1 = $homework1[$index];
+                $subjectGrade->midterm_test = $midterm_test[$index];
+                $subjectGrade->quiz5 = $quiz5[$index];
+                $subjectGrade->quiz6 = $quiz6[$index];
+                $subjectGrade->quiz7 = $quiz7[$index];
+                $subjectGrade->quiz8 = $quiz8[$index];
+                $subjectGrade->homework2 = $homework2[$index];
                 $subjectGrade->final_test = $final_test[$index];
-                $subjectGrade->homework = $homework[$index];
                 $subjectGrade->save();
             } else {
                 $newSubjectGrade = new SubjectGrade();
@@ -150,11 +182,17 @@ class SubjectGradeController extends Controller
                 $newSubjectGrade->student_id = $student_id;
                 $newSubjectGrade->quiz1 = $quiz1[$index];
                 $newSubjectGrade->quiz2 = $quiz2[$index];
-                $newSubjectGrade->midterm_test = $midterm_test[$index];
                 $newSubjectGrade->quiz3 = $quiz3[$index];
                 $newSubjectGrade->quiz4 = $quiz4[$index];
+                $newSubjectGrade->homework1 = $homework1[$index];
+                $newSubjectGrade->midterm_test = $midterm_test[$index];
+                $newSubjectGrade->quiz5 = $quiz5[$index];
+                $newSubjectGrade->quiz6 = $quiz6[$index];
+                $newSubjectGrade->quiz7 = $quiz7[$index];
+                $newSubjectGrade->quiz8 = $quiz8[$index];
+                $newSubjectGrade->homework2 = $homework2[$index];
                 $newSubjectGrade->final_test = $final_test[$index];
-                $newSubjectGrade->homework = $homework[$index];
+
                 $newSubjectGrade->save();
             }
         }

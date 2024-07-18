@@ -16,8 +16,8 @@
                             </script>
                         @endif
                         <div class="mb-10">
-                            <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Sign in</h1>
-                            <p class="text-base font-bold leading-normal text-white-dark">Enter your username and password to login</p>
+                            <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Masuk</h1>
+                            <p class="text-base font-bold leading-normal text-white-dark">Masukkan username and password untuk masuk</p>
                         </div>
                         <form class="space-y-5 dark:text-white" method="POST" action="{{ route('login')}}">
                             @csrf
@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"> Sign in </button>
+                            <button type="submit" class="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"> Masuk </button>
                         </form>
                     </div>
                 </div>

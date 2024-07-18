@@ -63,7 +63,7 @@
     <div class="panel" @if($search_results_available) @else hidden @endif id="tables-grade">
         <div class="panel">
             <div class="flex items-center justify-between flex-wrap mb-5 ">
-                <h5 class="font-semibold text-lg dark:text-white-light">Subject Grade</h5>
+                <h5 class="font-semibold text-lg dark:text-white-light">Nilai Mata Pelajaran</h5>
                 <div class="flex gap-3">
                     <div>
                         <button type="button" class="btn btn-primary" onclick="myFunction()">
@@ -77,7 +77,7 @@
                                 <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                       stroke-width="1.5" stroke-linecap="round" />
                             </svg>
-                            Add Subject Grade
+                            Tambah Nilai
                         </button>
                     </div>
                 </div>
@@ -94,15 +94,15 @@
                                 </svg>
                             </button>
                             <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                            >Add Subject Grade
+                            >Tambah Nilai Mapel
                             </h3>
                             <div class="p-5">
                                 <form action="/activity/subject/grade/add" method="POST">
                                     @csrf
                                     <div class="mb-5">
-                                        <label for="subject">Subject</label>
+                                        <label for="subject">Mata Pelajaran</label>
                                         <select id="subject_id" name="subject_id" class="form-input">
-                                            <option value="">-- Select Subject --</option>
+                                            <option value="">-- Pilih Mapel --</option>
                                             @foreach($subjects as $subject)
                                                 <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                             @endforeach
@@ -111,14 +111,19 @@
                                     <table class="border-2">
                                         <thead>
                                         <tr>
-                                            <th>Name Student</th>
-                                            <th>Quiz 1</th>
-                                            <th>Quiz 2</th>
-                                            <th>Midterm Test</th>
-                                            <th>Quiz 3</th>
-                                            <th>Quiz 4</th>
-                                            <th>Final Test</th>
-                                            <th>Homework</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Ulangan Harian 1</th>
+                                            <th>Ulangan Harian 2</th>
+                                            <th>Ulangan Harian 3</th>
+                                            <th>Ulangan Harian 4</th>
+                                            <th>Tugas 1</th>
+                                            <th>UTS</th>
+                                            <th>Ulangan Harian 5</th>
+                                            <th>Ulangan Harian 6</th>
+                                            <th>Ulangan Harian 7</th>
+                                            <th>Ulangan Harian 8</th>
+                                            <th>Tugas 2</th>
+                                            <th>UAS</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -137,10 +142,6 @@
                                                            class="form-input" />
                                                 </td>
                                                 <td>
-                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai"
-                                                           class="form-input" />
-                                                </td>
-                                                <td>
                                                     <input id="quiz3" name="quiz3[]" type="text" placeholder="input nilai"
                                                            class="form-input" />
                                                 </td>
@@ -149,11 +150,35 @@
                                                            class="form-input" />
                                                 </td>
                                                 <td>
-                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai"
+                                                    <input id="homework1" name="homework1[]" type="text" placeholder="input nilai"
                                                            class="form-input" />
                                                 </td>
                                                 <td>
-                                                    <input id="homework" name="homework[]" type="text" placeholder="input nilai"
+                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="quiz5" name="quiz5[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="quiz6" name="quiz6[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="quiz7" name="quiz7[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="quiz8" name="quiz8[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="homework2" name="homework2[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
+                                                <td>
+                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai"
                                                            class="form-input" />
                                                 </td>
                                             </tr>
@@ -178,14 +203,20 @@
                 <table class="border-2">
                     <thead>
                     <tr>
-                        <th>Name Student</th>
-                        <th class="border-2">Quiz 1</th>
-                        <th class="border-2">Quiz 2</th>
-                        <th class="border-2">Midterm Test</th>
-                        <th class="border-2">Quiz 3</th>
-                        <th class="border-2">Quiz 4</th>
-                        <th class="border-2">Final Test</th>
-                        <th class="border-2">Homework</th>
+                        <th class="border-2">Nama Siswa</th>
+                        <th class="border-2">Ulangan Harian 1</th>
+                        <th class="border-2">Ulangan Harian 2</th>
+                        <th class="border-2">Ulangan Harian 3</th>
+                        <th class="border-2">Ulangan Harian 4</th>
+                        <th class="border-2">Tugas 1</th>
+                        <th class="border-2">UTS</th>
+                        <th class="border-2">Ulangan Harian 5</th>
+                        <th class="border-2">Ulangan Harian 6</th>
+                        <th class="border-2">Ulangan Harian 7</th>
+                        <th class="border-2">Ulangan Harian 8</th>
+                        <th class="border-2">Tugas 2</th>
+                        <th class="border-2">UAS</th>
+                        <th class="border-2">Nilai Akhir Pada Rapor</th>
                         <th class="border-2">Action</th>
                     </tr>
                     </thead>
@@ -199,11 +230,22 @@
                                 <td class="font-bold border-2">{{ $student->name }}</td>
                                 <td class="border-2">{{ $studentGrades->quiz1 }}</td>
                                 <td class="border-2">{{ $studentGrades->quiz2 }}</td>
-                                <td class="border-2">{{ $studentGrades->midterm_test }}</td>
                                 <td class="border-2">{{ $studentGrades->quiz3 }}</td>
                                 <td class="border-2">{{ $studentGrades->quiz4 }}</td>
+                                <td class="border-2">{{ $studentGrades->homework1 }}</td>
+                                <td class="border-2">{{ $studentGrades->midterm_test }}</td>
+                                <td class="border-2">{{ $studentGrades->quiz5 }}</td>
+                                <td class="border-2">{{ $studentGrades->quiz6 }}</td>
+                                <td class="border-2">{{ $studentGrades->quiz7 }}</td>
+                                <td class="border-2">{{ $studentGrades->quiz8 }}</td>
+                                <td class="border-2">{{ $studentGrades->homework2 }}</td>
                                 <td class="border-2">{{ $studentGrades->final_test }}</td>
-                                <td class="border-2">{{ $studentGrades->homework }}</td>
+                                @php
+                                    $averageHomework = ($studentGrades->homework1 + $studentGrades->homework2) / 2;
+                                    $averageQuizzes = ($studentGrades->quiz1 + $studentGrades->quiz2 + $studentGrades->quiz3 + $studentGrades->quiz4 + $studentGrades->quiz5 + $studentGrades->quiz6 + $studentGrades->quiz7 + $studentGrades->quiz8) / 8;
+                                    $finalGrade = (0.2 * $averageHomework) + (0.3 * $averageQuizzes) + (0.2 * $studentGrades->midterm_test) + (0.3 * $studentGrades->final_test);
+                                @endphp
+                                <td class="border-2">{{ $finalGrade }}</td>
                                 <td class="border-2">
                                     <div class="flex gap-4 items-center justify-center">
                                         <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-grade', ['id' => $studentGrades->id])}}">Edit</a>

@@ -7,23 +7,23 @@
             <div class="mb-5">
                 <div class="mb-4 flex items-center sm:flex-row flex-col sm:justify-between justify-center">
                     <div class="sm:mb-0 mb-4">
-                        <div class="text-lg font-semibold ltr:sm:text-left rtl:sm:text-right text-center">Calendar Semester</div>
+                        <div class="text-lg font-semibold ltr:sm:text-left rtl:sm:text-right text-center">Kalender Semester</div>
                         <div class="flex items-center mt-2 flex-wrap sm:justify-start justify-center">
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-secondary"></div>
-                                <div>Flag Ceremony</div>
+                                <div>Upacara Bendera</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-primary"></div>
-                                <div>Spesial Event</div>
+                                <div>Acara Spesial</div>
                             </div>
                             <div class="flex items-center ltr:mr-4 rtl:ml-4">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-success"></div>
-                                <div>Exam</div>
+                                <div>Ujian</div>
                             </div>
                             <div class="flex items-center">
                                 <div class="h-2.5 w-2.5 rounded-sm ltr:mr-2 rtl:ml-2 bg-danger"></div>
-                                <div>Holiday</div>
+                                <div>Hari Libur</div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
-                        Create Event
+                        Tambahkan Acara
                     </button>
                     <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-calendersms"
                          >
@@ -43,7 +43,8 @@
                             <div  x-transition x-transition.duration.300
                                  class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
                                 <button type="button"
-                                        class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark">
+                                        class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark"
+                                        onclick="window.location.href = '{{ route('calendersms') }}'">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -58,26 +59,26 @@
                                     <form action="/calender/add" method="POST">
                                         @csrf
                                         <div class="mb-5">
-                                            <label for="event">Event Title :</label>
+                                            <label for="event">Nama Acara :</label>
                                             <input id="event" type="text" name="event"
                                                    class="form-input" placeholder="Enter Event Title" required />
                                             <div class="text-danger mt-2" id="titleErr"></div>
                                         </div>
 
                                         <div class="mb-5">
-                                            <label for="from">From :</label>
+                                            <label for="from">Mulai :</label>
                                             <input id="from" type="datetime-local" name="from"
                                                    class="form-input" placeholder="Event Start Date" required />
                                             <div class="text-danger mt-2" id="startDateErr"></div>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="to">To :</label>
+                                            <label for="to">Sampai :</label>
                                             <input id="to" type="datetime-local" name="to"
                                                    class="form-input" placeholder="Event End Date" required />
                                             <div class="text-danger mt-2" id="endDateErr"></div>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="description">Event Description :</label>
+                                            <label for="description">Deskripsi :</label>
                                             <textarea id="description" name="description" class="form-textarea min-h-[130px]"
                                                       placeholder="Enter Event Description"></textarea>
                                         </div>
@@ -87,28 +88,28 @@
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
                                                     <input type="radio" class="form-radio" name="type_event"
                                                            value="flagCeremony" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Flag Ceremony</span>
+                                                    <span class="ltr:pl-2 rtl:pr-2">Upacara</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
                                                     <input type="radio" class="form-radio text-secondary" name="type_event"
                                                            value="spesialEvent" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Spesial Event</span>
+                                                    <span class="ltr:pl-2 rtl:pr-2">Acara Spesial</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer ltr:mr-3 rtl:ml-3">
                                                     <input type="radio" class="form-radio text-success"
                                                            name="type_event" value="exam" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Exam</span>
+                                                    <span class="ltr:pl-2 rtl:pr-2">Ujian</span>
                                                 </label>
                                                 <label class="inline-flex cursor-pointer">
                                                     <input type="radio" class="form-radio text-danger"
                                                            name="type_event" value="holiday" />
-                                                    <span class="ltr:pl-2 rtl:pr-2">Holiday</span>
+                                                    <span class="ltr:pl-2 rtl:pr-2">Hari Libur</span>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="flex justify-end items-center mt-8">
                                             <button type="button" class="btn btn-outline-danger"
-                                                    @click="isAddEventModal = false">Cancel</button>
+                                                    onclick="window.location.href = '{{ route('calendersms') }}'">Cancel</button>
                                             <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
                                                     x-text="params.id ? 'Update Event' : 'Create Event'"></button>
                                         </div>
