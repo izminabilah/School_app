@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsentStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
@@ -15,9 +16,9 @@ class AbsentStudentController extends Controller
     public function index()
     {
         //
-        $subjects = Subject::all();
+//        $subjects = Subject::all();
         $students = Student::all();
-        return view('AbsentStudent', compact('students','subjects'));
+        return view('AbsentStudent', compact('students'));
     }
 
     /**
@@ -34,77 +35,37 @@ class AbsentStudentController extends Controller
     public function store(Request $request)
     {
         //
-//        $request->validate([
-//            'student_id'=>'required',
-//            'subject_id' => 'required',
-//            'quiz1' => 'nullable',
-//            'quiz2' => 'nullable',
-//            'midterm_test' => 'nullable',
-//            'quiz3' => 'nullable',
-//            'quiz4' => 'nullable',
-//            'final_test' => 'nullable',
-//            'homework' => 'nullable',
-//        ]);
-
-//        var_dump($request->all());
         $request->validate([
             'student_ids' => 'required|array',
-            'subject_id' => 'required',
-            'quiz1' => 'nullable|array',
-            'quiz2' => 'nullable|array',
-            'midterm_test' => 'nullable|array',
-            'quiz3' => 'nullable|array',
-            'quiz4' => 'nullable|array',
-            'final_test' => 'nullable|array',
-            'homework' => 'nullable|array',
+            'day' => 'nullable|array',
+            'month' => 'nullable|array',
+            'year' => 'nullable|array',
+            'description' => 'nullable|array',
         ]);
 
-        $subject_id = $request->input('subject_id');
         $student_ids = $request->input('student_ids');
-        $quiz1 = $request->input('quiz1');
-        $quiz2 = $request->input('quiz2');
-        $midterm_test = $request->input('midterm_test');
-        $quiz3 = $request->input('quiz3');
-        $quiz4 = $request->input('quiz4');
-        $final_test = $request->input('final_test');
-        $homework = $request->input('homework');
+        $month = $request->input('month')[0];
+        $year = $request->input('year')[0];
+        $descriptions = $request->input('description');
 
         foreach ($student_ids as $index => $student_id) {
-            $subjectGrade = new SubjectGrade();
-            $subjectGrade->subject_id = $subject_id;
-            $subjectGrade->student_id = $student_id;
-            $subjectGrade->quiz1 = $quiz1[$index];
-            $subjectGrade->quiz2 = $quiz2[$index];
-            $subjectGrade->midterm_test = $midterm_test[$index];
-            $subjectGrade->quiz3 = $quiz3[$index];
-            $subjectGrade->quiz4 = $quiz4[$index];
-            $subjectGrade->final_test = $final_test[$index];
-            $subjectGrade->homework = $homework[$index];
-            $subjectGrade->save();
-        }
-        return redirect()->route('absent-student');
-//        n=0;
-//        for (n>count(student->id)){
-//        $subject_id = $request->input('subject_id');
-//        $students = Subject::find($subject_id)->students;
-//
-//        foreach ($students as $student) {
-//        $subjectGrade = new SubjectGrade();
-//        $subjectGrade->subject_id = $request->input('subject_id');
-//        $subjectGrade ->student_id = $request->input('id_Student');
-//        $subjectGrade ->quiz1 = $request->input('quiz1');
-//        $subjectGrade ->quiz2= $request->input('quiz2');
-//        $subjectGrade->midterm_test = $request->input('midterm_test');
-//        $subjectGrade->quiz3 = $request->input('quiz3');
-//        $subjectGrade->quiz4 = $request->input('quiz4');
-//        $subjectGrade->final_test = $request->input('final_test');
-//        $subjectGrade->homework = $request->input('homework');
-//        $subjectGrade->save();
-//        }
+            for ($day = 1; $day <= 31; $day++) {
+                $descriptionIndex = ($index * 31) + ($day - 1);
+                if (isset($descriptions[$descriptionIndex]) && !empty($descriptions[$descriptionIndex])) {
+                    $description = $descriptions[$descriptionIndex];
 
-//        n++;
-//        endfor
-//        return redirect()->route('subject-grade');
+                    $absentStudent = new AbsentStudent();
+                    $absentStudent->student_id = $student_id;
+                    $absentStudent->day = $day;
+                    $absentStudent->month = $month;
+                    $absentStudent->year = $year;
+                    $absentStudent->description = $description;
+                    $absentStudent->save();
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Absensi berhasil disimpan');
+
     }
 
     /**

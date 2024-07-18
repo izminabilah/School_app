@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('absent_students', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('description');
+            $table->string('day');
+            $table->string('month');
+            $table->string('year');
+            $table->string('description')->nullable();
             $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id')->references('id')->on('students');
             $table->timestamps();
