@@ -32,9 +32,7 @@
                                     <line x1="6" y1="6" x2="18" y2="18"></line>
                                 </svg>
                             </button>
-                            <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                            >Daftar Absen
-                            </h3>
+                            <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">Daftar Absen</h3>
                             <div class="p-5">
                                 <form action="/activity/absent/add" method="POST">
                                     @csrf
@@ -57,7 +55,7 @@
                                         </select>
                                     </div>
                                     <div class="mb-5">
-                                        <label for="tear">Tahun</label>
+                                        <label for="year">Tahun</label>
                                         <select id="year" name="year[]" class="form-input">
                                             <option value="">-- Pilih Tahun --</option>
                                             <option value="2024">2024</option>
@@ -83,14 +81,14 @@
                                                         <input type="hidden" name="student_ids[]" value="{{ $student->id }}">
                                                     </td>
                                                     @for ($i = 1; $i <= 31; $i++)
-                                                        <td class=" border-2">
-                                                            <input type="hidden" name="day[]" value="{{ $i}}">
+                                                        <td class="border-2">
+                                                            <input type="hidden" name="day[]" value="{{ $i }}">
                                                             <select id="description" name="description[]" class="form-input">
                                                                 <option value="">-- Pilih Absen --</option>
-                                                                <option value="Masuk">M</option>
-                                                                <option value="Sakit">S</option>
-                                                                <option value="Absen">A</option>
-                                                                <option value="Ijin">I</option>
+                                                                <option value="M">Masuk</option>
+                                                                <option value="S">Sakit</option>
+                                                                <option value="A">Absen</option>
+                                                                <option value="I">Izin</option>
                                                             </select>
                                                         </td>
                                                     @endfor
@@ -119,37 +117,10 @@
                     <thead>
                     <tr>
                         <th>Name Student</th>
-                        <th class="border-2">1</th>
-                        <th class="border-2">2</th>
-                        <th class="border-2">3</th>
-                        <th class="border-2">4</th>
-                        <th class="border-2">5</th>
-                        <th class="border-2">6</th>
-                        <th class="border-2">7</th>
-                        <th class="border-2">8</th>
-                        <th class="border-2">9</th>
-                        <th class="border-2">10</th>
-                        <th class="border-2">11</th>
-                        <th class="border-2">12</th>
-                        <th class="border-2">13</th>
-                        <th class="border-2">14</th>
-                        <th class="border-2">15</th>
-                        <th class="border-2">16</th>
-                        <th class="border-2">17</th>
-                        <th class="border-2">18</th>
-                        <th class="border-2">19</th>
-                        <th class="border-2">20</th>
-                        <th class="border-2">21</th>
-                        <th class="border-2">22</th>
-                        <th class="border-2">23</th>
-                        <th class="border-2">24</th>
-                        <th class="border-2">25</th>
-                        <th class="border-2">26</th>
-                        <th class="border-2">27</th>
-                        <th class="border-2">28</th>
-                        <th class="border-2">29</th>
-                        <th class="border-2">30</th>
-                        <th class="border-2">31</th>
+                        @for ($i = 1; $i <= 31; $i++)
+                            <th class="border-2">{{ $i }}</th>
+                        @endfor
+                        <th class="border-2">Total</th>
                         <th class="border-2">Action</th>
                     </tr>
                     </thead>
@@ -157,37 +128,22 @@
                     @foreach($students as $student)
                         <tr>
                             <td class="font-bold border-2">{{ $student->name }}</td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
-                            <td class="border-2"></td>
+                            @php
+                                $totalAbsences = 0;
+                            @endphp
+                            @for ($i = 1; $i <= 31; $i++)
+                                <td class="border-2">
+                                    @if (isset($absentsStructured[$student->id][$i]))
+                                        {{ $absentsStructured[$student->id][$i]->description }}
+                                        @php
+                                            $totalAbsences++;
+                                        @endphp
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                            @endfor
+                            <td class="border-2">{{ $totalAbsences }}</td>
                             <td class="border-2">
                                 <div class="flex gap-4 items-center justify-center">
                                     <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>

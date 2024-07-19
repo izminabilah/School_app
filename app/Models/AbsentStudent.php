@@ -19,4 +19,5 @@ class AbsentStudent extends Model
         'description',
         'student_id',
     ];
+
 }

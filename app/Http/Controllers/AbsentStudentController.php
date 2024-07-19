@@ -17,8 +17,23 @@ class AbsentStudentController extends Controller
     {
         //
 //        $subjects = Subject::all();
+//        $students = Student::all();
+//        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+//
+//        return view('AbsentStudent', compact('students', 'absents'));
         $students = Student::all();
-        return view('AbsentStudent', compact('students'));
+        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+
+        // Ensure absents array is structured with the correct keys
+        $absentsStructured = [];
+        foreach ($absents as $student_id => $days) {
+            foreach ($days as $day => $absent) {
+                $absentsStructured[$student_id][$day] = $absent->first();
+            }
+        }
+
+        return view('AbsentStudent', compact('students', 'absentsStructured'));
+
     }
 
     /**
