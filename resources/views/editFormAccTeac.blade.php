@@ -10,7 +10,7 @@
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </a>
-                <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">Edit Account Teacher</h3>
+                <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">Edit Akun Guru</h3>
                 <div class="p-5">
                     <form name="form-edit" method="POST" action={{route('update-account-tea', ['id' => $accountTeachers->id])}}>
                         @csrf

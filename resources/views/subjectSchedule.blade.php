@@ -63,7 +63,7 @@
         <div class="panel @if($search_results_available) @else hidden @endif" id="tables-schedule">
             <div class="panel">
                 <div class="flex items-center justify-between mb-5 ">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Schedule Class</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Jadwal Kelas</h5>
                     <button type="button" class="btn btn-primary" onclick="myFunction()">
 
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -76,7 +76,7 @@
                             <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                   stroke-width="1.5" stroke-linecap="round" />
                         </svg>
-                        Add Schedule Class
+                        Tambah Jadwal Kelas
                     </button>
                     <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-schedule">
                         <div class="flex items-center justify-center min-h-screen px-4">
@@ -98,51 +98,50 @@
                                         <div class="mb-5">
                                             <label for="day">Hari</label>
                                             <select id="day" name="day" class="form-input">
-                                                <option value="">-- Select Day --</option>
-                                                <option value="Monday">Monday</option>
-                                                <option value="Tuesday">Tuesday</option>
-                                                <option value="Wednesday">Wednesday</option>
-                                                <option value="Thursday">Thursday</option>
-                                                <option value="Friday">Friday</option>
-                                                <option value="Saturday">Saturday</option>
+                                                <option value="">-- Pilih Hari --</option>
+                                                <option value="Senin">Senin</option>
+                                                <option value="Selasa">Selasa</option>
+                                                <option value="Rabu">Rabu</option>
+                                                <option value="Kamis">Kamis</option>
+                                                <option value="Jumat">Jumat</option>
                                             </select>
                                         </div>
                                         <div class="mb-5">
                                             <label for="hour">Jam</label>
                                             <select id="hour" name="hour" class="form-input">
                                                 <option value="">-- Select Hour --</option>
-                                                <option value="07.30-08.30">07.30-08.30</option>
-                                                <option value="08.30-09.30">08.30-09.30</option>
-                                                <option value="09.30-10.00">09.30-10.00</option>
-                                                <option value="09.30-10.00">09.30-10.00</option>
-                                                <option value="10.30-11.30">10.30-11.30</option>
-                                                <option value="11.30-13.00">11.30-13.00</option>
-                                                <option value="13.00-13.30">13.00-13.30</option>
-                                                <option value="13.30-14.00">13.30-14.00</option>
-                                                <option value="14.00-14.30">14.00-14.30</option>
-                                                <option value="14.30-15.00">14.30-15.00</option>
+                                                <option value="07.00-07.45">07.00-07.45</option>
+                                                <option value="07.45-08.30">07.45-08.30</option>
+                                                <option value="08.30-09.15">08.30-09.15</option>
+                                                <option value="09.15-10.00">09.15-10.00</option>
+                                                <option value="10.20-11.00">10.20-11.00</option>
+                                                <option value="11.00-11.40">11.00-11.40</option>
+                                                <option value="11.40-12.20">11.40-12.20</option>
+                                                <option value="13.00-13.40">13.00-13.40</option>
+                                                <option value="13.40-14.20">13.40-14.20</option>
+                                                <option value="14.20-15.00">14.20-15.00</option>
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="subject">Subject</label>
+                                            <label for="subject">Mapel</label>
                                             <select id="subject" name="subject" class="form-input">
-                                                <option value="">-- Select Subject --</option>
+                                                <option value="">-- Pilih Mapel --</option>
                                                 @foreach($subjects as $subject)
                                                     <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="teacher">Teacher</label>
+                                            <label for="teacher">Guru</label>
                                             <select id="teacher" name="teacher" class="form-input">
-                                                <option value="">-- Select Subject --</option>
+                                                <option value="">-- Pilih Guru --</option>
                                                 @foreach($teachers as $teacher)
                                                     <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-5">
-                                            <label for="class_student">Class</label>
+                                            <label for="class_student">Kelas</label>
                                             <select id="class_student" name="class_student" class="form-input">
                                                 <option value="">-- Select Subject --</option>
                                                 @foreach($class_students as $class_student)
@@ -167,10 +166,10 @@
                     <table class="border-2">
                         <thead>
                         <tr>
-                            <th class="font-bold border-2">Day</th>
-                            <th class="font-bold border-2">Hour</th>
-                            <th class="font-bold border-2">Subject</th>
-                            <th class="font-bold border-2">Teacher</th>
+                            <th class="font-bold border-2">Hari</th>
+                            <th class="font-bold border-2">Jam</th>
+                            <th class="font-bold border-2">Mapel</th>
+                            <th class="font-bold border-2">Guru</th>
                             <th class="font-bold border-2 text-center">Action</th>
                         </tr>
                         </thead>

@@ -2,7 +2,7 @@
 
     <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Subject List</h2>
+            <h2 class="text-xl">Daftar Mata Pelajaran</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                 <div class="flex gap-3">
                     <div>
@@ -18,7 +18,7 @@
                                 <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                       stroke-width="1.5" stroke-linecap="round" />
                             </svg>
-                            Add Subject
+                            Tambah Mapel
                         </button>
                         <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" :class="addContactModal && '!block'">
                             <div class="flex items-center justify-center min-h-screen px-4"
@@ -37,7 +37,7 @@
                                         </svg>
                                     </button>
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                       >Add Subject</h3>
+                                       >Tambah Mapel</h3>
                                     <div class="p-5">
                                         <form action="/listSubject/add" method="POST">
                                             @csrf
@@ -66,7 +66,7 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th class="text-center">Subject</th>
+                            <th class="text-center">Mata Pelajaran</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>

@@ -87,7 +87,7 @@ class CalendersmsController extends Controller
         $events->description = $request->input('description');
         $events->type_event = $request->input('type_event');
         $events->save();
-        return redirect()->route('CalenderSemester');
+        return redirect()->route('calendersms');
     }
 
     /**

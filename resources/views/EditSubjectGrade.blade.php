@@ -39,7 +39,7 @@
             </div>
             <div class="relative">
                 <div class="flex flex-col items-center justify-center sm:-ms-32 sm:flex-row xl:-ms-60">
-                    <div class="mb-2 flex gap-1 text-end text-base leading-5 sm:flex-col xl:text-xl">
+                    <div class="mb-2 flex gap-1 text-end text-base leading-5 sm:flex-col xl:text-l">
                         <span>For everyone</span>
                     </div>
                     <div class="me-4 ms-2 hidden sm:block text-[#0E1726] dark:text-white  rtl:rotate-y-180">
@@ -47,116 +47,141 @@
                             <path d="M0.645796 11.44C0.215273 11.6829 0.0631375 12.2287 0.305991 12.6593C0.548845 13.0898 1.09472 13.2419 1.52525 12.9991L0.645796 11.44ZM49.0622 20.4639L48.9765 19.5731L48.9765 19.5731L49.0622 20.4639ZM115.315 2.33429L105.013 3.14964L110.87 11.6641L115.315 2.33429ZM1.52525 12.9991C10.3971 7.99452 17.8696 10.3011 25.3913 13.8345C29.1125 15.5825 32.9505 17.6894 36.8117 19.2153C40.7121 20.7566 44.7862 21.7747 49.148 21.3548L48.9765 19.5731C45.0058 19.9553 41.2324 19.0375 37.4695 17.5505C33.6675 16.0481 30.0265 14.0342 26.1524 12.2143C18.4834 8.61181 10.3 5.99417 0.645796 11.44L1.52525 12.9991ZM49.148 21.3548C52.4593 21.0362 54.7308 19.6545 56.4362 17.7498C58.1039 15.8872 59.2195 13.5306 60.2695 11.3266C61.3434 9.07217 62.3508 6.97234 63.8065 5.35233C65.2231 3.77575 67.0736 2.6484 69.8869 2.40495L69.7326 0.62162C66.4361 0.906877 64.1742 2.26491 62.475 4.15595C60.8148 6.00356 59.703 8.35359 58.6534 10.5568C57.5799 12.8105 56.5678 14.9194 55.1027 16.5557C53.6753 18.1499 51.809 19.3005 48.9765 19.5731L49.148 21.3548ZM69.8869 2.40495C72.2392 2.2014 75.0889 2.61953 78.2858 3.35001C81.4816 4.08027 84.9116 5.09374 88.4614 6.04603C91.9873 6.99189 95.6026 7.86868 99.0694 8.28693C102.533 8.70483 105.908 8.67299 108.936 7.75734L108.418 6.04396C105.72 6.85988 102.621 6.91239 99.2838 6.50981C95.9496 6.10757 92.4363 5.25904 88.9252 4.31715C85.4382 3.38169 81.9229 2.34497 78.6845 1.60499C75.4471 0.865243 72.3735 0.393097 69.7326 0.62162L69.8869 2.40495Z" fill="currentColor"></path>
                         </svg>
                     </div>
-                    <div class="mb-2 text-center text-xl font-bold dark:text-white md:text-3xl">Wanna know your schedule?</div>
+                    <div class="mb-2 text-center text-xl font-bold dark:text-white md:text-3xl">Wanna know your subject grade?</div>
                 </div>
-                <p class="mb-9 text-center text-base font-semibold">Search your class to get the schedule</p>
-                <form action="" method="" class="mb-6">
+                <p class="mb-9 text-center text-base font-semibold">Search your subject to get the grade</p>
+                <form action="/" method="GET" class="mb-6">
                     <div class="relative mx-auto max-w-[580px]">
-                        <input type="text" placeholder="Input your class" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]">
-                        <button type="button" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
+                        <input type="text" placeholder="Input your subject" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" id="search-subject"  name="search-subject">
+                        <button type="submit" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
                     </div>
                 </form>
             </div>
         </div>
-
-        <!-- Contextual -->
+    </div>
+    <div class="panel" id="tables-grade">
         <div class="panel">
-            <div>
-                <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Schedule Class</h5>
-                    <button type="button" class="btn btn-primary">
+            <div class="flex items-center justify-between flex-wrap mb-5 ">
+                <h5 class="font-semibold text-lg dark:text-white-light">Subject Grade</h5>
+                <div class="flex gap-3">
+                    <div>
+                        <button type="button" class="btn btn-primary" onclick="myFunction()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ltr:mr-2 rtl:ml-2">
+                                <circle cx="10" cy="6" r="4" stroke="currentColor"
+                                        stroke-width="1.5" />
+                                <path opacity="0.5"
+                                      d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z"
+                                      stroke="currentColor" stroke-width="1.5" />
+                                <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
+                                      stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            Add Subject Grade
+                        </button>
+                    </div>
+                </div>
+                <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto " id="form-add-schedule">
+                    <div class="flex items-center justify-center min-h-screen px-4">
+                        <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full w-[90%] my-8">
+                            <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/subject/grade'">
 
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ltr:mr-2 rtl:ml-2">
-                            <circle cx="10" cy="6" r="4" stroke="currentColor"
-                                    stroke-width="1.5" />
-                            <path opacity="0.5"
-                                  d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z"
-                                  stroke="currentColor" stroke-width="1.5" />
-                            <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
-                                  stroke-width="1.5" stroke-linecap="round" />
-                        </svg>
-                        Edit Schedule Class
-                    </button>
-                    <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto" id="form-add-schedule">
-                        <div class="flex items-center justify-center min-h-screen px-4">
-                            <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
-                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/Schedule'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                     stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                            <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
+                            >Edit Subject Grade
+                            </h3>
+                            <div class="p-5">
+                                <form name="form-edit" method="POST" action="{{route('update-grade')}}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-5">
+                                        <label for="subject">Subject</label>
+                                        <select id="subject_id" name="subject_id" class="form-input">
+                                            <option value="">-- Select Subject --</option>
+                                            @foreach($subjects as $subject)
+                                                <option value="{{ $subject->id }}" {{ $subjectGrades->first()->subject_id == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <table class=" table-responsive border-2">
+                                        <thead>
+                                        <tr>
+                                            <th>Nama Siswa</th>
+                                            <th>Ulangan Harian 1</th>
+                                            <th>Ulangan Harian 2</th>
+                                            <th>Ulangan Harian 3</th>
+                                            <th>Ulangan Harian 4</th>
+                                            <th>Tugas 1</th>
+                                            <th>Ulangan Tengah Semester</th>
+                                            <th>Ulangan Harian 5</th>
+                                            <th>Ulangan Harian 6</th>
+                                            <th>Ulangan Harian 7</th>
+                                            <th>Ulangan Harian 8</th>
+                                            <th>Tugas 2</th>
+                                            <th>Ulangan Akhir Semester</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($students as $student)
+                                            @php
+                                                $studentGrade = $subjectGrades->where('student_id', $student->id)->first();
+                                            @endphp
+                                            <tr>
+                                                <td>
+                                                    {{ $student->name }}
+                                                    <input type="hidden" name="student_ids[]" value="{{ $student->id }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz1" name="quiz1[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz1 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz2" name="quiz2[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz2 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz3" name="quiz3[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz3 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz4" name="quiz4[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz4 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="homework1" name="homework1[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework1: '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="midterm_test" name="midterm_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->midterm_test : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz5" name="quiz5[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz5 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz6" name="quiz6[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz6 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz7" name="quiz7[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz7 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="quiz8" name="quiz8[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->quiz8 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="homework2" name="homework2[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->homework2 : '' }}">
+                                                </td>
+                                                <td>
+                                                    <input id="final_test" name="final_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->final_test : '' }}">
+                                                </td>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                         stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
-                                </button>
-                                <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                >Edit Jadwal</h3>
-                                <div class="p-5">
-                                    <form name="form-edit" method="POST" action={{route('update-schedule', ['id' => $subjectSchedules->id])}}>
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="mb-5">
-                                            <label for="day">Hari</label>
-                                            <select id="day" name="day" class="form-input">
-                                                <option value="Senin" {{ $subjectSchedules->day == 'Senin' ? 'selected' : '' }}>Senin</option>
-                                                <option value="Selasa" {{ $subjectSchedules->day == 'Selasa' ? 'selected' : '' }}>Selasa</option>
-                                                <option value="Rabu" {{ $subjectSchedules->day == 'Rabu' ? 'selected' : '' }}>Rabu</option>
-                                                <option value="Kamis" {{ $subjectSchedules->day == 'Kamis' ? 'selected' : '' }}>Kamis</option>
-                                                <option value="Jumat" {{ $subjectSchedules->day == 'Jumat' ? 'selected' : '' }}>Jumat</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="hour">Jam</label>
-                                            <select id="hour" name="hour" class="form-input">
-                                                <option value="">-- Pilih Jam --</option>
-                                                <option value="07.00-07.45" {{ $subjectSchedules->hour == '07.00-07.45' ? 'selected' : '' }}>07.00-07.45</option>
-                                                <option value="07.45-08.30" {{ $subjectSchedules->hour == '07.45-08.30' ? 'selected' : '' }}>07.45-08.30</option>
-                                                <option value="08.30-09.15" {{ $subjectSchedules->hour == '08.30-09.15' ? 'selected' : '' }}>08.30-09.15</option>
-                                                <option value="09.15-10.00" {{ $subjectSchedules->hour == '09.15-10.00' ? 'selected' : '' }}>09.15-10.00</option>
-                                                <option value="10.20-11.00" {{ $subjectSchedules->hour == '10.20-11.00' ? 'selected' : '' }}>10.20-11.00</option>
-                                                <option value="11.00-11.40" {{ $subjectSchedules->hour == '11.00-11.40' ? 'selected' : '' }}>11.00-11.40</option>
-                                                <option value="11.40-12.20" {{ $subjectSchedules->hour == '11.40-12.20' ? 'selected' : '' }}>11.40-12.20</option>
-                                                <option value="13.00-13.40" {{ $subjectSchedules->hour == '13.00-13.40' ? 'selected' : '' }}>13.00-13.40</option>
-                                                <option value="13.40-14.20" {{ $subjectSchedules->hour == '13.40-14.20' ? 'selected' : '' }}>13.40-14.20</option>
-                                                <option value="14.20-15.00" {{ $subjectSchedules->hour == '14.20-15.00' ? 'selected' : '' }}>14.20-15.00</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="subject">Mapel</label>
-                                            <select id="subject" name="subject" class="form-input">
-                                                <option value="">-- Pilih Mapel --</option>
-                                                @foreach($subjects as $subject)
-                                                    <option value="{{ $subject->id}}" {{ $subjectSchedules->subject_id == $subject->id ? 'selected' : '' }}>{{ $subject->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="teacher">Guru</label>
-                                            <select id="teacher" name="teacher" class="form-input">
-                                                <option value="">-- Pilih Guru --</option>
-                                                @foreach($teachers as $teacher)
-                                                    <option value="{{ $teacher->id }}" {{ $subjectSchedules->teacher_id == $teacher->id ? 'selected' : '' }}>{{ $teacher->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="class_student">Kelas</label>
-                                            <select id="class_student" name="class_student" class="form-input">
-                                                <option value="">-- Pilih Kelas --</option>
-                                                @foreach($class_students as $class_student)
-                                                    <option value="{{ $class_student->id }}" {{ $subjectSchedules->class_student_id == $class_student->id ? 'selected' : '' }}>{{ $class_student->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="flex justify-end items-center mt-8">
-                                            <button type="button" class="btn btn-outline-danger"
-                                                    onclick="location.href='/Schedule'">Cancel</button>
-                                            <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    <div class="flex justify-end items-center mt-8">
+                                        <button type="button" class="btn btn-outline-danger" onclick="location.href='/activity/subject/grade'">Cancel</button>
+                                        <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -164,4 +189,5 @@
             </div>
         </div>
     </div>
+
 </x-layout.default>
