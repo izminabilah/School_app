@@ -112,7 +112,49 @@ class AbsentStudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+//        var_dump('hallo masuk nih ke update');
+        $request->validate([
+            'student_ids' => 'required|array',
+            'day' => 'nullable|array',
+            'month' => 'required|string',
+            'year' => 'required|string',
+            'description' => 'nullable|array',
+        ]);
 
+        $student_ids = $request->input('student_ids');
+        $days = $request->input('day');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $descriptions = $request->input('description');
+
+        foreach ($student_ids as $index => $student_id) {
+            for ($day = 1; $day <= 31; $day++) {
+                $descriptionIndex = ($index * 31) + ($day - 1);
+                $description = $descriptions[$descriptionIndex] ?? null;
+
+                if (!empty($description)) {
+                    $absentStudent = AbsentStudent::where('student_id', $student_id)
+                        ->where('day', $day)
+                        ->where('month', $month)
+                        ->where('year', $year)
+                        ->first();
+
+                    if ($absentStudent) {
+                        $absentStudent->description = $description;
+                        $absentStudent->save();
+                    } else {
+                        $absentStudent = new AbsentStudent();
+                        $absentStudent->student_id = $student_id;
+                        $absentStudent->day = $day;
+                        $absentStudent->month = $month;
+                        $absentStudent->year = $year;
+                        $absentStudent->description = $description;
+                        $absentStudent->save();
+                    }
+                }
+            }
+        }
+        return redirect()-> route('absent-student');
     }
 
     /**

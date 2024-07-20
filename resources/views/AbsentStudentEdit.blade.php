@@ -30,7 +30,7 @@
                             </button>
                             <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]">Edit Absen</h3>
                             <div class="p-5">
-                                <form action="{{ url('/activity/absent/update/' . $absent->id) }}" method="POST">
+                                <form name="form-edit" method="POST" action="{{ route('update-absent', ['id' => $absent->id]) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-5">
@@ -79,10 +79,12 @@
                                                                 <option value="">-- Pilih Absen --</option>
                                                                 @foreach(['M' => 'Masuk', 'S' => 'Sakit', 'A' => 'Absen', 'I' => 'Izin'] as $value => $label)
                                                                     @php
-                                                                        $absent = AbsentStudent::where('student_id', $student->id)
+                                                                        $absentRecord = AbsentStudent::where('student_id', $student->id)
                                                                             ->where('day', $i)
+                                                                            ->where('month', $absent->month)
+                                                                            ->where('year', $absent->year)
                                                                             ->first();
-                                                                        $selectedValue = $absent ? $absent->description : '';
+                                                                        $selectedValue = $absentRecord ? $absentRecord->description : '';
                                                                     @endphp
                                                                     <option value="{{ $value }}" {{ $selectedValue === $value ? 'selected' : '' }}>
                                                                         {{ $label }}
