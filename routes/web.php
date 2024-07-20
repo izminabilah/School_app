@@ -76,6 +76,7 @@ Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('
 Route::post('/activity/absent/add', [AbsentStudentController::class, 'store']);
 Route::get('/activity/absent/edit/{id}', [AbsentStudentController::class, 'edit'])->name('edit-absent');
 Route::put('/activity/absent/update/{id}', [AbsentStudentController::class, 'update'])->name('update-absent');
+Route::get('/activity/absent/update/search', [AbsentStudentController::class, 'search'])->name('search-absent');
 
 Route::get('/activity/subject/grade',[SubjectGradeController::class, 'index'])->name('subject-grade');
 Route::post('/activity/subject/grade/add', [SubjectGradeController::class, 'store']);

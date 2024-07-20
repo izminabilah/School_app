@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbsentStudent;
+use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
@@ -122,7 +123,6 @@ class AbsentStudentController extends Controller
         ]);
 
         $student_ids = $request->input('student_ids');
-        $days = $request->input('day');
         $month = $request->input('month');
         $year = $request->input('year');
         $descriptions = $request->input('description');
@@ -163,5 +163,32 @@ class AbsentStudentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $search = $request->input('search-absent');
+        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+
+        if ($class_student) {
+            $students = Student::where('class_student_id', $class_student->id)->get();
+            $student_ids = $students->pluck('id');
+            $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
+        } else {
+            $absentStudents = collect(); // return an empty collection if no matching class is found
+        }
+        /////
+        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+
+        // Ensure absents array is structured with the correct keys
+        $absentsStructured = [];
+        foreach ($absents as $student_id => $days) {
+            foreach ($days as $day => $absent) {
+                $absentsStructured[$student_id][$day] = $absent->first();
+            }
+        }
+        ////
+        $search_results_available = true;
+
+        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured'));
     }
 }
