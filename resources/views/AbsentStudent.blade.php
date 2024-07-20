@@ -120,7 +120,7 @@
                         @for ($i = 1; $i <= 31; $i++)
                             <th class="border-2">{{ $i }}</th>
                         @endfor
-                        <th class="border-2">Total</th>
+                        <th class="border-2">Total Masuk</th>
                         <th class="border-2">Action</th>
                     </tr>
                     </thead>
@@ -129,24 +129,26 @@
                         <tr>
                             <td class="font-bold border-2">{{ $student->name }}</td>
                             @php
-                                $totalAbsences = 0;
+                                $totalMasuk = 0;
                             @endphp
                             @for ($i = 1; $i <= 31; $i++)
                                 <td class="border-2">
                                     @if (isset($absentsStructured[$student->id][$i]))
+                                        @if ($absentsStructured[$student->id][$i]->description === 'M')
+                                            @php
+                                                $totalMasuk++;
+                                            @endphp
+                                        @endif
                                         {{ $absentsStructured[$student->id][$i]->description }}
-                                        @php
-                                            $totalAbsences++;
-                                        @endphp
                                     @else
                                         -
                                     @endif
                                 </td>
                             @endfor
-                            <td class="border-2">{{ $totalAbsences }}</td>
+                            <td class="border-2">{{ $totalMasuk }}</td>
                             <td class="border-2">
                                 <div class="flex gap-4 items-center justify-center">
-                                    <a type="button" class="btn btn-sm btn-outline-primary" href="/">Edit</a>
+                                    <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-absent', ['id' => $student->id])}}">Edit</a>
                                 </div>
                             </td>
                         </tr>

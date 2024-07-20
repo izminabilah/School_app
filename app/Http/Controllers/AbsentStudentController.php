@@ -94,10 +94,17 @@ class AbsentStudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+        public function edit(string $id)
+        {
+            $students = Student::all();
+            $months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            $years = ['2024', '2025', '2026'];
+            $absent = AbsentStudent::findOrFail($id);
+            return view('AbsentStudentEdit', compact('students', 'absent', 'months', 'years'));
+        }
 
     /**
      * Update the specified resource in storage.
@@ -105,6 +112,7 @@ class AbsentStudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**
