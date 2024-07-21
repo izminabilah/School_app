@@ -16,7 +16,8 @@ class ActivityStudentController extends Controller
         //
         $class_students = ClassStudent::all();
         $activityStudents = ActivityStudent::all();
-        return view('ActivityStudent', compact('class_students','activityStudents'));
+        $search_results_available = false;
+        return view('ActivityStudent', compact('class_students','activityStudents','search_results_available'));
     }
 
     /**
@@ -111,5 +112,18 @@ class ActivityStudentController extends Controller
         //
         $activityStudent = ActivityStudent::whereId($id) -> delete();
         return redirect()->back()->with('success', 'Schedule data has been deleted successfully!');
+    }
+    public function search(Request $request){
+        $search = $request->input('search-activity');
+        $class_students = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+        if ($class_students) {
+            $activityStudents = ActivityStudent::where('class_student_id', $class_students->id)->get();
+        } else {
+            $activityStudents = collect(); // return an empty collection if no matching class is found
+        }
+        $search_results_available = true;
+        $class_students = ClassStudent::all();
+
+        return view('ActivityStudent', compact('activityStudents', 'class_students', 'search_results_available'));
     }
 }
