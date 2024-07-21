@@ -17,9 +17,9 @@
                             <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                   stroke-width="1.5" stroke-linecap="round" />
                         </svg>
-                        Tambah aktivitas
+                        Edit aktivitas
                     </button>
-                    <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-activity">
+                    <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto " id="form-add-activity">
                         <div class="flex items-center justify-center min-h-screen px-4">
                             <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
                                 <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/Schedule'">
@@ -32,22 +32,23 @@
                                     </svg>
                                 </button>
                                 <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                >Tambah aktivitas</h3>
+                                >Edit aktivitas</h3>
                                 <div class="p-5">
-                                    <form action="/activity/student/add" method="POST" enctype="multipart/form-data">
+                                    <form name="form-edit" method="POST" action="{{ route('update-aktivitas', ['id' => $activityStudents->id]) }}" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         <div class="mb-5">
                                             <label for="class_student">Kelas</label>
                                             <select id="class_student" name="class_student" class="form-input">
                                                 <option value="">-- Select Subject --</option>
                                                 @foreach($class_students as $class_student)
-                                                    <option value="{{ $class_student->id }}">{{ $class_student->name }}</option>
+                                                    <option value="{{ $class_student->id }}" {{ $activityStudents->class_student_id == $class_student->id ? 'selected' : '' }}>{{ $class_student->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-5">
                                             <label for="datetime">Tanggal</label>
-                                            <input id="datetime" type="datetime-local" name="datetime" class="form-input" placeholder="masukkan tanggal">
+                                            <input id="datetime" type="datetime-local" name="datetime" class="form-input" placeholder="masukkan tanggal" value="{{ $activityStudents->datetime }}">
                                         </div>
                                         <div class="mb-5">
                                             <label for="activity_photo">Foto Aktivitas</label>
@@ -55,11 +56,11 @@
                                         </div>
                                         <div class="mb-5">
                                             <label for="description">Deskripsi</label>
-                                            <input id="description" name="description" class="form-input" placeholder="tulis deskripsi aktivitas">
+                                            <input id="description" name="description" class="form-input" placeholder="tulis deskripsi aktivitas" value="{{ $activityStudents->description }}">
                                         </div>
                                         <div class="flex justify-end items-center mt-8">
                                             <button type="button" class="btn btn-outline-danger"
-                                                    onclick="location.href='/Schedule'">Cancel</button>
+                                                    onclick="location.href='/activity/student'">Cancel</button>
                                             <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
                                         </div>
                                     </form>
@@ -83,21 +84,21 @@
                         <tbody>
                         @forelse($activityStudents as $activityStudent)
                             <tr>
-                                <td class="border-2">{{$activityStudent->datetime}}</td>
+                                <td class="border-2">{{ $activityStudents->datetime }}</td>
                                 <td class="border-2">
-                                    <img src="{{ asset('storage/' . $activityStudent->activity_photo) }}" alt="Activity Photo" width="100" />
+                                    <img src="{{ asset('storage/' . $activityStudents->activity_photo) }}" alt="Activity Photo" width="100" />
                                 </td>
-                                <td class="border-2">{{$activityStudent->description}}</td>
+                                <td class="border-2">{{ $activityStudents->description }}</td>
                                 <td class="border-2">
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-aktivitas', ['id' => $activityStudent->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{ route('edit-aktivitas', ['id' => $activityStudents->id]) }}">Edit</a>
                                         <a type="button" class="btn btn-sm btn-outline-danger" href="">Delete</a>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Tidak terdapat aktivitas yang dapat ditemukan</td>
+                                <td colspan="4" class="text-center">Tidak terdapat aktivitas yang dapat ditemukan</td>
                             </tr>
                         @endforelse
                         </tbody>

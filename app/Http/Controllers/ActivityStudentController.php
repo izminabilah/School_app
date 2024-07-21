@@ -15,7 +15,8 @@ class ActivityStudentController extends Controller
     {
         //
         $class_students = ClassStudent::all();
-        return view('ActivityStudent', compact('class_students'));
+        $activityStudents = ActivityStudent::all();
+        return view('ActivityStudent', compact('class_students','activityStudents'));
     }
 
     /**
@@ -49,8 +50,8 @@ class ActivityStudentController extends Controller
             $activityStudent->activity_photo = $imagePath;
             $activityStudent->description = $request->input('description');
             $activityStudent->save();
-
         }
+
         return redirect()->route('aktivitas');
     }
 
@@ -60,6 +61,7 @@ class ActivityStudentController extends Controller
     public function show(string $id)
     {
         //
+
     }
 
     /**
@@ -68,6 +70,9 @@ class ActivityStudentController extends Controller
     public function edit(string $id)
     {
         //
+        $class_students = ClassStudent::all();
+        $activityStudents = ActivityStudent::findOrFail($id);
+        return view('ActivityStudentEdit', compact('class_students', 'activityStudents'));
     }
 
     /**
@@ -76,6 +81,26 @@ class ActivityStudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'class_student' => 'required',
+            'activity_photo' => 'image|mimes:jpeg,png,jpg,gif',
+            'datetime' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $activityStudent = ActivityStudent::findOrFail($id);
+
+        if ($request->hasFile('activity_photo')) {
+            $imagePath = $request->file('activity_photo')->store('photos', 'public');
+            $activityStudent->activity_photo = $imagePath;
+        }
+
+        $activityStudent->class_student_id = $request->input('class_student');
+        $activityStudent->datetime = $request->input('datetime');
+        $activityStudent->description = $request->input('description');
+        $activityStudent->save();
+
+        return redirect()->route('aktivitas');
     }
 
     /**
