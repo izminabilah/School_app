@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbsentStudent;
+use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
@@ -17,8 +18,23 @@ class AbsentStudentController extends Controller
     {
         //
 //        $subjects = Subject::all();
+//        $students = Student::all();
+//        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+//
+//        return view('AbsentStudent', compact('students', 'absents'));
         $students = Student::all();
-        return view('AbsentStudent', compact('students'));
+        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+        $search_results_available = false;
+        // Ensure absents array is structured with the correct keys
+        $absentsStructured = [];
+        foreach ($absents as $student_id => $days) {
+            foreach ($days as $day => $absent) {
+                $absentsStructured[$student_id][$day] = $absent->first();
+            }
+        }
+
+        return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available'));
+
     }
 
     /**
@@ -79,10 +95,17 @@ class AbsentStudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+        public function edit(string $id)
+        {
+            $students = Student::all();
+            $months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            $years = ['2024', '2025', '2026'];
+            $absent = AbsentStudent::findOrFail($id);
+            return view('AbsentStudentEdit', compact('students', 'absent', 'months', 'years'));
+        }
 
     /**
      * Update the specified resource in storage.
@@ -90,6 +113,48 @@ class AbsentStudentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+//        var_dump('hallo masuk nih ke update');
+        $request->validate([
+            'student_ids' => 'required|array',
+            'day' => 'nullable|array',
+            'month' => 'required|string',
+            'year' => 'required|string',
+            'description' => 'nullable|array',
+        ]);
+
+        $student_ids = $request->input('student_ids');
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $descriptions = $request->input('description');
+
+        foreach ($student_ids as $index => $student_id) {
+            for ($day = 1; $day <= 31; $day++) {
+                $descriptionIndex = ($index * 31) + ($day - 1);
+                $description = $descriptions[$descriptionIndex] ?? null;
+
+                if (!empty($description)) {
+                    $absentStudent = AbsentStudent::where('student_id', $student_id)
+                        ->where('day', $day)
+                        ->where('month', $month)
+                        ->where('year', $year)
+                        ->first();
+
+                    if ($absentStudent) {
+                        $absentStudent->description = $description;
+                        $absentStudent->save();
+                    } else {
+                        $absentStudent = new AbsentStudent();
+                        $absentStudent->student_id = $student_id;
+                        $absentStudent->day = $day;
+                        $absentStudent->month = $month;
+                        $absentStudent->year = $year;
+                        $absentStudent->description = $description;
+                        $absentStudent->save();
+                    }
+                }
+            }
+        }
+        return redirect()-> route('absent-student');
     }
 
     /**
@@ -98,5 +163,32 @@ class AbsentStudentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $search = $request->input('search-absent');
+        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+
+        if ($class_student) {
+            $students = Student::where('class_student_id', $class_student->id)->get();
+            $student_ids = $students->pluck('id');
+            $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
+        } else {
+            $absentStudents = collect(); // return an empty collection if no matching class is found
+        }
+        /////
+        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+
+        // Ensure absents array is structured with the correct keys
+        $absentsStructured = [];
+        foreach ($absents as $student_id => $days) {
+            foreach ($days as $day => $absent) {
+                $absentsStructured[$student_id][$day] = $absent->first();
+            }
+        }
+        ////
+        $search_results_available = true;
+
+        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured'));
     }
 }
