@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="panel" id="tables-absent">
+    <div class="panel" @if($search_results_available) @else hidden @endif id="tables-absent">
         <div class="panel">
             <div class="flex items-center justify-between flex-wrap mb-5 ">
                 <h5 class="font-semibold text-lg dark:text-white-light">Daftar Kehadiran Siswa</h5>

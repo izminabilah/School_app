@@ -24,7 +24,7 @@ class AbsentStudentController extends Controller
 //        return view('AbsentStudent', compact('students', 'absents'));
         $students = Student::all();
         $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
-
+        $search_results_available = false;
         // Ensure absents array is structured with the correct keys
         $absentsStructured = [];
         foreach ($absents as $student_id => $days) {
@@ -33,7 +33,7 @@ class AbsentStudentController extends Controller
             }
         }
 
-        return view('AbsentStudent', compact('students', 'absentsStructured'));
+        return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available'));
 
     }
 
