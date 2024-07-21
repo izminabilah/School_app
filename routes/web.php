@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsentStudentController;
 use App\Http\Controllers\AccountParentController;
+use App\Http\Controllers\ActivityStudentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherController;
@@ -71,6 +72,8 @@ Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->n
 
 Route::view('/activity','Summary');
 
+Route::get('/activity/student',[ActivityStudentController::class, 'index'])->name('aktivitas');
+Route::post('/activity/student/add', [ActivityStudentController::class, 'store']);
 
 Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('absent-student');
 Route::post('/activity/absent/add', [AbsentStudentController::class, 'store']);

@@ -180,7 +180,7 @@
                             <a href="/activity">Summary</a>
                         </li>
                         <li>
-                            <a href="/">Aktivitas siswa</a>
+                            <a href="/activity/student">Aktivitas siswa</a>
                         </li>
                         <li>
                             <a href="/activity/absent">Absen</a>
