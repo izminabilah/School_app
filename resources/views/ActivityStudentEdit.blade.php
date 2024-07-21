@@ -22,7 +22,7 @@
                     <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto " id="form-add-activity">
                         <div class="flex items-center justify-center min-h-screen px-4">
                             <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
-                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/Schedule'">
+                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/student'">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"

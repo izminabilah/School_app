@@ -76,6 +76,7 @@ Route::get('/activity/student',[ActivityStudentController::class, 'index'])->nam
 Route::post('/activity/student/add', [ActivityStudentController::class, 'store']);
 Route::get('/activity/student/edit/{id}', [ActivityStudentController::class, 'edit'])->name('edit-aktivitas');
 Route::put('/activity/student/update/{id}', [ActivityStudentController::class, 'update'])->name('update-aktivitas');
+Route::get('/activity/student/delete/{id}', [ActivityStudentController::class, 'destroy'])->name('delete-aktivitas');
 
 Route::get('/activity/absent',[AbsentStudentController::class, 'index'])->name('absent-student');
 Route::post('/activity/absent/add', [AbsentStudentController::class, 'store']);

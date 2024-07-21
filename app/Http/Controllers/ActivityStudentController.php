@@ -109,5 +109,7 @@ class ActivityStudentController extends Controller
     public function destroy(string $id)
     {
         //
+        $activityStudent = ActivityStudent::whereId($id) -> delete();
+        return redirect()->back()->with('success', 'Schedule data has been deleted successfully!');
     }
 }

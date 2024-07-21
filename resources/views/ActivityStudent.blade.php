@@ -22,7 +22,7 @@
                     <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-activity">
                         <div class="flex items-center justify-center min-h-screen px-4">
                             <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
-                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/Schedule'">
+                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/student'">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="flex justify-end items-center mt-8">
                                             <button type="button" class="btn btn-outline-danger"
-                                                    onclick="location.href='/Schedule'">Cancel</button>
+                                                    onclick="location.href='/activity/student'">Cancel</button>
                                             <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
                                         </div>
                                     </form>
@@ -91,7 +91,7 @@
                                 <td class="border-2">
                                     <div class="flex gap-4 items-center justify-center">
                                         <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-aktivitas', ['id' => $activityStudent->id])}}">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-aktivitas', ['id' => $activityStudent->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
