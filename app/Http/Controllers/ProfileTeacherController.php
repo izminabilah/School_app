@@ -16,7 +16,6 @@ class ProfileTeacherController extends Controller
 //        return view('profileGuru');
         if(session()->exists('username')){
             $profileTeachers = Teacher::all();
-//        var_dump($profileTeachers);
             return view('profileGuru')->with('profileTeachers', $profileTeachers);
         }else {
             return redirect()->route('sign-in');

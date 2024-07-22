@@ -5,7 +5,8 @@ use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ActivityStudentController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileTeacherController;
+use App\Http\Controllers\ProfileTeacherSOController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectGradeController;
 use App\Http\Controllers\SubjectScheduleController;
 use App\Http\Controllers\TuController;
@@ -23,12 +24,12 @@ Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 //Route::view('/profile/teacher','profileGuru');
 
-Route::get('/profile/teacher', [ProfileTeacherController::class, 'index'])->name('profile-teacher');
-Route::post('/profile/teacher/add', [ProfileTeacherController::class, 'store']);
-Route::get('/profile/teacher/edit/{id}', [ProfileTeacherController::class, 'edit'])->name('edit-profile-tea');
-Route::put('/profile/teacher/update/{id}', [ProfileTeacherController::class, 'update'])->name('update-profile-tea');
-Route::get('/profile/teacher/delete/{id}', [ProfileTeacherController::class, 'destroy'])->name('delete-profile-tea');
-Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('search-profile-tea');
+Route::get('/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher');
+Route::post('/profile/teacher/add', [ProfileTeacherSOController::class, 'store']);
+Route::get('/profile/teacher/edit/{id}', [ProfileTeacherSOController::class, 'edit'])->name('edit-profile-tea');
+Route::put('/profile/teacher/update/{id}', [ProfileTeacherSOController::class, 'update'])->name('update-profile-tea');
+Route::get('/profile/teacher/delete/{id}', [ProfileTeacherSOController::class, 'destroy'])->name('delete-profile-tea');
+Route::get('/profile/teacher/search', [ProfileTeacherSOController::class, 'search'])->name('search-profile-tea');
 
 Route::view('/Student','Student');//
 Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
@@ -90,6 +91,16 @@ Route::post('/activity/subject/grade/add', [SubjectGradeController::class, 'stor
 Route::get('/activity/subject/grade/edit/{id}', [SubjectGradeController::class, 'edit'])->name('edit-grade');
 Route::put('/activity/subject/grade/update', [SubjectGradeController::class, 'update'])->name('update-grade');
 Route::get('/activity/subject/grade/search', [SubjectGradeController::class, 'search'])->name('search-subject');
+
+//route dari login siswa dan orang tua
+Route::get('/home_so', [StudentController::class, 'index'])->name('home_so');
+
+Route::get('/so/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher-so');
+Route::get('/so/profile/teacher/search', [ProfileTeacherSOController::class, 'search'])->name('search-profile-tea-so');
+
+
+
+
 
 
 //

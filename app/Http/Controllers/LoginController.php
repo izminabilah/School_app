@@ -1,5 +1,8 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Student;
+use App\Models\StudentParent;
+use App\Models\Teacher;
 use App\Models\tu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +43,25 @@ class LoginController extends Controller
 
         if($tu = tu::where('username', $username)->where('password', $password)->first())
         {
+//            if($tu->role == 'siswa') {
+//
+//            }
             session(['username' => $username]);
             return redirect()->route('home');
-        }else {
+        }
+        elseif ($student = Student::where('username', $username)->where('password', $password)->first()){
+            session(['username' => $username]);
+            return redirect()->route('home_so');
+        }
+        elseif ($parent = StudentParent::where('username', $username)->where('password', $password)->first()){
+            session(['username' => $username]);
+            return redirect()->route('home_so');
+        }
+        elseif ($teacher = Teacher::where('username', $username)->where('password', $password)->first()){
+            session(['username' => $username]);
+            return redirect()->route('home');
+        }
+        else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found
             return redirect()->route('sign-in')->with('error', 'Invalid username or password, Masukkan kembali username dan password');
         }

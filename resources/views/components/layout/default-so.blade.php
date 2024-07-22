@@ -22,12 +22,12 @@
 </head>
 
 <body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden"
-      :class="[$store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout, $store.app
+      :class="[$store.app.sidebar-so ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout, $store.app
         .rtlClass
     ]">
 
 <!-- sidebar menu overlay -->
-<div x-cloak class="fixed inset-0 bg-[black]/60 z-50 lg:hidden" :class="{ 'hidden': !$store.app.sidebar }"
+<div x-cloak class="fixed inset-0 bg-[black]/60 z-50 lg:hidden" :class="{ 'hidden': !$store.app.sidebar-so }"
      @click="$store.app.toggleSidebar()"></div>
 
 <!-- screen loader -->
@@ -95,7 +95,7 @@
 
 <div class="main-container text-black dark:text-white-dark min-h-screen" :class="[$store.app.navbar]">
 
-    <x-common.sidebar />
+    <x-common.sidebar-so />
 
     <div class="main-content flex flex-col min-h-screen">
         <x-common.header />
