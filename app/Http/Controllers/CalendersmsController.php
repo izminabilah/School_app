@@ -13,8 +13,13 @@ class CalendersmsController extends Controller
     public function index()
     {
         //
-        $events = Calendersms::all();
-        return view('CalenderSemester', ['events' => $events]);
+        if(session()->exists('username')){
+            $events = Calendersms::all();
+            return view('CalenderSemester', ['events' => $events]);
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

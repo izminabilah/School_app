@@ -16,12 +16,17 @@ class SubjectScheduleController extends Controller
     public function index()
     {
         //
-        $subjects = Subject::all();
-        $teachers = Teacher::all();
-        $class_students = ClassStudent::all();
-        $subjectSchedules = SubjectSchedule::all();
-        $search_results_available = false;
-        return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
+        if(session()->exists('username')){
+            $subjects = Subject::all();
+            $teachers = Teacher::all();
+            $class_students = ClassStudent::all();
+            $subjectSchedules = SubjectSchedule::all();
+            $search_results_available = false;
+            return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

@@ -14,9 +14,9 @@ use App\Http\Controllers\AccountStudentController;
 use App\Http\Controllers\CalendersmsController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'index');
+Route::view('/aaa', 'index');
 //
-Route::get('/sign-in', [LoginController::class, 'index'])->name('sign-in');
+Route::get('/', [LoginController::class, 'index'])->name('sign-in');
 Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
 Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
@@ -65,7 +65,7 @@ Route::put('/Schedule/update/{id}', [SubjectScheduleController::class, 'update']
 Route::get('/Schedule/delete/{id}', [SubjectScheduleController::class, 'destroy'])->name('delete-schedule');
 Route::get('/Schedule/search', [SubjectScheduleController::class, 'search'])->name('search-schedule');
 
-Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
+Route::get('/calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
 Route::post('/calender/add', [CalendersmsController::class, 'store']);
 Route::get('/calender/edit/{id}', [CalendersmsController::class, 'edit'])->name('edit-calender');
 Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->name('update-calender');

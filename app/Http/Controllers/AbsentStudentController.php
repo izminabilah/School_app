@@ -17,23 +17,22 @@ class AbsentStudentController extends Controller
     public function index()
     {
         //
-//        $subjects = Subject::all();
-//        $students = Student::all();
-//        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
-//
-//        return view('AbsentStudent', compact('students', 'absents'));
-        $students = Student::all();
-        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
-        $search_results_available = false;
-        // Ensure absents array is structured with the correct keys
-        $absentsStructured = [];
-        foreach ($absents as $student_id => $days) {
-            foreach ($days as $day => $absent) {
-                $absentsStructured[$student_id][$day] = $absent->first();
+        if(session()->exists('username')){
+            $students = Student::all();
+            $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+            $search_results_available = false;
+            // Ensure absents array is structured with the correct keys
+            $absentsStructured = [];
+            foreach ($absents as $student_id => $days) {
+                foreach ($days as $day => $absent) {
+                    $absentsStructured[$student_id][$day] = $absent->first();
+                }
             }
-        }
+            return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available'));
 
-        return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available'));
+        }else {
+            return redirect()->route('sign-in');
+        }
 
     }
 

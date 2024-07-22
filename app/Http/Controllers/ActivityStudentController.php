@@ -14,10 +14,15 @@ class ActivityStudentController extends Controller
     public function index()
     {
         //
-        $class_students = ClassStudent::all();
-        $activityStudents = ActivityStudent::all();
-        $search_results_available = false;
-        return view('ActivityStudent', compact('class_students','activityStudents','search_results_available'));
+        if(session()->exists('username')){
+            $class_students = ClassStudent::all();
+            $activityStudents = ActivityStudent::all();
+            $search_results_available = false;
+            return view('ActivityStudent', compact('class_students','activityStudents','search_results_available'));
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

@@ -16,12 +16,17 @@ class SubjectGradeController extends Controller
     public function index()
     {
         //
-        $subjects = Subject::all();
-        $students = Student::all();
-        $subjectGrades = SubjectGrade::all();
-        $search_results_available = false;
-        return view('SubjectGrade', compact('students','subjects','subjectGrades', 'search_results_available'));
-//        return view('SubjectGrade', compact( 'class_students','subjects'));
+        if(session()->exists('username')){
+            $subjects = Subject::all();
+            $students = Student::all();
+            $subjectGrades = SubjectGrade::all();
+            $search_results_available = false;
+            return view('SubjectGrade', compact('students','subjects','subjectGrades', 'search_results_available'));
+
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**
