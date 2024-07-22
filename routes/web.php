@@ -4,6 +4,7 @@ use App\Http\Controllers\AbsentStudentController;
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ActivityStudentController;
 use App\Http\Controllers\ListSubjectController;
+use App\Http\Controllers\ListSubjectSOController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherSOController;
 use App\Http\Controllers\StudentController;
@@ -98,6 +99,7 @@ Route::get('/home_so', [StudentController::class, 'index'])->name('home_so');
 Route::get('/so/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher-so');
 Route::get('/so/profile/teacher/search', [ProfileTeacherSOController::class, 'search'])->name('search-profile-tea-so');
 
+Route::get('/so/listSubject',[ListSubjectSOController::class, 'index'])->name('listSubject');
 
 
 
