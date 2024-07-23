@@ -1,4 +1,4 @@
-<x-layout.default-so>
+<x-layout.default-po>
     <div>
         <div class="relative rounded-t-md bg-primary-light bg-[url('/assets/images/knowledge/pattern.png')] bg-contain bg-left-top bg-no-repeat px-5 py-10 dark:bg-black md:px-10">
             <div class="absolute bottom-20 end-5 hidden text-[#DBE7FF] rtl:rotate-y-180 dark:text-[#1B2E4B] md:block xl:bottom-14 xl:end-10">
@@ -50,9 +50,9 @@
                     <div class="mb-2 text-center text-xl font-bold dark:text-white md:text-3xl">Wanna know your subject grade?</div>
                 </div>
                 <p class="mb-9 text-center text-base font-semibold">Search your subject to get the grade</p>
-                <form action="{{ route('search-subject-so') }}" method="GET" class="mb-6">
+                <form action="{{ route('search-subject-po') }}" method="GET" class="mb-6">
                     <div class="relative mx-auto max-w-[580px]">
-                        <input type="text" placeholder="Input your subject" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" id="search-subject-so"  name="search-subject-so">
+                        <input type="text" placeholder="Input your subject" class="form-input py-3 ltr:pr-[100px] rtl:pl-[100px]" id="search-subject-po"  name="search-subject-po">
                         <button type="submit" class="btn btn-primary absolute top-1 shadow-none ltr:right-1 rtl:left-1">Search</button>
                     </div>
                 </form>
@@ -129,4 +129,4 @@
             document.getElementById("form-add-grade").classList.remove("hidden");
         }
     </script>
-</x-layout.default-so>
+</x-layout.default-po>

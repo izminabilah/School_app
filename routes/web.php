@@ -1,19 +1,27 @@
 <?php
 
 use App\Http\Controllers\AbsentStudentController;
+use App\Http\Controllers\AbsentStudentPOController;
 use App\Http\Controllers\AbsentStudentSOController;
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ActivityStudentController;
+use App\Http\Controllers\ActivityStudentPOController;
 use App\Http\Controllers\ActivityStudentSOController;
+use App\Http\Controllers\CalendersmsPOController;
 use App\Http\Controllers\CalendersmsSOController;
 use App\Http\Controllers\ListSubjectController;
+use App\Http\Controllers\ListSubjectPOController;
 use App\Http\Controllers\ListSubjectSOController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ParentController;
+use App\Http\Controllers\ProfileTeacherPOController;
 use App\Http\Controllers\ProfileTeacherSOController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectGradeController;
+use App\Http\Controllers\SubjectGradePOController;
 use App\Http\Controllers\SubjectGradeSOController;
 use App\Http\Controllers\SubjectScheduleController;
+use App\Http\Controllers\SubjectSchedulePOController;
 use App\Http\Controllers\SubjectScheduleSOController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
@@ -98,7 +106,7 @@ Route::get('/activity/subject/grade/edit/{id}', [SubjectGradeController::class, 
 Route::put('/activity/subject/grade/update', [SubjectGradeController::class, 'update'])->name('update-grade');
 Route::get('/activity/subject/grade/search', [SubjectGradeController::class, 'search'])->name('search-subject');
 
-//route dari login siswa dan orang tua
+//route dari login siswa
 Route::get('/home_so', [StudentController::class, 'index'])->name('home_so');
 
 Route::get('/so/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher-so');
@@ -120,8 +128,27 @@ Route::get('/so/activity/absent/update/search', [AbsentStudentSOController::clas
 Route::get('/so/activity/subject/grade',[SubjectGradeSOController::class, 'index'])->name('subject-grade-so');
 Route::get('/so/activity/subject/grade/search', [SubjectGradeSOController::class, 'search'])->name('search-subject-so');
 
-//route dari login guru
+//route dari login orang tua
+Route::get('/home_po', [ParentController::class, 'index'])->name('home_po');
 
+Route::get('/po/profile/teacher', [ProfileTeacherPOController::class, 'index'])->name('profile-teacher-po');
+Route::get('/po/profile/teacher/search', [ProfileTeacherPOController::class, 'search'])->name('search-profile-tea-po');
+
+Route::get('/po/listSubject',[ListSubjectPOController::class, 'index'])->name('listSubject-po');
+
+Route::get('/po/Schedule',[SubjectSchedulePOController::class, 'index'])->name('Schedule-po');
+Route::get('/po/Schedule/search', [SubjectSchedulePOController::class, 'search'])->name('search-schedule-po');
+
+Route::get('/po/calender/semester',[CalendersmsPOController::class, 'index'])->name('calendersms-so');
+
+Route::get('/po/activity/student',[ActivityStudentPOController::class, 'index'])->name('aktivitas-po');
+Route::get('/po/activity/student/search', [ActivityStudentPOController::class, 'search'])->name('search-activity-po');
+
+Route::get('/po/activity/absent',[AbsentStudentPOController::class, 'index'])->name('absent-student-po');
+Route::get('/po/activity/absent/update/search', [AbsentStudentPOController::class, 'search'])->name('search-absent-po');
+
+Route::get('/po/activity/subject/grade',[SubjectGradePOController::class, 'index'])->name('subject-grade-po');
+Route::get('/po/activity/subject/grade/search', [SubjectGradePOController::class, 'search'])->name('search-subject-po');
 
 //
 Route::view('/analytics', 'analytics');
