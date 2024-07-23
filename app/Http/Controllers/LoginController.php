@@ -59,7 +59,7 @@ class LoginController extends Controller
         }
         elseif ($teacher = Teacher::where('username', $username)->where('password', $password)->first()){
             session(['username' => $username]);
-            return redirect()->route('home');
+            return redirect()->route('home_go');
         }
         else {
             //kalau ga ada di redirect lagi ke halaman login dengan error user not found

@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AbsentStudentController;
+use App\Http\Controllers\AbsentStudentGOController;
 use App\Http\Controllers\AbsentStudentPOController;
 use App\Http\Controllers\AbsentStudentSOController;
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ActivityStudentController;
+use App\Http\Controllers\ActivityStudentGOController;
 use App\Http\Controllers\ActivityStudentPOController;
 use App\Http\Controllers\ActivityStudentSOController;
+use App\Http\Controllers\CalendersmsGOController;
 use App\Http\Controllers\CalendersmsPOController;
 use App\Http\Controllers\CalendersmsSOController;
 use App\Http\Controllers\ListSubjectController;
@@ -14,15 +17,19 @@ use App\Http\Controllers\ListSubjectPOController;
 use App\Http\Controllers\ListSubjectSOController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\ProfileTeacherGOController;
 use App\Http\Controllers\ProfileTeacherPOController;
 use App\Http\Controllers\ProfileTeacherSOController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectGradeController;
+use App\Http\Controllers\SubjectGradeGOController;
 use App\Http\Controllers\SubjectGradePOController;
 use App\Http\Controllers\SubjectGradeSOController;
 use App\Http\Controllers\SubjectScheduleController;
+use App\Http\Controllers\SubjectScheduleGOController;
 use App\Http\Controllers\SubjectSchedulePOController;
 use App\Http\Controllers\SubjectScheduleSOController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
@@ -149,6 +156,45 @@ Route::get('/po/activity/absent/update/search', [AbsentStudentPOController::clas
 
 Route::get('/po/activity/subject/grade',[SubjectGradePOController::class, 'index'])->name('subject-grade-po');
 Route::get('/po/activity/subject/grade/search', [SubjectGradePOController::class, 'search'])->name('search-subject-po');
+
+//route dari login guru
+Route::get('/home_go', [TeacherController::class, 'index'])->name('home_go');
+
+Route::get('/go/profile/teacher', [ProfileTeacherGOController::class, 'index'])->name('profile-teacher-go');
+Route::post('/go/profile/teacher/add', [ProfileTeacherGOController::class, 'store']);
+Route::get('/go/profile/teacher/edit/{id}', [ProfileTeacherGOController::class, 'edit'])->name('edit-profile-tea-go');
+Route::put('/go/profile/teacher/update/{id}', [ProfileTeacherGOController::class, 'update'])->name('update-profile-tea-go');
+Route::get('/go/profile/teacher/delete/{id}', [ProfileTeacherGOController::class, 'destroy'])->name('delete-profile-tea-go');
+Route::get('/go/profile/teacher/search', [ProfileTeacherGOController::class, 'search'])->name('search-profile-tea-go');
+
+Route::get('/go/Schedule',[SubjectScheduleGOController::class, 'index'])->name('Schedule-go');
+Route::post('/go/Schedule/add', [SubjectScheduleGOController::class, 'store']);
+Route::get('/go/Schedule/edit/{id}', [SubjectScheduleGOController::class, 'edit'])->name('edit-schedule-go');
+Route::put('/go/Schedule/update/{id}', [SubjectScheduleGOController::class, 'update'])->name('update-schedule-go');
+Route::get('/go/Schedule/delete/{id}', [SubjectScheduleGOController::class, 'destroy'])->name('delete-schedule-go');
+Route::get('/go/Schedule/search', [SubjectScheduleGOController::class, 'search'])->name('search-schedule-go');
+
+Route::get('/go/calender/semester',[CalendersmsGOController::class, 'index'])->name('calendersms-go');
+
+Route::get('/go/activity/student',[ActivityStudentGOController::class, 'index'])->name('aktivitas-go');
+Route::post('/go/activity/student/add', [ActivityStudentGOController::class, 'store']);
+Route::get('/go/activity/student/edit/{id}', [ActivityStudentGOController::class, 'edit'])->name('edit-aktivitas-go');
+Route::put('/go/activity/student/update/{id}', [ActivityStudentGOController::class, 'update'])->name('update-aktivitas-go');
+Route::get('/go/activity/student/delete/{id}', [ActivityStudentGOController::class, 'destroy'])->name('delete-aktivitas-go');
+Route::get('/go/activity/student/search', [ActivityStudentGOController::class, 'search'])->name('search-activity-go');
+
+Route::get('/go/activity/absent',[AbsentStudentGOController::class, 'index'])->name('absent-student-go');
+Route::post('/go/activity/absent/add', [AbsentStudentGOController::class, 'store']);
+Route::get('/go/activity/absent/edit/{id}', [AbsentStudentGOController::class, 'edit'])->name('edit-absent-go');
+Route::put('/go/activity/absent/update/{id}', [AbsentStudentGOController::class, 'update'])->name('update-absent-go');
+Route::get('/go/activity/absent/update/search', [AbsentStudentGOController::class, 'search'])->name('search-absent-go');
+
+Route::get('/go/activity/subject/grade',[SubjectGradeGOController::class, 'index'])->name('subject-grade-go');
+Route::post('/go/activity/subject/grade/add', [SubjectGradeGOController::class, 'store']);
+Route::get('/go/activity/subject/grade/edit/{id}', [SubjectGradeGOController::class, 'edit'])->name('edit-grade-go');
+Route::put('/go/activity/subject/grade/update', [SubjectGradeGOController::class, 'update'])->name('update-grade-go');
+Route::get('/go/activity/subject/grade/search', [SubjectGradeGOController::class, 'search'])->name('search-subject-go');
+
 
 //
 Route::view('/analytics', 'analytics');
