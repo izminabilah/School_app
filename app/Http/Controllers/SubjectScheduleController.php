@@ -121,12 +121,7 @@ class SubjectScheduleController extends Controller
     }
 
     public function search(Request $request){
-//        $search = $request->input('class_student');
-//        $subjectSchedules = SubjectSchedule::where('class_student_id', 'LIKE', "$search%")->get();
-//        $subjects = Subject::all();
-//        $teachers = Teacher::all();
-//        $class_students = ClassStudent::all();
-//        return view('subjectSchedule', compact( 'subjectSchedules','subjects', 'teachers', 'class_students'));
+
         $search = $request->input('search-schedule');
         $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
 

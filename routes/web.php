@@ -1,15 +1,20 @@
 <?php
 
 use App\Http\Controllers\AbsentStudentController;
+use App\Http\Controllers\AbsentStudentSOController;
 use App\Http\Controllers\AccountParentController;
 use App\Http\Controllers\ActivityStudentController;
+use App\Http\Controllers\ActivityStudentSOController;
+use App\Http\Controllers\CalendersmsSOController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\ListSubjectSOController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileTeacherSOController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectGradeController;
+use App\Http\Controllers\SubjectGradeSOController;
 use App\Http\Controllers\SubjectScheduleController;
+use App\Http\Controllers\SubjectScheduleSOController;
 use App\Http\Controllers\TuController;
 use App\Http\Controllers\AccountTeacherController;
 use App\Http\Controllers\AccountStudentController;
@@ -101,8 +106,21 @@ Route::get('/so/profile/teacher/search', [ProfileTeacherSOController::class, 'se
 
 Route::get('/so/listSubject',[ListSubjectSOController::class, 'index'])->name('listSubject');
 
+Route::get('/so/Schedule',[SubjectScheduleSOController::class, 'index'])->name('Schedule-so');
+Route::get('/so/Schedule/search', [SubjectScheduleSOController::class, 'search'])->name('search-schedule-so');
 
+Route::get('/so/calender/semester',[CalendersmsSOController::class, 'index'])->name('calendersms-so');
 
+Route::get('/so/activity/student',[ActivityStudentSOController::class, 'index'])->name('aktivitas-so');
+Route::get('/so/activity/student/search', [ActivityStudentSOController::class, 'search'])->name('search-activity-so');
+
+Route::get('/so/activity/absent',[AbsentStudentSOController::class, 'index'])->name('absent-student-so');
+Route::get('/so/activity/absent/update/search', [AbsentStudentSOController::class, 'search'])->name('search-absent-so');
+
+Route::get('/so/activity/subject/grade',[SubjectGradeSOController::class, 'index'])->name('subject-grade-so');
+Route::get('/so/activity/subject/grade/search', [SubjectGradeSOController::class, 'search'])->name('search-subject-so');
+
+//route dari login guru
 
 
 //
