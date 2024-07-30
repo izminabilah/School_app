@@ -58,6 +58,7 @@ class LoginController extends Controller
             return redirect()->route('home_po');
         }
         elseif ($teacher = Teacher::where('username', $username)->where('password', $password)->first()){
+//            $nama =Teacher::where('username', $username)->where('name', $name)->first();
             session(['username' => $username]);
             return redirect()->route('home_go');
         }

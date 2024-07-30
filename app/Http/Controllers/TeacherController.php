@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -13,7 +15,13 @@ class TeacherController extends Controller
     {
         //
         if(session()->exists('username')){
-            return view('home_go');
+            $teachers = Teacher::all();
+            $students = Student::all();
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            return view('home_go', compact('teachers','students','data'));
+//            return view('home_go');
         }else {
             return redirect()->route('sign-in');
         }

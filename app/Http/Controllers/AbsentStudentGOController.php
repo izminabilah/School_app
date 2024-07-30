@@ -100,6 +100,7 @@ class AbsentStudentGOController extends Controller
         ];
         $years = ['2024', '2025', '2026'];
         $absent = AbsentStudent::findOrFail($id);
+
         return view('AbsentStudentEditGO', compact('students', 'absent', 'months', 'years'));
     }
 

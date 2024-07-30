@@ -1,3 +1,4 @@
+{{--{{ dd($absentData, $finalGrades) }}--}}
 <x-layout.default-so>
     <script defer src="/assets/js/apexcharts.js"></script>
     <div x-data="sales">
@@ -6,30 +7,10 @@
             <div class="grid xl:grid-cols-3 gap-6 mb-6">
                 <div class="panel h-full xl:col-span-2">
                     <div class="flex items-center dark:text-white-light mb-5">
-                        <h5 class="font-semibold text-lg">Summary Grade Student</h5>
-                        <div x-data="dropdown" @click.outside="open = false"
-                             class="dropdown ltr:ml-auto rtl:mr-auto">
-                            <a href="javascript:;" @click="toggle">
-                                <svg class="w-5 h-5 text-black/70 dark:text-white/70 hover:!text-primary"
-                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="5" cy="12" r="2" stroke="currentColor"
-                                            stroke-width="1.5" />
-                                    <circle opacity="0.5" cx="12" cy="12" r="2"
-                                            stroke="currentColor" stroke-width="1.5" />
-                                    <circle cx="19" cy="12" r="2" stroke="currentColor"
-                                            stroke-width="1.5" />
-                                </svg>
-                            </a>
-                            <ul x-cloak x-show="open" x-transition x-transition.duration.300ms
-                                class="ltr:right-0 rtl:left-0">
-                                <li><a href="javascript:;" @click="toggle">Weekly</a></li>
-                                <li><a href="javascript:;" @click="toggle">Monthly</a></li>
-                                <li><a href="javascript:;" @click="toggle">Yearly</a></li>
-                            </ul>
-                        </div>
+                        <h5 class="font-semibold text-lg">Nilai Akademik siswa</h5>
+
                     </div>
-                    <p class="text-lg dark:text-white-light/90">Total Grade <span
-                            class="text-primary ml-2">99,99</span></p>
+
                     <div class="relative overflow-hidden">
                         <div x-ref="revenueChart" class="bg-white dark:bg-black rounded-lg">
                             <!-- loader -->
@@ -44,7 +25,7 @@
 
                 <div class="panel h-full">
                     <div class="flex items-center mb-5">
-                        <h5 class="font-semibold text-lg dark:text-white-light">Absent Summary</h5>
+                        <h5 class="font-semibold text-lg dark:text-white-light">Daftar Kehadiran</h5>
                     </div>
                     <div class="overflow-hidden">
                         <div x-ref="salesByCategory" class="bg-white dark:bg-black rounded-lg">
@@ -63,40 +44,42 @@
     <script>
         document.addEventListener("alpine:init", () => {
             Alpine.data("sales", () => ({
+                sakit: {{ $absentData['sakit'] }},
+                izin: {{ $absentData['izin'] }},
+                alpa: {{ $absentData['alpa'] }},
+                hadir: {{ $absentData['hadir'] }},
+                ppkn: {{ $finalGrades['ppkn'] }},
+                mtk_wajib:{{$finalGrades['mtk_wajib']}},
+                ekonomi: {{ $finalGrades['ekonomi'] }},
+                b_indonesia: {{ $finalGrades['b_indonesia'] }},
+                b_inggris: {{ $finalGrades['b_inggris'] }},
+                sejarah_indonesia: {{ $finalGrades['sejarah_indonesia'] }},
+
+
                 init() {
-                    isDark = this.$store.app.theme === "dark" || this.$store.app.isDarkMode ? true :
-                        false;
+                    console.log('Initializing...');
+                    console.log(this.sakit, this.izin, this.alpa, this.hadir, this.ppkn, this.mtk_wajib, this.ekonomi, this.b_indonesia, this.b_inggris, this.sejarah_indonesia);
+
+                    isDark = this.$store.app.theme === "dark" || this.$store.app.isDarkMode ? true : false;
                     isRtl = this.$store.app.rtlClass === "rtl" ? true : false;
 
-                    const revenueChart = null;
-                    const salesByCategory = null;
-                    const dailySales = null;
-                    const totalOrders = null;
+                    this.revenueChart = new ApexCharts(this.$refs.revenueChart, this.revenueChartOptions);
+                    this.$refs.revenueChart.innerHTML = "";
+                    this.revenueChart.render();
+
+                    this.salesByCategory = new ApexCharts(this.$refs.salesByCategory, this.salesByCategoryOptions);
+                    this.$refs.salesByCategory.innerHTML = "";
+                    this.salesByCategory.render();
 
                     // revenue
                     setTimeout(() => {
-                        this.revenueChart = new ApexCharts(this.$refs.revenueChart, this
-                            .revenueChartOptions)
+                        this.revenueChart = new ApexCharts(this.$refs.revenueChart, this.revenueChartOptions);
                         this.$refs.revenueChart.innerHTML = "";
-                        this.revenueChart.render()
+                        this.revenueChart.render();
 
-                        // sales by category
-                        this.salesByCategory = new ApexCharts(this.$refs.salesByCategory, this
-                            .salesByCategoryOptions)
+                        this.salesByCategory = new ApexCharts(this.$refs.salesByCategory, this.salesByCategoryOptions);
                         this.$refs.salesByCategory.innerHTML = "";
-                        this.salesByCategory.render()
-
-                        // daily sales
-                        this.dailySales = new ApexCharts(this.$refs.dailySales, this
-                            .dailySalesOptions)
-                        this.$refs.dailySales.innerHTML = "";
-                        this.dailySales.render()
-
-                        // total orders
-                        this.totalOrders = new ApexCharts(this.$refs.totalOrders, this
-                            .totalOrdersOptions)
-                        this.$refs.totalOrders.innerHTML = "";
-                        this.totalOrders.render()
+                        this.salesByCategory.render();
                     }, 300);
 
                     this.$watch('$store.app.theme', () => {
@@ -120,20 +103,18 @@
                 get revenueChartOptions() {
                     return {
                         series: [{
-                            name: 'Income',
-                            data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000,
-                                15000, 17000, 14000, 17000
+                            name: 'Rata-rata kelas',
+                            data: [80, 75, 81, 79, 82, 74
                             ]
                         },
                             {
-                                name: 'Expenses',
-                                data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000,
-                                    16000, 19000, 18000, 19000
+                                name: 'Nilai siswa',
+                                data: [this.ppkn, this.mtk_wajib, this.b_inggris, this.b_indonesia, this.sejarah_indonesia, this.ekonomi
                                 ]
                             }
                         ],
                         chart: {
-                            height: 325,
+                            height: 425,
                             type: "area",
                             fontFamily: 'Nunito, sans-serif',
                             zoom: {
@@ -177,8 +158,7 @@
                                 },
                             ],
                         },
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-                            'Oct', 'Nov', 'Dec'
+                        labels: ['PPKn', 'MTK Wajib', 'B. Inggris', 'B. Indonesia', 'Sejarah Indonesia', 'Ekonomi'
                         ],
                         xaxis: {
                             axisBorder: {
@@ -200,10 +180,10 @@
                             },
                         },
                         yaxis: {
-                            tickAmount: 7,
+                            tickAmount: 10,
                             labels: {
                                 formatter: (value) => {
-                                    return value / 1000 + 'K';
+                                    return value ;
                                 },
                                 offsetX: isRtl ? -30 : -10,
                                 offsetY: 0,
@@ -272,7 +252,7 @@
                 // sales by category
                 get salesByCategoryOptions() {
                     return {
-                        series: [985, 737, 270],
+                        series: [this.sakit, this.hadir, this.alpa, this.izin],
                         chart: {
                             type: 'donut',
                             height: 460,
@@ -286,13 +266,13 @@
                             width: 25,
                             colors: isDark ? '#0e1726' : '#fff'
                         },
-                        colors: isDark ? ['#5c1ac3', '#e2a03f', '#e7515a', '#e2a03f'] : ['#e2a03f',
-                            '#5c1ac3', '#e7515a'
+                        colors: isDark ? ['#5c1ac3', '#e2a03f', '#e7515a', '#e2a03f', '#00ab55'] : ['#e2a03f',
+                            '#5c1ac3', '#e7515a', '#00ab55'
                         ],
                         legend: {
                             position: 'bottom',
                             horizontalAlign: 'center',
-                            fontSize: '14px',
+                            fontSize: '12px',
                             markers: {
                                 width: 10,
                                 height: 10,
@@ -338,7 +318,7 @@
                                 },
                             },
                         },
-                        labels: ['Sick', 'Attendance', 'Absent'],
+                        labels: ['Sakit', 'Hadir', 'Absen','izin'],
                         states: {
                             hover: {
                                 filter: {
@@ -367,6 +347,10 @@
                                 name: 'Last Week',
                                 data: [13, 23, 20, 8, 13, 27, 33]
                             },
+                            {
+                                name: 'Izin',
+                                data: [10, 20, 30, 40, 50, 60, 70]
+                            },
                         ],
                         chart: {
                             height: 160,
@@ -385,7 +369,7 @@
                             show: true,
                             width: 1
                         },
-                        colors: ['#e2a03f', '#e0e6ed'],
+                        colors: ['#e2a03f', '#e0e6ed', '#00ab55'],
                         responsive: [{
                             breakpoint: 480,
                             options: {
