@@ -103,8 +103,8 @@
                 get revenueChartOptions() {
                     return {
                         series: [{
-                            name: 'Rata-rata kelas',
-                            data: [80, 75, 81, 79, 82, 74
+                            name: 'KKM',
+                            data: [75, 75, 75, 75, 75, 75
                             ]
                         },
                             {

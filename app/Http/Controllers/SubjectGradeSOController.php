@@ -15,14 +15,33 @@ class SubjectGradeSOController extends Controller
     public function index()
     {
         //
+//        if(session()->exists('username')){
+//            $student = Student::where('username', $username)->first();
+//            $studentId = $student->id;
+//
+//            $subjects = Subject::all();
+//            $students = Student::all();
+//            $subjectGrades = SubjectGrade::where('student_id', $studentId);
+//            $search_results_available = false;
+//            return view('SubjectGradeSO', compact('students','subjects','subjectGrades', 'search_results_available'));
+//
+//        }else {
+//            return redirect()->route('sign-in');
+//        }
         if(session()->exists('username')){
-            $subjects = Subject::all();
-            $students = Student::all();
-            $subjectGrades = SubjectGrade::all();
-            $search_results_available = false;
-            return view('SubjectGradeSO', compact('students','subjects','subjectGrades', 'search_results_available'));
+            $username = session('username');
+            $student = Student::where('username', $username)->first();
+            if ($student) {
+                $studentId = $student->id;
 
-        }else {
+                $subjects = Subject::all();
+                $subjectGrades = SubjectGrade::where('student_id', $studentId)->get();
+                $search_results_available = false;
+                return view('SubjectGradeSO', compact('subjects', 'subjectGrades', 'search_results_available'));
+            } else {
+                return redirect()->route('sign-in');
+            }
+        } else {
             return redirect()->route('sign-in');
         }
     }
@@ -77,17 +96,5 @@ class SubjectGradeSOController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search-subject-so');
-        $subject_table = Subject::where('name', 'LIKE', "%$search%")->first();
-        $subjects = Subject::all();
-        $search_results_available = true;
-
-        if ($subject_table) {
-            $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
-            $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
-            return view('SubjectGradeSO', compact('subjectGrades', 'subject_table', 'students','subjects', 'search_results_available'));
-        } else {
-            return redirect()->route('subject-grade-so');
-        }
     }
 }

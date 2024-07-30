@@ -13,16 +13,6 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
-//        if(session()->exists('username')){
-//            $username = session('username');
-//            $student = Student::where('username', $username)->first();
-//            $data = $student->id;
-//            $absent = AbsentStudent::where('student_id', $data)->first();
-//            return view('home_so', compact('absent'));
-//        }else {
-//            return redirect()->route('sign-in');
-//        }
         if(session()->exists('username')){
             $username = session('username');
             $student = Student::where('username', $username)->first();

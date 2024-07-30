@@ -28,4 +28,8 @@ class SubjectGrade extends Model
         'final_test',
         'subject_id',
     ];
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

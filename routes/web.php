@@ -133,7 +133,7 @@ Route::get('/so/activity/absent',[AbsentStudentSOController::class, 'index'])->n
 Route::get('/so/activity/absent/update/search', [AbsentStudentSOController::class, 'search'])->name('search-absent-so');
 
 Route::get('/so/activity/subject/grade',[SubjectGradeSOController::class, 'index'])->name('subject-grade-so');
-Route::get('/so/activity/subject/grade/search', [SubjectGradeSOController::class, 'search'])->name('search-subject-so');
+
 
 //route dari login orang tua
 Route::get('/home_po', [ParentController::class, 'index'])->name('home_po');
