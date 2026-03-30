@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendersms;
+use App\Models\ClassStudent;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class CalendersmsSOController extends Controller
@@ -15,7 +17,12 @@ class CalendersmsSOController extends Controller
         //
         if(session()->exists('username')){
             $events = Calendersms::all();
-            return view('CalenderSemesterSO', ['events' => $events]);
+            $username = session('username');
+            $student = Student::where('username', $username)->first();
+            $data = $student->name;
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
+            return view('CalenderSemesterSO', compact('events', 'data', 'nama_class'));
         }else {
             return redirect()->route('sign-in');
         }

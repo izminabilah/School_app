@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassStudent;
+use App\Models\Student;
+use App\Models\StudentParent;
 use App\Models\Subject;
 use App\Models\SubjectSchedule;
 use App\Models\Teacher;
@@ -21,8 +23,13 @@ class SubjectSchedulePOController extends Controller
             $teachers = Teacher::all();
             $class_students = ClassStudent::all();
             $subjectSchedules = SubjectSchedule::all();
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
             $search_results_available = false;
-            return view('subjectSchedulePO', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
+            $note = null;
+            return view('subjectSchedulePO', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available', 'data', 'status', 'note'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -82,8 +89,21 @@ class SubjectSchedulePOController extends Controller
 
         if ($class_student) {
             $subjectSchedules = SubjectSchedule::where('class_student_id', $class_student->id)->get();
+            $note = $class_student->name;
         } else {
             $subjectSchedules = collect(); // return an empty collection if no matching class is found
+            $note = null;
+        }
+
+        if(session()->exists('username')){
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
+            $parentId = $parent->id;
+            $student = Student::where('parent_id', $parentId)->first();
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
         }
 
         $subjects = Subject::all();
@@ -91,7 +111,7 @@ class SubjectSchedulePOController extends Controller
         $class_students = ClassStudent::all();
         $search_results_available = true;
 
-        return view('subjectSchedulePO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available'));
+        return view('subjectSchedulePO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available', 'data', 'nama_class', 'status', 'note'));
 
     }
 }

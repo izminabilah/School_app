@@ -61,7 +61,6 @@ class AbsentStudentGOController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'student_ids' => 'required|array',
             'day' => 'nullable|array',
@@ -69,18 +68,15 @@ class AbsentStudentGOController extends Controller
             'year' => 'nullable|array',
             'description' => 'nullable|array',
         ]);
-
         $student_ids = $request->input('student_ids');
         $month = $request->input('month')[0];
         $year = $request->input('year')[0];
         $descriptions = $request->input('description');
-
         foreach ($student_ids as $index => $student_id) {
             for ($day = 1; $day <= 31; $day++) {
                 $descriptionIndex = ($index * 31) + ($day - 1);
                 if (isset($descriptions[$descriptionIndex]) && !empty($descriptions[$descriptionIndex])) {
                     $description = $descriptions[$descriptionIndex];
-
                     $absentStudent = new AbsentStudent();
                     $absentStudent->student_id = $student_id;
                     $absentStudent->day = $day;
@@ -116,7 +112,8 @@ class AbsentStudentGOController extends Controller
         $years = ['2024', '2025', '2026'];
         $absent = AbsentStudent::findOrFail($id);
 
-        return view('AbsentStudentEditGO', compact('students', 'absent', 'months', 'years'));
+        return view('AbsentStudentEditGO', compact('students',
+            'absent', 'months', 'years'));
     }
 
     /**
@@ -124,7 +121,6 @@ class AbsentStudentGOController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $request->validate([
             'student_ids' => 'required|array',
             'day' => 'nullable|array',
@@ -132,24 +128,20 @@ class AbsentStudentGOController extends Controller
             'year' => 'required|string',
             'description' => 'nullable|array',
         ]);
-
         $student_ids = $request->input('student_ids');
         $month = $request->input('month');
         $year = $request->input('year');
         $descriptions = $request->input('description');
-
         foreach ($student_ids as $index => $student_id) {
             for ($day = 1; $day <= 31; $day++) {
                 $descriptionIndex = ($index * 31) + ($day - 1);
                 $description = $descriptions[$descriptionIndex] ?? null;
-
                 if (!empty($description)) {
                     $absentStudent = AbsentStudent::where('student_id', $student_id)
                         ->where('day', $day)
                         ->where('month', $month)
                         ->where('year', $year)
                         ->first();
-
                     if ($absentStudent) {
                         $absentStudent->description = $description;
                         $absentStudent->save();

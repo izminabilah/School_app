@@ -27,6 +27,7 @@ class SubjectGrade extends Model
         'homework2',
         'final_test',
         'subject_id',
+        'keterampilan',
     ];
     public function subject()
     {

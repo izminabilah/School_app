@@ -1,5 +1,14 @@
 <x-layout.default-po>
-
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">{{$data}}</p>
+            </li>
+            <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
+                <span>{{$status}}</span>
+            </li>
+        </ul>
+    </div>
     <div x-data="contacts">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="text-xl">Profile Guru</h2>

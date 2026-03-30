@@ -1,0 +1,259 @@
+<x-layout.default>
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">Admin</p>
+            </li>
+        </ul>
+    </div>
+    <div x-data="account">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <h2 class="text-xl">Daftar Nama Kelas</h2>
+            <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
+                <div class="flex gap-3">
+                    <div>
+                        <button type="button" class="btn btn-primary" @click="editUser">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ltr:mr-2 rtl:ml-2">
+                                <circle cx="10" cy="6" r="4" stroke="currentColor"
+                                        stroke-width="1.5" />
+                                <path opacity="0.5"
+                                      d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z"
+                                      stroke="currentColor" stroke-width="1.5" />
+                                <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
+                                      stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            Tambah Kelas
+                        </button>
+                        <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" :class="addContactModal && '!block'">
+                            <div class="flex items-center justify-center min-h-screen px-4"
+                                 @click.self="addContactModal = false">
+                                <div x-show="addContactModal" x-transition x-transition.duration.300
+                                     class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full max-w-lg w-[90%] my-8">
+                                    <button type="button"
+                                            class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark"
+                                            @click="addContactModal = false">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                             stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                    <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
+                                    >Tambah Kelas</h3>
+                                    <div class="p-5">
+                                        <form action="/listClass/add" method="POST">
+                                            @csrf
+                                            <div class="mb-5">
+                                                <label for="name">Nama Kelas</label>
+                                                <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />
+                                            </div>
+                                            <div class="flex justify-end items-center mt-8">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        @click="addContactModal = false">Cancel</button>
+                                                <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 panel p-0 border-0 overflow-hidden">
+            <template x-if="displayType === 'list'">
+                <div class="table-responsive">
+                    <table class="table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th class="text-center">Nama Kelas</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse ($classs as $class)
+                            <tr>
+                                <td class="whitespace-nowrap"></td>
+                                <td>{{ $class->name }}</td>
+                                <td>
+                                    <div class="flex gap-4 items-center justify-center">
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-class', ['id' => $class->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-class', ['id' => $class->id])}}">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </div>
+        <template x-if="displayType === 'grid'">
+            <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 w-full">
+                <template x-for="contact in filterdAccountList" :key="contact.id">
+                    <div class="bg-white dark:bg-[#1c232f] rounded-md overflow-hidden text-center shadow relative">
+                        <div
+                            class="bg-white/40 rounded-t-md bg-[url('/assets/images/notification-bg.png')] bg-center bg-cover p-6 pb-0">
+                            <template x-if="contact.path">
+                                <img class="object-contain w-4/5 max-h-40 mx-auto"
+                                     :src="`/assets/images/${contact.path}`" />
+                            </template>
+                        </div>
+                        <div class="px-6 pb-24 -mt-10 relative">
+                            <div class="shadow-md bg-white dark:bg-gray-900 rounded-md px-2 py-4">
+                                <div class="text-xl" ></div>
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5"></div>
+                                    <div class="truncate text-white-dark" ></div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-5"></div>
+                                    <div class="text-white-dark"></div>
+                                </div>
+                            </div>
+                            <div class="mt-6 grid grid-cols-1 gap-4 ltr:text-left rtl:text-right">
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-2"></div>
+                                    <div class="truncate text-white-dark"></div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex-none ltr:mr-2 rtl:ml-2"></div>
+                                    <div class="text-white-dark"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-class', ['id' => $class->id])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-class', ['id' => $class->id])}}">Delete</a>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("account", () => ({
+                defaultParams: {
+                    id: null,
+                    name: '',
+                    username: '',
+                    password: '',
+                },
+                displayType: 'list',
+                addContactModal: false,
+                params: {
+                    id: null,
+                    name: '',
+                    username: '',
+                    password: '',
+                },
+                filterdAccountList: [],
+                searchUser: '',
+                contactList: [{
+                    id: 1,
+                    path: 'profile-35.png',
+                    name: 'Alan Green',
+                    username: 'alan@mail.com',
+                    password: '+1 202 555 0197',
+                    posts: 25,
+                }],
+
+                init() {
+                    this.searchAccount();
+                },
+
+                searchAccount() {
+                    this.filterdAccountList = this.contactList.filter((d) => d.name.toLowerCase()
+                        .includes(this.searchUser.toLowerCase()));
+                },
+
+                editUser(user) {
+                    this.params = this.defaultParams;
+                    if (user) {
+                        this.params = JSON.parse(JSON.stringify(user));
+                    }
+
+                    this.addContactModal = true;
+                },
+
+                saveUsername() {
+                    if (!this.params.name) {
+                        this.showMessage('Name is required.', 'error');
+                        return true;
+                    }
+                    if (!this.params.username) {
+                        this.showMessage('Username is required.', 'error');
+                        return true;
+                    }
+                    if (!this.params.password) {
+                        this.showMessage('password is required.', 'error');
+                        return true;
+                    }
+
+
+                    if (this.params.id) {
+                        //update user
+                        let user = this.contactList.find((d) => d.id === this.params.id);
+                        user.name = this.params.name;
+                        user.username = this.params.username;
+                        user.password = this.params.password;
+                    } else {
+                        //add user
+                        let maxUserId = this.contactList.length ? this.contactList.reduce((max,
+                                                                                           character) => (character.id > max ? character.id : max), this
+                            .contactList[0].id) : 0;
+
+                        let user = {
+                            id: maxUserId + 1,
+                            path: 'profile-35.png',
+                            name: this.params.name,
+                            username: this.params.username,
+                            password: this.params.password,
+                            posts: 20,
+                        };
+                        this.contactList.splice(0, 0, user);
+                        this.searchAccount();
+                    }
+
+                    this.showMessage('User has been saved successfully.');
+                    this.addContactModal = false;
+                },
+
+                deleteUser(user) {
+                    this.contactList = this.contactList.filter((d) => d.id != user.id);
+                    this.searchAccount();
+                    this.showMessage('User has been deleted successfully.');
+                },
+
+                setDisplayType(type) {
+                    this.displayType = type;
+                },
+
+                showMessage(msg = '', type = 'success') {
+                    const toast = window.Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    });
+                    toast.fire({
+                        icon: type,
+                        title: msg,
+                        padding: '10px 20px',
+                    });
+                },
+            }));
+        });
+    </script>
+</x-layout.default>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StudentParent;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class ProfileTeacherPOController extends Controller
         //
         if(session()->exists('username')){
             $profileTeachers = Teacher::all();
-            return view('profileGuruPO')->with('profileTeachers', $profileTeachers);
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
+            return view('profileGuruPO', compact('profileTeachers' ,'data' ,'status'));
         }else {
             return redirect()->route('sign-in');
         }

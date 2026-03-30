@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendersms;
+use App\Models\StudentParent;
 use Illuminate\Http\Request;
 
 class CalendersmsPOController extends Controller
@@ -15,7 +16,11 @@ class CalendersmsPOController extends Controller
         //
         if(session()->exists('username')){
             $events = Calendersms::all();
-            return view('CalenderSemesterPO', ['events' => $events]);
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
+            return view('CalenderSemesterPO', compact('events', 'data', 'status'));
         }else {
             return redirect()->route('sign-in');
         }

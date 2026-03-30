@@ -1,18 +1,81 @@
-{{--{{ dd($absentData, $finalGrades) }}--}}
 <x-layout.default-so>
     <script defer src="/assets/js/apexcharts.js"></script>
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">{{$data}}</p>
+            </li>
+            <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
+                <span>{{$nama_class}}</span>
+            </li>
+        </ul>
+    </div>
     <div x-data="sales">
-
         <div class="pt-5">
             <div class="grid xl:grid-cols-3 gap-6 mb-6">
+
                 <div class="panel h-full xl:col-span-2">
-                    <div class="flex items-center dark:text-white-light mb-5">
-                        <h5 class="font-semibold text-lg">Nilai Akademik siswa</h5>
+                    <form
+                        class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
+                        <h6 class="text-lg font-bold mb-5">Informasi Siswa</h6>
+                        <div class="flex flex-col sm:flex-row">
 
-                    </div>
+                            <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="name">Full Name</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$data}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="class">NISN</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$nisn}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="class">Kelas</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$nama_class}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="parent">Nama Wali</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$nama_wali}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="address">Address</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$alamat}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="gender">Jenis Kelamin</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$gender}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="religion">Agama</label>
+                                    <div>
+                                        <p class="border-2 p-2">{{$agama}}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="padding-top: 30px">
 
+                                    </div>
+                                    <div>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="/home_so/password/change/edit/{id}">Edit Password akun</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     <div class="relative overflow-hidden">
-                        <div x-ref="revenueChart" class="bg-white dark:bg-black rounded-lg">
+                        <div x-ref="revenueChart" class="bg-white dark:bg-black rounded-lg hidden">
                             <!-- loader -->
                             <div
                                 class="min-h-[325px] grid place-content-center bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] ">
@@ -183,7 +246,7 @@
                             tickAmount: 10,
                             labels: {
                                 formatter: (value) => {
-                                    return value ;
+                                    return Math.round(value * 100) / 100;
                                 },
                                 offsetX: isRtl ? -30 : -10,
                                 offsetY: 0,

@@ -2,6 +2,16 @@
 
     <link href="{{ Vite::asset('resources/css/fullcalendar.min.css') }}" rel='stylesheet' />
     <script src='/assets/js/fullcalendar.min.js'></script>
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">{{$data}}</p>
+            </li>
+            <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
+                <span>{{$status}}</span>
+            </li>
+        </ul>
+    </div>
     <div x-data="calendar">
         <div class="panel">
             <div class="mb-5">
