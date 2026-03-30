@@ -13,8 +13,13 @@ class AccountStudentController extends Controller
     public function index()
     {
         //
-        $accountStudents = Student::all();
-        return view('AccountStudent')->with('accountStudents', $accountStudents);
+        if(session()->exists('username')){
+            $accountStudents = Student::all();
+            return view('AccountStudent')->with('accountStudents', $accountStudents);
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

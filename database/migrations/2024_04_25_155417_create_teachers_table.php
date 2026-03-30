@@ -19,9 +19,6 @@ return new class extends Migration
             $table->string('Gender')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('subject_id')->nullable();
-
-            $table->foreign("subject_id")->references("id")->on("subjects");
             $table->timestamps();
         });
     }

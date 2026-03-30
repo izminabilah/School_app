@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\tu;
 use Illuminate\Http\Request;
 
@@ -13,11 +15,14 @@ class TuController extends Controller
     public function index()
     {
         if(session()->exists('username')){
-            return view('home');
+            $teachers = Teacher::all();
+            $students = Student::all();
+            return view('home', compact('teachers','students'));
         }else {
             return redirect()->route('sign-in');
         }
         // return view('home');
+
     }
 
     /**

@@ -2,7 +2,7 @@
 
     <div x-data="contacts">
         <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Contacts Teacher</h2>
+            <h2 class="text-xl">Profile Guru</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                 <div class="flex gap-3">
                     <div>
@@ -18,7 +18,7 @@
                                 <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                       stroke-width="1.5" stroke-linecap="round" />
                             </svg>
-                            Add Contact
+                            Tambah Profile
                         </button>
                         <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden"
                              :class="addContactModal && '!block'">
@@ -38,7 +38,7 @@
                                         </svg>
                                     </button>
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                        x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
+                                        x-text="params.id ? 'Edit Contact' : 'Tambah Profile'"></h3>
                                     <div class="p-5">
                                         <form action="/profile/teacher/add" method="POST">
                                             @csrf
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="mb-5">
                                                 <div class="flex-1">
-                                                    <label for="gender">Gender</label>
+                                                    <label for="gender">Jenis Kelamin</label>
                                                     <select id="gender" name="gender" class="form-select" >
                                                         <option value="">Select Gender</option>
                                                         <option value="male">Male</option>
@@ -139,7 +139,7 @@
                     <!-- searchbar -->
                     <form class="mx-auto w-full" action="{{ route('search-profile-tea') }}" method="GET">
                         <div class="relative">
-                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
+                            <input type="text" placeholder="Search Profile" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
                             <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
                                 <a type="button">
                                     <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -165,7 +165,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Teach Subject Code</th>
+
                             <th class="!text-center">Actions</th>
                         </tr>
                         </thead>
@@ -175,7 +175,7 @@
                                 <td>{{ $profileTeacher->name }}</td>
                                 <td>{{ $profileTeacher->email }}</td>
                                 <td class="whitespace-nowrap">{{ $profileTeacher->address }}</td>
-                                <td>{{ $profileTeacher->subject_id }}</td>
+
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
                                         <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-profile-tea', ['id' => $profileTeacher->id])}}">Edit</a>

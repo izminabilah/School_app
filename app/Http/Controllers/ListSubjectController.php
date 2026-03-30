@@ -13,9 +13,13 @@ class ListSubjectController extends Controller
     public function index()
     {
         //
-//        return view('ListSubject');
-        $subjects = Subject::all();
-        return view('ListSubject', ['subjects' => $subjects]);
+        if(session()->exists('username')){
+            $subjects = Subject::all();
+            return view('ListSubject', ['subjects' => $subjects]);
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

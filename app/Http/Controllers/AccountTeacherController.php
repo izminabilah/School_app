@@ -12,8 +12,13 @@ class AccountTeacherController extends Controller
     public function index()
     {
         //
-        $accountTeachers = Teacher::all();
-        return view('AccountTeacher')->with('accountTeachers', $accountTeachers);
+        if(session()->exists('username')){
+            $accountTeachers = Teacher::all();
+            return view('AccountTeacher')->with('accountTeachers', $accountTeachers);
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

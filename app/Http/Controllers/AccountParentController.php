@@ -10,8 +10,13 @@ class AccountParentController extends Controller
     public function index()
     {
         //
-        $accountParent = StudentParent::all();
-        return view('AccountParent')->with('accountParents', $accountParent);
+        if(session()->exists('username')){
+            $accountParent = StudentParent::all();
+            return view('AccountParent')->with('accountParents', $accountParent);
+        }else {
+            return redirect()->route('sign-in');
+        }
+
     }
 
     /**

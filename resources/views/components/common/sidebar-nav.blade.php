@@ -4,7 +4,7 @@
         <div class="bg-white dark:bg-[#0e1726] h-full">
             <div class="flex justify-between items-center px-4 py-3">
                 <a href="/" class="main-logo flex items-center shrink-0">
-                    <img class="w-8 ml-[5px] flex-none" src="/assets/images/Logo-School.svg"
+                    <img class="w-8 ml-[5px] flex-none" src="/assets/images/Logo-School1.svg"
                          alt="image" />
                     <span
                         class="text-0.8xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">ALVA HIGH SCHOOL</span>

@@ -19,6 +19,5 @@ class Teacher extends Model
         'password',
         'address',
         'Gender',
-        'subject_id',
     ];
 }
