@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\AccountParentController;
+use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileTeacherController;
 use App\Http\Controllers\TuController;
-use App\Http\Controllers\PaymentValidationController;
+use App\Http\Controllers\AccountTeacherController;
+use App\Http\Controllers\AccountStudentController;
+use App\Http\Controllers\CalendersmsController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
@@ -12,10 +17,48 @@ Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
 Route::get('/sign-out', [LoginController::class, 'destroy'])->name('logout');
 Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
-Route::view('/profile/teacher','profileGuru');
-Route::view('/account/Teacher', [AccountTeacherController::class, 'index']);
+//Route::view('/profile/teacher','profileGuru');
+
+Route::get('/profile/teacher', [ProfileTeacherController::class, 'index'])->name('profile-teacher');
+Route::post('/profile/teacher/add', [ProfileTeacherController::class, 'store']);
+Route::get('/profile/teacher/edit/{id}', [ProfileTeacherController::class, 'edit'])->name('edit-profile-tea');
+Route::put('/profile/teacher/update/{id}', [ProfileTeacherController::class, 'update'])->name('update-profile-tea');
+Route::get('/profile/teacher/delete/{id}', [ProfileTeacherController::class, 'destroy'])->name('delete-profile-tea');
+Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('search-profile-tea');
+
+Route::view('/Student','Student');//
+Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
+Route::post('/account/student/add', [AccountStudentController::class, 'store']);
+Route::get('/account/student/edit/{id}', [AccountStudentController::class, 'edit'])->name('edit-account-stu');
+Route::put('/account/student/update/{id}', [AccountStudentController::class, 'update'])->name('update-account-stu');
+Route::get('/account/student/delete/{id}', [AccountStudentController::class, 'destroy'])->name('delete-account-stu');
+Route::get('/account/student/search', [AccountStudentController::class, 'search'])->name('search-account-stu');
+
+Route::get('/account/teacher', [AccountTeacherController::class, 'index'])->name('account-teacher');
+Route::post('/account/teacher/add', [AccountTeacherController::class, 'store']);
+Route::get('/account/teacher/edit/{id}', [AccountTeacherController::class, 'edit'])->name('edit-account-tea');
+Route::put('/account/teacher/update/{id}', [AccountTeacherController::class, 'update'])->name('update-account-tea');
+Route::get('/account/teacher/delete/{id}', [AccountTeacherController::class, 'destroy'])->name('delete-account-tea');
+Route::get('/account/teacher/search', [AccountTeacherController::class, 'search'])->name('search-account-tea');
+
+Route::get('/account/parent', [AccountParentController::class, 'index'])->name('account-parent');
+Route::post('/account/parent/add', [AccountParentController::class, 'store']);
+Route::get('/account/parent/edit/{id}', [AccountParentController::class, 'edit'])->name('edit-account-par');
+Route::put('/account/parent/update/{id}', [AccountParentController::class, 'update'])->name('update-account-par');
+Route::get('/account/parent/delete/{id}', [AccountParentController::class, 'destroy'])->name('delete-account-par');
+Route::get('/account/parent/search', [AccountParentController::class, 'search'])->name('search-account-par');
+
+Route::get('/listSubject',[ListSubjectController::class, 'index'])->name('listSubject');
+Route::post('/listSubject/add', [ListSubjectController::class, 'store']);
+Route::get('/listSubject/edit/{id}', [ListSubjectController::class, 'edit'])->name('edit-subject');
+Route::put('/listSubject/update/{id}', [ListSubjectController::class, 'update'])->name('update-subject');
+Route::get('/listSubject/delete/{id}', [ListSubjectController::class, 'destroy'])->name('delete-subject');
+
 Route::view('activity','analytics');
-Route::view('calender/semester','CalenderSemester');
+Route::get('calender/semester',[CalendersmsController::class, 'index'])->name('calendersms');
+Route::post('/calender/add', [CalendersmsController::class, 'store']);
+Route::get('/calender/edit/{id}', [CalendersmsController::class, 'edit'])->name('edit-calender');
+Route::put('/calender/update/{id}', [CalendersmsController::class, 'update'])->name('update-calender');
 //
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');

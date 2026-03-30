@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountStudent extends Model
+class Calendersms extends Model
 {
     use HasFactory;
 
-    protected $table="account_students";
+    protected $table="calendersms";
 
     protected $primaryKey = "id";
 
     protected $fillable =[
-        'name',
-        'username',
-        'password',
+        'event',
+        'from',
+        'to',
+        'description',
+        'type_event',
     ];
 }

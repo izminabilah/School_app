@@ -2,7 +2,7 @@
 
     <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Account Teacher</h2>
+            <h2 class="text-xl">Account Student</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                 <div class="flex gap-3">
                     <div>
@@ -39,27 +39,27 @@
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
                                         x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
                                     <div class="p-5">
-                                        <form action="/account/teacher/add" method="POST">
-                                            @csrf
-                                            <div class="mb-5">
-                                                <label for="name">Name</label>
-                                                <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="username">Username</label>
-                                                <input id="username" name="username" type="text" placeholder="Enter Username" class="form-input" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="password">Password</label>
-                                                <input id="password" name="password" type="text" placeholder="Enter Password" class="form-input" />
-                                            </div>
-                                            <div class="flex justify-end items-center mt-8">
-                                                <button type="button" class="btn btn-outline-danger"
-                                                        @click="addContactModal = false">Cancel</button>
-                                                <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                        x-text="params.id ? 'Update' : 'Add'"></button>
-                                            </div>
-                                        </form>
+                                            <form action="/account/student/add" method="POST">
+                                                @csrf
+                                                <div class="mb-5">
+                                                    <label for="name">Name</label>
+                                                    <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label for="username">Username</label>
+                                                    <input id="username" name="username" type="text" placeholder="Enter Username" class="form-input" />
+                                                </div>
+                                                <div class="mb-5">
+                                                    <label for="password">Password</label>
+                                                    <input id="password" name="password" type="text" placeholder="Enter Password" class="form-input" />
+                                                </div>
+                                                <div class="flex justify-end items-center mt-8">
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                            @click="addContactModal = false">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
+                                                            x-text="params.id ? 'Update' : 'Add'"></button>
+                                                </div>
+                                            </form>
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +114,9 @@
                 <!-- live search -->
                 <div class="relative ">
                     <!-- searchbar -->
-                    <form class="mx-auto w-full" action="{{ route('search-account-tea') }}" method="GET">
+                    <form class="mx-auto w-full" action="{{ route('search-account-stu') }}" method="GET">
                         <div class="relative">
-                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
+                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-stu"  name="search-stu" oninput="this.form.submit()"/>
                             <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
                                 <a type="button">
                                     <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -146,15 +146,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($accountTeachers as $accountTeacher)
+                        @forelse ($accountStudents as $accountStudent)
                             <tr>
-                                <td>{{ $accountTeacher->name }}</td>
-                                <td>{{ $accountTeacher->username }}</td>
-                                <td class="whitespace-nowrap">{{ $accountTeacher->password }}</td>
+                                <td>{{ $accountStudent->name }}</td>
+                                <td>{{ $accountStudent->username }}</td>
+                                <td class="whitespace-nowrap">{{ $accountStudent->password }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $accountStudent->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-stu', ['id' => $accountStudent->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -203,8 +203,8 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
-                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $accountStudent->id])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-stu', ['id' => $accountStudent->id]) }}">Delete</a>
                         </div>
                     </div>
                 </template>

@@ -2,7 +2,7 @@
 
     <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Account Teacher</h2>
+            <h2 class="text-xl">Subject List</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
                 <div class="flex gap-3">
                     <div>
@@ -18,7 +18,7 @@
                                 <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor"
                                       stroke-width="1.5" stroke-linecap="round" />
                             </svg>
-                            Add Account
+                            Add Subject
                         </button>
                         <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" :class="addContactModal && '!block'">
                             <div class="flex items-center justify-center min-h-screen px-4"
@@ -37,27 +37,18 @@
                                         </svg>
                                     </button>
                                     <h3 class="text-lg font-medium bg-[#fbfbfb] dark:bg-[#121c2c] ltr:pl-5 rtl:pr-5 py-3 ltr:pr-[50px] rtl:pl-[50px]"
-                                        x-text="params.id ? 'Edit Contact' : 'Add Contact'"></h3>
+                                       >Add Subject</h3>
                                     <div class="p-5">
-                                        <form action="/account/teacher/add" method="POST">
+                                        <form action="/listSubject/add" method="POST">
                                             @csrf
                                             <div class="mb-5">
-                                                <label for="name">Name</label>
+                                                <label for="name">Name Subject</label>
                                                 <input id="name" name="name" type="text" placeholder="Enter Name" class="form-input" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="username">Username</label>
-                                                <input id="username" name="username" type="text" placeholder="Enter Username" class="form-input" />
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="password">Password</label>
-                                                <input id="password" name="password" type="text" placeholder="Enter Password" class="form-input" />
                                             </div>
                                             <div class="flex justify-end items-center mt-8">
                                                 <button type="button" class="btn btn-outline-danger"
                                                         @click="addContactModal = false">Cancel</button>
-                                                <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                        x-text="params.id ? 'Update' : 'Add'"></button>
+                                                <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -65,71 +56,6 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-primary p-2"
-                                :class="{ 'bg-primary text-white': displayType === 'list' }"
-                                @click="setDisplayType('list')">
-
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path d="M2 5.5L3.21429 7L7.5 3" stroke="currentColor" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round" />
-                                <path opacity="0.5" d="M2 12.5L3.21429 14L7.5 10" stroke="currentColor"
-                                      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M2 19.5L3.21429 21L7.5 17" stroke="currentColor" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M22 19L12 19" stroke="currentColor" stroke-width="1.5"
-                                      stroke-linecap="round" />
-                                <path opacity="0.5" d="M22 12L12 12" stroke="currentColor" stroke-width="1.5"
-                                      stroke-linecap="round" />
-                                <path d="M22 5L12 5" stroke="currentColor" stroke-width="1.5"
-                                      stroke-linecap="round" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-primary p-2"
-                                :class="{ 'bg-primary text-white': displayType === 'grid' }"
-                                @click="setDisplayType('grid')">
-
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path opacity="0.5"
-                                      d="M2.5 6.5C2.5 4.61438 2.5 3.67157 3.08579 3.08579C3.67157 2.5 4.61438 2.5 6.5 2.5C8.38562 2.5 9.32843 2.5 9.91421 3.08579C10.5 3.67157 10.5 4.61438 10.5 6.5C10.5 8.38562 10.5 9.32843 9.91421 9.91421C9.32843 10.5 8.38562 10.5 6.5 10.5C4.61438 10.5 3.67157 10.5 3.08579 9.91421C2.5 9.32843 2.5 8.38562 2.5 6.5Z"
-                                      stroke="currentColor" stroke-width="1.5" />
-                                <path opacity="0.5"
-                                      d="M13.5 17.5C13.5 15.6144 13.5 14.6716 14.0858 14.0858C14.6716 13.5 15.6144 13.5 17.5 13.5C19.3856 13.5 20.3284 13.5 20.9142 14.0858C21.5 14.6716 21.5 15.6144 21.5 17.5C21.5 19.3856 21.5 20.3284 20.9142 20.9142C20.3284 21.5 19.3856 21.5 17.5 21.5C15.6144 21.5 14.6716 21.5 14.0858 20.9142C13.5 20.3284 13.5 19.3856 13.5 17.5Z"
-                                      stroke="currentColor" stroke-width="1.5" />
-                                <path
-                                    d="M2.5 17.5C2.5 15.6144 2.5 14.6716 3.08579 14.0858C3.67157 13.5 4.61438 13.5 6.5 13.5C8.38562 13.5 9.32843 13.5 9.91421 14.0858C10.5 14.6716 10.5 15.6144 10.5 17.5C10.5 19.3856 10.5 20.3284 9.91421 20.9142C9.32843 21.5 8.38562 21.5 6.5 21.5C4.61438 21.5 3.67157 21.5 3.08579 20.9142C2.5 20.3284 2.5 19.3856 2.5 17.5Z"
-                                    stroke="currentColor" stroke-width="1.5" />
-                                <path
-                                    d="M13.5 6.5C13.5 4.61438 13.5 3.67157 14.0858 3.08579C14.6716 2.5 15.6144 2.5 17.5 2.5C19.3856 2.5 20.3284 2.5 20.9142 3.08579C21.5 3.67157 21.5 4.61438 21.5 6.5C21.5 8.38562 21.5 9.32843 20.9142 9.91421C20.3284 10.5 19.3856 10.5 17.5 10.5C15.6144 10.5 14.6716 10.5 14.0858 9.91421C13.5 9.32843 13.5 8.38562 13.5 6.5Z"
-                                    stroke="currentColor" stroke-width="1.5" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- live search -->
-                <div class="relative ">
-                    <!-- searchbar -->
-                    <form class="mx-auto w-full" action="{{ route('search-account-tea') }}" method="GET">
-                        <div class="relative">
-                            <input type="text" placeholder="Search Account" class="form-input py-2 ltr:pr-11 rtl:pl-11 peer" id="search-tea"  name="search-tea" oninput="this.form.submit()"/>
-                            <div class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
-                                <a type="button">
-                                    <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-                                                stroke-width="1.5" opacity="0.5"></circle>
-                                        <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-                                              stroke-linecap="round"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -139,22 +65,20 @@
                     <table class="table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Password</th>
+                            <th></th>
+                            <th class="text-center">Subject</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($accountTeachers as $accountTeacher)
+                        @forelse ($subjects as $subject)
                             <tr>
-                                <td>{{ $accountTeacher->name }}</td>
-                                <td>{{ $accountTeacher->username }}</td>
-                                <td class="whitespace-nowrap">{{ $accountTeacher->password }}</td>
+                                <td class="whitespace-nowrap"></td>
+                                <td>{{ $subject->name }}</td>
                                 <td>
                                     <div class="flex gap-4 items-center justify-center">
-                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
-                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
+                                        <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-subject', ['id' => $subject->id])}}">Edit</a>
+                                        <a type="button" class="btn btn-sm btn-outline-danger" href="{{route('delete-subject', ['id' => $subject->id])}}">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -203,8 +127,8 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-tea', ['id' => $accountTeacher->id])}}">Edit</a>
-                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-account-tea', ['id' => $accountTeacher->id])}}">Delete</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-subject', ['id' => $subject->id])}}">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{route('delete-subject', ['id' => $subject->id])}}">Delete</a>
                         </div>
                     </div>
                 </template>
