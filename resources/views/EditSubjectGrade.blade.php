@@ -96,7 +96,7 @@
                             >Edit Subject Grade
                             </h3>
                             <div class="p-5">
-                                <form name="form-edit" method="POST" action="{{route('update-grade')}}">
+                                <form name="form-edit" method="POST" action="{{route('update-grade', ['id' => $subjectGrade->id])}}">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-5">
@@ -124,6 +124,7 @@
                                             <th>Ulangan Harian 8</th>
                                             <th>Tugas 2</th>
                                             <th>Ulangan Akhir Semester</th>
+                                            <th>Ketera mpilan</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -172,7 +173,10 @@
                                                 <td>
                                                     <input id="final_test" name="final_test[]" type="text" placeholder="input nilai" class="form-input" value="{{ $studentGrade ? $studentGrade->final_test : '' }}">
                                                 </td>
-
+                                                <td>
+                                                    <input id="keterampilan" name="keterampilan[]" type="text" placeholder="input nilai"
+                                                           class="form-input" />
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

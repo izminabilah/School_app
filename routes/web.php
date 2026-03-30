@@ -12,11 +12,13 @@ use App\Http\Controllers\ActivityStudentSOController;
 use App\Http\Controllers\CalendersmsGOController;
 use App\Http\Controllers\CalendersmsPOController;
 use App\Http\Controllers\CalendersmsSOController;
+use App\Http\Controllers\ListClassController;
 use App\Http\Controllers\ListSubjectController;
 use App\Http\Controllers\ListSubjectPOController;
 use App\Http\Controllers\ListSubjectSOController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\ProfileTeacherController;
 use App\Http\Controllers\ProfileTeacherGOController;
 use App\Http\Controllers\ProfileTeacherPOController;
 use App\Http\Controllers\ProfileTeacherSOController;
@@ -36,7 +38,7 @@ use App\Http\Controllers\AccountStudentController;
 use App\Http\Controllers\CalendersmsController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/aaa', 'index');
+
 //
 Route::get('/', [LoginController::class, 'index'])->name('sign-in');
 Route::post('/sign-in', [LoginController::class, 'store'])->name('login');
@@ -45,12 +47,12 @@ Route::get('/home', [TuController::class, 'index'])->name('home');
 Route::view('/card', 'card');
 //Route::view('/profile/teacher','profileGuru');
 
-Route::get('/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher');
-Route::post('/profile/teacher/add', [ProfileTeacherSOController::class, 'store']);
-Route::get('/profile/teacher/edit/{id}', [ProfileTeacherSOController::class, 'edit'])->name('edit-profile-tea');
-Route::put('/profile/teacher/update/{id}', [ProfileTeacherSOController::class, 'update'])->name('update-profile-tea');
-Route::get('/profile/teacher/delete/{id}', [ProfileTeacherSOController::class, 'destroy'])->name('delete-profile-tea');
-Route::get('/profile/teacher/search', [ProfileTeacherSOController::class, 'search'])->name('search-profile-tea');
+Route::get('/profile/teacher', [ProfileTeacherController::class, 'index'])->name('profile-teacher');
+Route::post('/profile/teacher/add', [ProfileTeacherController::class, 'store']);
+Route::get('/profile/teacher/edit/{id}', [ProfileTeacherController::class, 'edit'])->name('edit-profile-tea');
+Route::put('/profile/teacher/update/{id}', [ProfileTeacherController::class, 'update'])->name('update-profile-tea');
+Route::get('/profile/teacher/delete/{id}', [ProfileTeacherController::class, 'destroy'])->name('delete-profile-tea');
+Route::get('/profile/teacher/search', [ProfileTeacherController::class, 'search'])->name('search-profile-tea');
 
 Route::view('/Student','Student');//
 Route::get('/account/student', [AccountStudentController::class, 'index'])->name('account-student');
@@ -79,6 +81,12 @@ Route::post('/listSubject/add', [ListSubjectController::class, 'store']);
 Route::get('/listSubject/edit/{id}', [ListSubjectController::class, 'edit'])->name('edit-subject');
 Route::put('/listSubject/update/{id}', [ListSubjectController::class, 'update'])->name('update-subject');
 Route::get('/listSubject/delete/{id}', [ListSubjectController::class, 'destroy'])->name('delete-subject');
+
+Route::get('/listClass',[ListClassController::class, 'index'])->name('listClass');
+Route::post('/listClass/add', [ListClassController::class, 'store']);
+Route::get('/listClass/edit/{id}', [ListClassController::class, 'edit'])->name('edit-class');
+Route::put('/listClass/update/{id}', [ListClassController::class, 'update'])->name('update-class');
+Route::get('/listClass/delete/{id}', [ListClassController::class, 'destroy'])->name('delete-class');
 
 Route::get('/Schedule',[SubjectScheduleController::class, 'index'])->name('Schedule');
 Route::post('/Schedule/add', [SubjectScheduleController::class, 'store']);
@@ -110,16 +118,18 @@ Route::get('/activity/absent/update/search', [AbsentStudentController::class, 's
 Route::get('/activity/subject/grade',[SubjectGradeController::class, 'index'])->name('subject-grade');
 Route::post('/activity/subject/grade/add', [SubjectGradeController::class, 'store']);
 Route::get('/activity/subject/grade/edit/{id}', [SubjectGradeController::class, 'edit'])->name('edit-grade');
-Route::put('/activity/subject/grade/update', [SubjectGradeController::class, 'update'])->name('update-grade');
+Route::put('/activity/subject/grade/update/{id}', [SubjectGradeController::class, 'update'])->name('update-grade');
 Route::get('/activity/subject/grade/search', [SubjectGradeController::class, 'search'])->name('search-subject');
 
 //route dari login siswa
 Route::get('/home_so', [StudentController::class, 'index'])->name('home_so');
+Route::get('/home_so/password/change/edit/{id}', [StudentController::class, 'edit'])->name('edit-pass-so');
+Route::put('/home_so/password/change/update/{id}', [StudentController::class, 'update'])->name('update-pass-so');
 
 Route::get('/so/profile/teacher', [ProfileTeacherSOController::class, 'index'])->name('profile-teacher-so');
 Route::get('/so/profile/teacher/search', [ProfileTeacherSOController::class, 'search'])->name('search-profile-tea-so');
 
-Route::get('/so/listSubject',[ListSubjectSOController::class, 'index'])->name('listSubject');
+Route::get('/so/listSubject',[ListSubjectSOController::class, 'index'])->name('listSubject-so');
 
 Route::get('/so/Schedule',[SubjectScheduleSOController::class, 'index'])->name('Schedule-so');
 Route::get('/so/Schedule/search', [SubjectScheduleSOController::class, 'search'])->name('search-schedule-so');
@@ -137,6 +147,8 @@ Route::get('/so/activity/subject/grade',[SubjectGradeSOController::class, 'index
 
 //route dari login orang tua
 Route::get('/home_po', [ParentController::class, 'index'])->name('home_po');
+Route::get('/home_po/password/change/edit/{id}', [ParentController::class, 'edit'])->name('edit-pass-po');
+Route::put('/home_po/password/change/update/{id}', [ParentController::class, 'update'])->name('update-pass-po');
 
 Route::get('/po/profile/teacher', [ProfileTeacherPOController::class, 'index'])->name('profile-teacher-po');
 Route::get('/po/profile/teacher/search', [ProfileTeacherPOController::class, 'search'])->name('search-profile-tea-po');
@@ -146,7 +158,7 @@ Route::get('/po/listSubject',[ListSubjectPOController::class, 'index'])->name('l
 Route::get('/po/Schedule',[SubjectSchedulePOController::class, 'index'])->name('Schedule-po');
 Route::get('/po/Schedule/search', [SubjectSchedulePOController::class, 'search'])->name('search-schedule-po');
 
-Route::get('/po/calender/semester',[CalendersmsPOController::class, 'index'])->name('calendersms-so');
+Route::get('/po/calender/semester',[CalendersmsPOController::class, 'index'])->name('calendersms-po');
 
 Route::get('/po/activity/student',[ActivityStudentPOController::class, 'index'])->name('aktivitas-po');
 Route::get('/po/activity/student/search', [ActivityStudentPOController::class, 'search'])->name('search-activity-po');
@@ -192,11 +204,12 @@ Route::get('/go/activity/absent/update/search', [AbsentStudentGOController::clas
 Route::get('/go/activity/subject/grade',[SubjectGradeGOController::class, 'index'])->name('subject-grade-go');
 Route::post('/go/activity/subject/grade/add', [SubjectGradeGOController::class, 'store']);
 Route::get('/go/activity/subject/grade/edit/{id}', [SubjectGradeGOController::class, 'edit'])->name('edit-grade-go');
-Route::put('/go/activity/subject/grade/update', [SubjectGradeGOController::class, 'update'])->name('update-grade-go');
+Route::put('/go/activity/subject/grade/update/{id}', [SubjectGradeGOController::class, 'update'])->name('update-grade-go');
 Route::get('/go/activity/subject/grade/search', [SubjectGradeGOController::class, 'search'])->name('search-subject-go');
 
 
 //
+Route::view('/aaa', 'index');
 Route::view('/analytics', 'analytics');
 Route::view('/finance', 'finance');
 Route::view('/crypto', 'crypto');

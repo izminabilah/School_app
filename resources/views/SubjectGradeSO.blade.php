@@ -1,4 +1,14 @@
 <x-layout.default-so>
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">{{$data}}</p>
+            </li>
+            <li class="before:content-['/'] before:mr-1 rtl:before:ml-1">
+                <span>{{$nama_class}}</span>
+            </li>
+        </ul>
+    </div>
     @isset($subjectGrades)
         <div class="panel" id="tables-grade">
             <div class="panel">
@@ -24,6 +34,7 @@
                             <th class="border-2">Ulangan Harian 8</th>
                             <th class="border-2">Tugas 2</th>
                             <th class="border-2">UAS</th>
+                            <th class="border-2">Ketera mpilan</th>
                             <th class="border-2">Nilai Akhir Pada Rapor</th>
 
                         </tr>
@@ -44,12 +55,14 @@
                                 <td class="border-2">{{ $subjectGrade->quiz8 }}</td>
                                 <td class="border-2">{{ $subjectGrade->homework2 }}</td>
                                 <td class="border-2">{{ $subjectGrade->final_test }}</td>
+                                <td class="border-2">{{ $subjectGrade->keterampilan }}</td>
                                 @php
                                     $averageHomework = ($subjectGrade->homework1 + $subjectGrade->homework2) / 2;
                                     $averageQuizzes = ($subjectGrade->quiz1 + $subjectGrade->quiz2 + $subjectGrade->quiz3 + $subjectGrade->quiz4 + $subjectGrade->quiz5 + $subjectGrade->quiz6 + $subjectGrade->quiz7 + $subjectGrade->quiz8) / 8;
-                                    $finalGrade = (0.2 * $averageHomework) + (0.3 * $averageQuizzes) + (0.2 * $subjectGrade->midterm_test) + (0.3 * $subjectGrade->final_test);
+                                    $finalGrade = (0.2 * $averageHomework) + (0.3 * $averageQuizzes) + (0.2 * $subjectGrade->midterm_test) + (0.2 * $subjectGrade->final_test) +(0.1 * $totalabsen);
+                                    $formattedFinalGrade = number_format($finalGrade, 2);
                                 @endphp
-                                <td class="border-2">{{ $finalGrade }}</td>
+                                <td class="border-2">{{ $formattedFinalGrade}}</td>
                             </tr>
                         @endforeach
                         </tbody>

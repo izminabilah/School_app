@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassStudent;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class ProfileTeacherController extends Controller
 //        return view('profileGuru');
         if(session()->exists('username')){
             $profileTeachers = Teacher::all();
-            return view('profileGuru')->with('profileTeachers', $profileTeachers);
+            return view('profileGuru', compact('profileTeachers'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -36,8 +38,6 @@ class ProfileTeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
-//        var_dump($request);
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -47,8 +47,6 @@ class ProfileTeacherController extends Controller
             'gender' => 'required',
             'address' => 'required',
         ]);
-//        dd($request->all());
-//        var_dump($tezt);
         $profileTeacher = new Teacher();
         $profileTeacher->name = $request->input('name');
         $profileTeacher->email = $request->input('email');
@@ -57,7 +55,6 @@ class ProfileTeacherController extends Controller
         $profileTeacher->subject_id = $request->input('subject_id');
         $profileTeacher->username = $request->input('username');
         $profileTeacher->password = $request->input('password');
-//        var_dump($profileTeacher);
         $profileTeacher->save();
 
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses

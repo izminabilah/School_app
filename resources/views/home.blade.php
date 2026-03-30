@@ -1,7 +1,13 @@
 <x-layout.default>
     <script defer src="/assets/js/apexcharts.js"></script>
     <div x-data="sales">
-
+        <div class="flex justify-end pb-4">
+            <ul class="flex space-x-2 rtl:space-x-reverse">
+                <li>
+                    <p class="text-primary">Admin</p>
+                </li>
+            </ul>
+        </div>
         <div class="pt-5">
             <div class="grid xl:grid-cols-3 gap-6 mb-6">
                 <div class="panel h-full xl:col-span-2">

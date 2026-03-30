@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClassStudent;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectSchedule;
 use App\Models\Teacher;
@@ -21,8 +22,14 @@ class SubjectScheduleSOController extends Controller
             $teachers = Teacher::all();
             $class_students = ClassStudent::all();
             $subjectSchedules = SubjectSchedule::all();
+            $username = session('username');
+            $student = Student::where('username', $username)->first();
+            $data = $student->name;
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
+            $note =null;
             $search_results_available = false;
-            return view('subjectScheduleSO', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
+            return view('subjectScheduleSO', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available', 'data', 'nama_class', 'note'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -79,12 +86,22 @@ class SubjectScheduleSOController extends Controller
     public function search(Request $request){
 
         $search = $request->input('search-schedule-so');
+        session()->put('search-schedule-so', $search);
         $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
 
         if ($class_student) {
             $subjectSchedules = SubjectSchedule::where('class_student_id', $class_student->id)->get();
+            $note = $class_student->name;
         } else {
             $subjectSchedules = collect(); // return an empty collection if no matching class is found
+            $note =null;
+        }
+        if(session()->exists('username')){
+            $username = session('username');
+            $student = Student::where('username', $username)->first();
+            $data = $student->name;
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
         }
 
         $subjects = Subject::all();
@@ -92,7 +109,7 @@ class SubjectScheduleSOController extends Controller
         $class_students = ClassStudent::all();
         $search_results_available = true;
 
-        return view('subjectScheduleSO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available'));
+        return view('subjectScheduleSO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available', 'data', 'nama_class', 'note'));
 
     }
 }

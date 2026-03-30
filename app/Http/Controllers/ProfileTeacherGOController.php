@@ -15,7 +15,11 @@ class ProfileTeacherGOController extends Controller
         //
         if(session()->exists('username')){
             $profileTeachers = Teacher::all();
-            return view('profileGuruGO')->with('profileTeachers', $profileTeachers);
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
+            return view('profileGuruGO', compact('profileTeachers','data', 'status'));
         }else {
             return redirect()->route('sign-in');
         }

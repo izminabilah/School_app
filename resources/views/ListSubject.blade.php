@@ -1,5 +1,11 @@
 <x-layout.default>
-
+    <div class="flex justify-end pb-4">
+        <ul class="flex space-x-2 rtl:space-x-reverse">
+            <li>
+                <p class="text-primary">Admin</p>
+            </li>
+        </ul>
+    </div>
     <div x-data="account">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="text-xl">Daftar Mata Pelajaran</h2>

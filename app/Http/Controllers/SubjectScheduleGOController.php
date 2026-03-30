@@ -16,24 +16,15 @@ class SubjectScheduleGOController extends Controller
     public function index()
     {
         //
-//        if(session()->exists('username')){
-//            $subjects = Subject::all();
-////            $teachers = Teacher::all();
-//            $class_students = ClassStudent::all();
-//            $subjectSchedules = SubjectSchedule::all();
-//
-//
-//            $search_results_available = false;
-//            return view('subjectScheduleGO', compact('data','subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
-//        }else {
-//            return redirect()->route('sign-in');
-//        }
         if (session()->exists('username')) {
             $username = session('username');
             $teacher = Teacher::where('username', $username)->first();
             $subjectSchedules = SubjectSchedule::where('teacher_id', $teacher->id)->get();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
             $search_results_available = true;
-            return view('subjectScheduleGO', compact('subjectSchedules', 'search_results_available'));
+            $note = null;
+            return view('subjectScheduleGO', compact('subjectSchedules', 'search_results_available', 'data', 'status', 'note'));
         } else {
             return redirect()->route('sign-in');
         }
@@ -132,13 +123,20 @@ class SubjectScheduleGOController extends Controller
 
     public function search(Request $request)
     {
+        if(session()->exists('username')){
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
+        }
         $search = $request->input('search-schedule-go');
         $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+        session()->put('search-schedule-go', $search);
         $teacher = Teacher::where('name', 'LIKE', "%$search%")->first();
 
         if ($class_student || $teacher) {
             $subjectSchedules = collect();
-
+            $note = $class_student->name;
             if ($class_student) {
                 $subjectSchedules = $subjectSchedules->merge(
                     SubjectSchedule::where('class_student_id', $class_student->id)->get()
@@ -152,6 +150,7 @@ class SubjectScheduleGOController extends Controller
             }
         } else {
             $subjectSchedules = collect(); // return an empty collection if no matching class or teacher is found
+            $note= null;
         }
 
         $subjects = Subject::all();
@@ -159,6 +158,6 @@ class SubjectScheduleGOController extends Controller
         $class_students = ClassStudent::all();
         $search_results_available = true;
 
-        return view('subjectScheduleGO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available'));
+        return view('subjectScheduleGO', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available', 'data', 'status', 'note'));
     }
 }

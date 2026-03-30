@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
+use App\Models\SubjectSchedule;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class SubjectGradeGOController extends Controller
@@ -19,9 +22,28 @@ class SubjectGradeGOController extends Controller
             $subjects = Subject::all();
             $students = Student::all();
             $subjectGrades = SubjectGrade::all();
-            $search_results_available = false;
-            return view('SubjectGradeGO', compact('students','subjects','subjectGrades', 'search_results_available'));
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $teacherId = $teacher->id;
+            $get_subject = SubjectSchedule::where('teacher_id', $teacherId)->pluck('subject_id');
+            $nama_subject = Subject::whereIn('id', $get_subject)->pluck('name')->first();
 
+
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
+            $mapel = null;
+            $nama_class = null;
+
+            $subject_table = Subject::where('name', 'LIKE', $nama_subject)->first();
+            if ($subject_table) {
+                $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
+                $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
+                $mapel = $subject_table->name;
+                $selectedStudent = $students->first();
+                $nama_class = ClassStudent::where('id', $selectedStudent->class_student_id)->pluck('name')->first();
+
+                return view('SubjectGradeGO', compact('students', 'subjects', 'subjectGrades', 'data', 'status', 'mapel', 'nama_class'));
+            }
         }else {
             return redirect()->route('sign-in');
         }
@@ -56,6 +78,7 @@ class SubjectGradeGOController extends Controller
             'quiz8' => 'nullable|array',
             'homework2' => 'nullable|array',
             'final_test' => 'nullable|array',
+            'keterampilan' => 'nullable|array',
         ]);
 
         $subject_id = $request->input('subject_id');
@@ -72,7 +95,7 @@ class SubjectGradeGOController extends Controller
         $quiz8 = $request->input('quiz8');
         $homework2 = $request->input('homework2');
         $final_test = $request->input('final_test');
-
+        $keterampilan = $request->input('keterampilan');
 
         foreach ($student_ids as $index => $student_id) {
             $subjectGrade = new SubjectGrade();
@@ -90,6 +113,7 @@ class SubjectGradeGOController extends Controller
             $subjectGrade->quiz8 = $quiz8[$index];
             $subjectGrade->homework2 = $homework2[$index];
             $subjectGrade->final_test = $final_test[$index];
+            $subjectGrade->keterampilan = $keterampilan[$index];
             $subjectGrade->save();
         }
         return redirect()->route('subject-grade-go');
@@ -117,7 +141,7 @@ class SubjectGradeGOController extends Controller
 
         $subjectGrades = SubjectGrade::where('subject_id', $subject_id)->get();
 
-        return view('EditSubjectGradeGO', compact('subjects', 'students', 'subjectGrades'));
+        return view('EditSubjectGradeGO', compact('subjects', 'students', 'subjectGrades', 'subjectGrade'));
     }
 
     /**
@@ -141,6 +165,7 @@ class SubjectGradeGOController extends Controller
             'quiz8' => 'nullable|array',
             'homework2' => 'nullable|array',
             'final_test' => 'nullable|array',
+            'keterampilan' => 'nullable|array',
         ]);
 
         $subject_id = $request->input('subject_id');
@@ -157,7 +182,7 @@ class SubjectGradeGOController extends Controller
         $quiz8 = $request->input('quiz8');
         $homework2 = $request->input('homework2');
         $final_test = $request->input('final_test');
-
+        $keterampilan = $request->input('keterampilan');
 
         foreach ($student_ids as $index => $student_id) {
             $subjectGrade = SubjectGrade::where('subject_id', $subject_id)
@@ -177,6 +202,7 @@ class SubjectGradeGOController extends Controller
                 $subjectGrade->quiz8 = $quiz8[$index];
                 $subjectGrade->homework2 = $homework2[$index];
                 $subjectGrade->final_test = $final_test[$index];
+                $subjectGrade->keterampilan = $keterampilan[$index];
                 $subjectGrade->save();
             } else {
                 $newSubjectGrade = new SubjectGrade();
@@ -194,6 +220,7 @@ class SubjectGradeGOController extends Controller
                 $newSubjectGrade->quiz8 = $quiz8[$index];
                 $newSubjectGrade->homework2 = $homework2[$index];
                 $newSubjectGrade->final_test = $final_test[$index];
+                $newSubjectGrade->keterampilan = $keterampilan[$index];
 
                 $newSubjectGrade->save();
             }
@@ -211,17 +238,6 @@ class SubjectGradeGOController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->input('search-subject-go');
-        $subject_table = Subject::where('name', 'LIKE', "%$search%")->first();
-        $subjects = Subject::all();
-        $search_results_available = true;
 
-        if ($subject_table) {
-            $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
-            $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
-            return view('SubjectGradeGO', compact('subjectGrades', 'subject_table', 'students','subjects', 'search_results_available'));
-        } else {
-            return redirect()->route('subject-grade-go');
-        }
     }
 }

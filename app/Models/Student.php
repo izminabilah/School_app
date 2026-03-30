@@ -20,6 +20,7 @@ class Student extends Model
         'Gender',
         'parent_id',
         'class_student_id',
+        'religion',
     ];
 
 }

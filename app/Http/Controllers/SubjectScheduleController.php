@@ -22,7 +22,8 @@ class SubjectScheduleController extends Controller
             $class_students = ClassStudent::all();
             $subjectSchedules = SubjectSchedule::all();
             $search_results_available = false;
-            return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available'));
+            $nama_class = null;
+            return view('subjectSchedule', compact('subjects', 'teachers', 'class_students', 'subjectSchedules', 'search_results_available', 'nama_class'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -50,14 +51,14 @@ class SubjectScheduleController extends Controller
             'teacher' => 'required|exists:teachers,id',
             'class_student' => 'required|exists:class_students,id',
         ]);
-//        var_dump($request);
+
         $subjectSchedule = new SubjectSchedule();
         $subjectSchedule->day = $request->input('day');
         $subjectSchedule->hour = $request->input('hour');
         $subjectSchedule->subject_id = $request->input('subject');
         $subjectSchedule->teacher_id = $request->input('teacher');
         $subjectSchedule->class_student_id = $request->input('class_student');
-//        var_dump($profileTeacher);
+
         $subjectSchedule->save();
 
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
@@ -82,8 +83,9 @@ class SubjectScheduleController extends Controller
         $subjects = Subject::all();
         $teachers = Teacher::all();
         $class_students = ClassStudent::all();
-        return view('subjectScheduleEdit', compact('subjectSchedules', 'subjects', 'teachers', 'class_students'));
-        // return view('subjectScheduleEdit')-> with(['subjectSchedules' => $subjectSchedules]);
+        return view('subjectScheduleEdit', compact('subjectSchedules',
+            'subjects', 'teachers', 'class_students'));
+
     }
 
     /**
@@ -122,13 +124,18 @@ class SubjectScheduleController extends Controller
 
     public function search(Request $request){
 
+//        $search = $request->input('search-schedule');
+//        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
         $search = $request->input('search-schedule');
+        session()->put('search-schedule', $search);
         $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
 
         if ($class_student) {
             $subjectSchedules = SubjectSchedule::where('class_student_id', $class_student->id)->get();
+            $nama_class = $class_student->name;
         } else {
             $subjectSchedules = collect(); // return an empty collection if no matching class is found
+            $nama_class = null;
         }
 
         $subjects = Subject::all();
@@ -136,7 +143,7 @@ class SubjectScheduleController extends Controller
         $class_students = ClassStudent::all();
         $search_results_available = true;
 
-        return view('subjectSchedule', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available'));
+        return view('subjectSchedule', compact('subjectSchedules', 'subjects', 'teachers', 'class_students', 'search_results_available', 'nama_class'));
 
     }
 }

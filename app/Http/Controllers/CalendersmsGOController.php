@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendersms;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class CalendersmsGOController extends Controller
@@ -15,7 +16,11 @@ class CalendersmsGOController extends Controller
         //
         if(session()->exists('username')){
             $events = Calendersms::all();
-            return view('CalenderSemesterGO', ['events' => $events]);
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
+            return view('CalenderSemesterGO', compact('events', 'data', 'status'));
         }else {
             return redirect()->route('sign-in');
         }

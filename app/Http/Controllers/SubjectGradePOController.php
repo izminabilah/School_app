@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsentStudent;
+use App\Models\ClassStudent;
 use App\Models\Student;
+use App\Models\StudentParent;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
 use Illuminate\Http\Request;
@@ -16,12 +19,38 @@ class SubjectGradePOController extends Controller
     {
         //
         if(session()->exists('username')){
-            $subjects = Subject::all();
-            $students = Student::all();
-            $subjectGrades = SubjectGrade::all();
-            $search_results_available = false;
-            return view('SubjectGradePO', compact('students','subjects','subjectGrades', 'search_results_available'));
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
+            $parentId = $parent->id;
+            $student = Student::where('parent_id', $parentId)->first();
 
+            if ($student) {
+                $studentId = $student->id;
+                $subjects = Subject::where('id', '!=', 2)->get();
+                $subjectGrades = SubjectGrade::where('student_id', $studentId)
+                                                ->where('subject_id', '!=', 2)
+                                                ->get();
+                $namasiswa = $student->name;
+                $class = $student->class_student_id;
+                $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
+
+                $sakit = AbsentStudent::where('student_id', $studentId)->where('description', 'S')->count();
+                $izin = AbsentStudent::where('student_id', $studentId)->where('description', 'I')->count();
+                $alpa = AbsentStudent::where('student_id', $studentId)->where('description', 'A')->count();
+                $hadir = AbsentStudent::where('student_id', $studentId)->where('description', 'M')->count();
+
+                $totalDays = $sakit + $alpa + $izin + $hadir;
+                if ($totalDays == 0) {
+                    $totalDays = 1;
+                }
+                $totalabsen = round(($hadir/($totalDays)*100), 3);
+
+                return view('SubjectGradePO', compact('subjects', 'subjectGrades','totalabsen', 'data', 'status', 'namasiswa', 'nama_class'));
+            }else {
+                return redirect()->route('sign-in');
+            }
         }else {
             return redirect()->route('sign-in');
         }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityStudent;
 use App\Models\ClassStudent;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class ActivityStudentGOController extends Controller
@@ -17,8 +19,13 @@ class ActivityStudentGOController extends Controller
         if(session()->exists('username')){
             $class_students = ClassStudent::all();
             $activityStudents = ActivityStudent::all();
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
             $search_results_available = false;
-            return view('ActivityStudentGO', compact('class_students','activityStudents','search_results_available'));
+            $note = null;
+            return view('ActivityStudentGO', compact('class_students','activityStudents','search_results_available', 'data', 'status', 'note'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -75,7 +82,8 @@ class ActivityStudentGOController extends Controller
         //
         $class_students = ClassStudent::all();
         $activityStudents = ActivityStudent::findOrFail($id);
-        return view('ActivityStudentEditGO', compact('class_students', 'activityStudents'));
+        return view('ActivityStudentEditGO', compact('class_students',
+            'activityStudents'));
     }
 
     /**
@@ -117,16 +125,24 @@ class ActivityStudentGOController extends Controller
     }
 
     public function search(Request $request){
+        if(session()->exists('username')){
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
+        }
         $search = $request->input('search-activity-go');
         $class_students = ClassStudent::where('name', 'LIKE', "%$search%")->first();
         if ($class_students) {
             $activityStudents = ActivityStudent::where('class_student_id', $class_students->id)->get();
+            $note = $class_students->name;
         } else {
             $activityStudents = collect(); // return an empty collection if no matching class is found
+            $note = null;
         }
         $search_results_available = true;
         $class_students = ClassStudent::all();
 
-        return view('ActivityStudentGO', compact('activityStudents', 'class_students', 'search_results_available'));
+        return view('ActivityStudentGO', compact('activityStudents', 'class_students', 'search_results_available', 'data', 'status', 'note'));
     }
 }

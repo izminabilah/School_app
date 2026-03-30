@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsentStudent;
+use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\SubjectGrade;
@@ -14,30 +16,31 @@ class SubjectGradeSOController extends Controller
      */
     public function index()
     {
-        //
-//        if(session()->exists('username')){
-//            $student = Student::where('username', $username)->first();
-//            $studentId = $student->id;
-//
-//            $subjects = Subject::all();
-//            $students = Student::all();
-//            $subjectGrades = SubjectGrade::where('student_id', $studentId);
-//            $search_results_available = false;
-//            return view('SubjectGradeSO', compact('students','subjects','subjectGrades', 'search_results_available'));
-//
-//        }else {
-//            return redirect()->route('sign-in');
-//        }
         if(session()->exists('username')){
             $username = session('username');
             $student = Student::where('username', $username)->first();
+            $data = $student->name;
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
             if ($student) {
                 $studentId = $student->id;
+                $subjects = Subject::where('id', '!=', 2)->get();
+                $subjectGrades = SubjectGrade::where('student_id', $studentId)
+                                                ->where('subject_id', '!=', 2)
+                                                ->get();
 
-                $subjects = Subject::all();
-                $subjectGrades = SubjectGrade::where('student_id', $studentId)->get();
-                $search_results_available = false;
-                return view('SubjectGradeSO', compact('subjects', 'subjectGrades', 'search_results_available'));
+                $sakit = AbsentStudent::where('student_id', $studentId)->where('description', 'S')->count();
+                $izin = AbsentStudent::where('student_id', $studentId)->where('description', 'I')->count();
+                $alpa = AbsentStudent::where('student_id', $studentId)->where('description', 'A')->count();
+                $hadir = AbsentStudent::where('student_id', $studentId)->where('description', 'M')->count();
+
+                $totalDays = $sakit + $alpa + $izin + $hadir;
+                if ($totalDays == 0) {
+                    $totalDays = 1;
+                }
+                $totalabsen = round(($hadir/($totalDays)*100), 3);
+
+                return view('SubjectGradeSO', compact('subjects', 'subjectGrades','totalabsen', 'data', 'nama_class'));
             } else {
                 return redirect()->route('sign-in');
             }

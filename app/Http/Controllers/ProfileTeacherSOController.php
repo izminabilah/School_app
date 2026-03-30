@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassStudent;
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,12 @@ class ProfileTeacherSOController extends Controller
 //        return view('profileGuru');
         if(session()->exists('username')){
             $profileTeachers = Teacher::all();
-            return view('profileGuruSO')->with('profileTeachers', $profileTeachers);
+            $username = session('username');
+            $student = Student::where('username', $username)->first();
+            $data = $student->name;
+            $class = $student->class_student_id;
+            $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
+            return view('profileGuruSO', compact('profileTeachers', 'data', 'nama_class'));
         }else {
             return redirect()->route('sign-in');
         }

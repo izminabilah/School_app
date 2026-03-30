@@ -20,7 +20,8 @@ class TeacherController extends Controller
             $username = session('username');
             $teacher = Teacher::where('username', $username)->first();
             $data = $teacher->name;
-            return view('home_go', compact('teachers','students','data'));
+            $status = $data ? 'guru' : null;
+            return view('home_go', compact('teachers','students','data', 'status'));
 //            return view('home_go');
         }else {
             return redirect()->route('sign-in');

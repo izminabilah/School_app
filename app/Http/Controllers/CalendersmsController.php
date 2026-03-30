@@ -72,8 +72,6 @@ class CalendersmsController extends Controller
     {
         //
         $events = Calendersms::findOrFail($id);
-//        $events = Calendersms::whereDate('from', '=', $id)->get();
-//        var_dump($events);
         $events->from = Carbon::parse($events->from)->format('Y-m-d\TH:i');
         $events->to = Carbon::parse($events->to)->format('Y-m-d\TH:i');
         return view('CalenderSemesterEdit')-> with(['events' =>  $events]);

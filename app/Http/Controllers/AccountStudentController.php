@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassStudent;
 use App\Models\Student;
+use App\Models\StudentParent;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,9 @@ class AccountStudentController extends Controller
         //
         if(session()->exists('username')){
             $accountStudents = Student::all();
-            return view('AccountStudent')->with('accountStudents', $accountStudents);
+            $class = ClassStudent::all();
+            $parent = StudentParent::all();
+            return view('AccountStudent', compact('accountStudents', 'class', 'parent'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -43,8 +47,14 @@ class AccountStudentController extends Controller
 
         $accountStudent = new Student();
         $accountStudent->name = $request->input('name');
-        $accountStudent->username = $request->input('username');;
-        $accountStudent->password = $request->input('password');;
+        $accountStudent->username = $request->input('username');
+        $accountStudent->password = $request->input('password');
+        $accountStudent->address = $request->input('address');
+        $accountStudent->nisn = $request->input('nisn');
+        $accountStudent->gender = $request->input('gender');
+        $accountStudent->religion = $request->input('religion');
+        $accountStudent->parent_id = $request->input('parent');
+        $accountStudent->class_student_id = $request->input('class_student');
         $accountStudent->save();
 
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
@@ -79,6 +89,12 @@ class AccountStudentController extends Controller
         $accountStudents->name = $request->input('name');
         $accountStudents->username = $request->input('username');
         $accountStudents->password = $request->input('password');
+        $accountStudents->nisn = $request->input('nisn');
+        $accountStudents->address = $request->input('address');
+        $accountStudents->gender = $request->input('gender');
+        $accountStudents->religion = $request->input('religion');
+        $accountStudents->parent_id = $request->input('parent');
+        $accountStudents->class_student_id = $request->input('class_student');
         $accountStudents->save();
         return redirect()->route('account-student');
     }
@@ -93,8 +109,6 @@ class AccountStudentController extends Controller
     }
 
     public function search(Request $request){
-//        $students = DB::table('students')->where('name', 'LIKE', "$search%")->get();
-//        return view('AccountStudent')-> with(['students' => $students], ['accountStudents' => $accountStudents]);
         $search = $request->input('search-stu');
         $accountStudents = Student::where('name', 'LIKE', "$search%")->get();
         return view('AccountStudent', compact( 'accountStudents'));

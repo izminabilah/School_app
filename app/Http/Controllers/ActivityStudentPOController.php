@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivityStudent;
 use App\Models\ClassStudent;
+use App\Models\StudentParent;
 use Illuminate\Http\Request;
 
 class ActivityStudentPOController extends Controller
@@ -17,8 +18,13 @@ class ActivityStudentPOController extends Controller
         if(session()->exists('username')){
             $class_students = ClassStudent::all();
             $activityStudents = ActivityStudent::all();
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
             $search_results_available = false;
-            return view('ActivityStudentPO', compact('class_students','activityStudents','search_results_available'));
+            $note = null;
+            return view('ActivityStudentPO', compact('class_students','activityStudents','search_results_available' ,'data' ,'status', 'note'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -72,16 +78,25 @@ class ActivityStudentPOController extends Controller
         //
     }
     public function search(Request $request){
+        if(session()->exists('username')){
+            $username = session('username');
+            $parent = StudentParent::where('username', $username)->first();
+            $data = $parent->name;
+            $status = $data ? 'wali murid' : null;
+        }
+
         $search = $request->input('search-activity-po');
         $class_students = ClassStudent::where('name', 'LIKE', "%$search%")->first();
         if ($class_students) {
             $activityStudents = ActivityStudent::where('class_student_id', $class_students->id)->get();
+            $note = $class_students->name;
         } else {
             $activityStudents = collect(); // return an empty collection if no matching class is found
+            $note = null;
         }
         $search_results_available = true;
         $class_students = ClassStudent::all();
 
-        return view('ActivityStudentPO', compact('activityStudents', 'class_students', 'search_results_available'));
+        return view('ActivityStudentPO', compact('activityStudents', 'class_students', 'search_results_available', 'data', 'status', 'note'));
     }
 }

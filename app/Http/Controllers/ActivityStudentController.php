@@ -18,7 +18,8 @@ class ActivityStudentController extends Controller
             $class_students = ClassStudent::all();
             $activityStudents = ActivityStudent::all();
             $search_results_available = false;
-            return view('ActivityStudent', compact('class_students','activityStudents','search_results_available'));
+            $nama_class = null;
+            return view('ActivityStudent', compact('class_students','activityStudents','search_results_available', 'nama_class'));
         }else {
             return redirect()->route('sign-in');
         }
@@ -121,14 +122,19 @@ class ActivityStudentController extends Controller
     public function search(Request $request){
         $search = $request->input('search-activity');
         $class_students = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+
+        session()->put('search-activity', $search);
+
         if ($class_students) {
             $activityStudents = ActivityStudent::where('class_student_id', $class_students->id)->get();
+            $nama_class = $class_students->name;
         } else {
             $activityStudents = collect(); // return an empty collection if no matching class is found
+            $nama_class = null;
         }
         $search_results_available = true;
         $class_students = ClassStudent::all();
 
-        return view('ActivityStudent', compact('activityStudents', 'class_students', 'search_results_available'));
+        return view('ActivityStudent', compact('activityStudents', 'class_students', 'search_results_available', 'nama_class'));
     }
 }
