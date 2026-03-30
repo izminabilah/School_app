@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AbsentStudent;
 use App\Models\ClassStudent;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class AbsentStudentGOController extends Controller
@@ -17,8 +18,22 @@ class AbsentStudentGOController extends Controller
         //
         if(session()->exists('username')){
             $students = Student::all();
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
             $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+            $search = null;
             $search_results_available = false;
+            $note = null;
+
+            $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            $currentMonth = ('February');
+            $currentMonthIndex = array_search($currentMonth, $months);
+
+            $previousMonth = $months[$currentMonthIndex - 1] ?? null;
+            $nextMonth = $months[$currentMonthIndex + 1] ?? null;
+
             // Ensure absents array is structured with the correct keys
             $absentsStructured = [];
             foreach ($absents as $student_id => $days) {
@@ -26,7 +41,7 @@ class AbsentStudentGOController extends Controller
                     $absentsStructured[$student_id][$day] = $absent->first();
                 }
             }
-            return view('AbsentStudentGO', compact('students', 'absentsStructured','search_results_available'));
+            return view('AbsentStudentGO', compact('students', 'absentsStructured','search_results_available', 'data', 'status', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'note'));
 
         }else {
             return redirect()->route('sign-in');
@@ -161,31 +176,93 @@ class AbsentStudentGOController extends Controller
         //
     }
 
+//    public function search(Request $request)
+//    {
+//        if(session()->exists('username')){
+//            $username = session('username');
+//            $teacher = Teacher::where('username', $username)->first();
+//            $data = $teacher->name;
+//            $status = $data ? 'guru' : null;
+//
+//            $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+//            $currentMonth = $request->input('month', 'February');
+//
+//
+//        }
+//        $search = $request->input('search-absent-go');
+//        session()->put('search-absent-go', $search);
+//        $class = session()->get('search-absent-go');
+//
+//        $class_student = ClassStudent::where('name', 'LIKE', "%$class%")->first();
+//
+//        if ($class_student) {
+//            $students = Student::where('class_student_id', $class_student->id)->get();
+//            $student_ids = $students->pluck('id');
+//            $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
+//
+//            $currentMonthIndex = array_search($currentMonth, $months);
+//            $previousMonth = $months[$currentMonthIndex - 1] ?? null;
+//            $nextMonth = $months[$currentMonthIndex + 1] ?? null;
+//
+//        } else {
+//            $absentStudents = collect(); // return an empty collection if no matching class is found
+//        }
+//        /////
+////        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+//        $absents = AbsentStudent::where('month', $currentMonth)->get()->groupBy(['student_id', 'day']);
+//        // Ensure absents array is structured with the correct keys
+//        $absentsStructured = [];
+//        foreach ($absents as $student_id => $days) {
+//            foreach ($days as $day => $absent) {
+//                $absentsStructured[$student_id][$day] = $absent->first();
+//            }
+//        }
+//        ////
+//        $search_results_available = true;
+//
+//        return view('AbsentStudentGO', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'data', 'status', 'months', 'currentMonth', 'previousMonth', 'nextMonth'));
+//    }
     public function search(Request $request)
     {
-        $search = $request->input('search-absent-go');
-        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+        if(session()->exists('username')){
+            $username = session('username');
+            $teacher = Teacher::where('username', $username)->first();
+            $data = $teacher->name;
+            $status = $data ? 'guru' : null;
 
+            $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            $currentMonth = $request->input('month', 'February');
+        }
+
+        $search = $request->input('search-absent-go');
+        session()->put('search-absent-go', $search);
+        $class = session()->get('search-absent-go');
+
+        $class_student = ClassStudent::where('name', 'LIKE', "%$class%")->first();
+        $currentMonthIndex = array_search($currentMonth, $months);
+        $previousMonth = $months[$currentMonthIndex - 1] ?? null;
+        $nextMonth = $months[$currentMonthIndex + 1] ?? null;
         if ($class_student) {
             $students = Student::where('class_student_id', $class_student->id)->get();
             $student_ids = $students->pluck('id');
             $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
+            $note = $class_student->name;
         } else {
             $absentStudents = collect(); // return an empty collection if no matching class is found
+            $note = null;
         }
-        /////
-        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
 
-        // Ensure absents array is structured with the correct keys
+        $absents = AbsentStudent::where('month', $currentMonth)->get()->groupBy(['student_id', 'day']);
         $absentsStructured = [];
         foreach ($absents as $student_id => $days) {
             foreach ($days as $day => $absent) {
                 $absentsStructured[$student_id][$day] = $absent->first();
             }
         }
-        ////
+
         $search_results_available = true;
 
-        return view('AbsentStudentGO', compact('absentStudents', 'students', 'search_results_available','absentsStructured'));
+        return view('AbsentStudentGO', compact('absentStudents', 'students', 'search_results_available', 'absentsStructured', 'data', 'status', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'note'));
     }
+
 }

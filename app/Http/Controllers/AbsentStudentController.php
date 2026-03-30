@@ -21,6 +21,15 @@ class AbsentStudentController extends Controller
             $students = Student::all();
             $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
             $search_results_available = false;
+            $nama_class=null;
+            $search = null;
+            $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            $currentMonth = ('February');
+            $currentMonthIndex = array_search($currentMonth, $months);
+
+            $previousMonth = $months[$currentMonthIndex - 1] ?? null;
+            $nextMonth = $months[$currentMonthIndex + 1] ?? null;
+
             // Ensure absents array is structured with the correct keys
             $absentsStructured = [];
             foreach ($absents as $student_id => $days) {
@@ -28,7 +37,7 @@ class AbsentStudentController extends Controller
                     $absentsStructured[$student_id][$day] = $absent->first();
                 }
             }
-            return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available'));
+            return view('AbsentStudent', compact('students', 'absentsStructured','search_results_available', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
 
         }else {
             return redirect()->route('sign-in');
@@ -165,18 +174,28 @@ class AbsentStudentController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->input('search-absent');
-        $class_student = ClassStudent::where('name', 'LIKE', "%$search%")->first();
+        $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $currentMonth = $request->input('month', 'February');
 
+        $search = $request->input('search-absent');
+        session()->put('search-absent', $search);
+        $class = session()->get('search-absent');
+        $class_student = ClassStudent::where('name', 'LIKE', "%$class%")->first();
+
+        $currentMonthIndex = array_search($currentMonth, $months);
+        $previousMonth = $months[$currentMonthIndex - 1] ?? null;
+        $nextMonth = $months[$currentMonthIndex + 1] ?? null;
         if ($class_student) {
             $students = Student::where('class_student_id', $class_student->id)->get();
             $student_ids = $students->pluck('id');
+            $nama_class = $class_student->name;
             $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
         } else {
             $absentStudents = collect(); // return an empty collection if no matching class is found
+            $nama_class = null;
         }
         /////
-        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
+        $absents = AbsentStudent::where('month', $currentMonth)->get()->groupBy(['student_id', 'day']);
 
         // Ensure absents array is structured with the correct keys
         $absentsStructured = [];
@@ -188,6 +207,6 @@ class AbsentStudentController extends Controller
         ////
         $search_results_available = true;
 
-        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured'));
+        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
     }
 }
