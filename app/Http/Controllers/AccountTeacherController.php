@@ -91,8 +91,6 @@ class AccountTeacherController extends Controller
         return redirect()->back()->with('success', 'Teacher data has been deleted successfully!');
     }
     public function search(Request $request){
-//        $teachers = DB::table('teachers')->where('name', 'LIKE', "$search%")->get();
-//        return view('AccountTeacher')-> with(['teachers' => $teachers], ['accountTeachers' => $accountTeachers]);
         $search = $request->input('search-tea');
         $accountTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
         return view('AccountTeacher', compact( 'accountTeachers'));
