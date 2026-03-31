@@ -46,7 +46,7 @@
                             </svg>
                         </a>
                     @endif
-                    <p class="text-xl font-medium">{{ $currentMonth }} 2024</p>
+                    <p class="text-xl font-medium">{{ $currentMonth }} 2026</p>
                     @if($nextMonth)
                         <a href="{{ route('search-absent', ['month' => $nextMonth, 'search-absent' => $search]) }}" class="flex justify-center font-semibold p-2 rounded-full transition bg-white-light text-dark hover:text-white hover:bg-primary dark:text-white-light dark:bg-[#191e3a] dark:hover:bg-primary">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:rotate-180">
@@ -110,9 +110,14 @@
                                         <label for="year">Tahun</label>
                                         <select id="year" name="year[]" class="form-input">
                                             <option value="">-- Pilih Tahun --</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2025">2025</option>
                                             <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                            <option value="2029">2029</option>
+                                            <option value="2030">2030</option>
+                                            <option value="2031">2031</option>
+                                            <option value="2032">2032</option>
+                                            <option value="2033">2033</option>
                                         </select>
                                     </div>
                                     <div class="table-responsive">

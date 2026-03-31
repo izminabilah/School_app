@@ -24,7 +24,7 @@ class AbsentStudentController extends Controller
             $nama_class=null;
             $search = null;
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = ('February');
+            $currentMonth = ('January');
             $currentMonthIndex = array_search($currentMonth, $months);
 
             $previousMonth = $months[$currentMonthIndex - 1] ?? null;
@@ -110,7 +110,7 @@ class AbsentStudentController extends Controller
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
             ];
-            $years = ['2024', '2025', '2026'];
+            $years = ['2026', '2027', '2028', '2030', '2031', '2032', '2033'];
             $absent = AbsentStudent::findOrFail($id);
             return view('AbsentStudentEdit', compact('students', 'absent', 'months', 'years'));
         }
@@ -175,7 +175,8 @@ class AbsentStudentController extends Controller
     public function search(Request $request)
     {
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        $currentMonth = $request->input('month', 'February');
+        $currentMonth = $request->input('month', 'January');
+        $currentYear = $request->input('year', date('Y'));
 
         $search = $request->input('search-absent');
         session()->put('search-absent', $search);
@@ -207,6 +208,6 @@ class AbsentStudentController extends Controller
         ////
         $search_results_available = true;
 
-        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
+        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'months', 'currentMonth', 'currentYear', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
     }
 }
