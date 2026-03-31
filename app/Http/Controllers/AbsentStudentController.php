@@ -176,7 +176,6 @@ class AbsentStudentController extends Controller
     {
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         $currentMonth = $request->input('month', 'January');
-        $currentYear = $request->input('year', date('Y'));
 
         $search = $request->input('search-absent');
         session()->put('search-absent', $search);
@@ -208,6 +207,6 @@ class AbsentStudentController extends Controller
         ////
         $search_results_available = true;
 
-        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'months', 'currentMonth', 'currentYear', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
+        return view('AbsentStudent', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'months', 'currentMonth', 'previousMonth', 'nextMonth', 'search', 'nama_class'));
     }
 }
