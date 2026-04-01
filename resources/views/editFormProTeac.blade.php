@@ -26,11 +26,6 @@
                                    class="form-input" value="{{$profileTeachers->email}}"/>
                         </div>
                         <div class="mb-5">
-                            <label for="number">Teach Subject Code</label>
-                            <input id="subject_id" name="subject_id" type="text" placeholder="Enter Teach Subject Code"
-                                   class="form-input" value="{{$profileTeachers->subject_id }}"/>
-                        </div>
-                        <div class="mb-5">
                             <label for="username">Username</label>
                             <input id="username" name="username" type="text" placeholder="Enter Username"
                                    class="form-input" value="{{$profileTeachers->username}}"/>

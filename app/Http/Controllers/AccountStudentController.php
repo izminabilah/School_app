@@ -111,6 +111,8 @@ class AccountStudentController extends Controller
     public function search(Request $request){
         $search = $request->input('search-stu');
         $accountStudents = Student::where('name', 'LIKE', "$search%")->get();
-        return view('AccountStudent', compact( 'accountStudents'));
+        $class = ClassStudent::all();
+        $parent = StudentParent::all();
+        return view('AccountStudent', compact('accountStudents', 'class', 'parent'));
     }
 }

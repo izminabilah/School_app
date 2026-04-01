@@ -76,7 +76,10 @@ class ProfileTeacherPOController extends Controller
     public function search(Request $request){
         $search = $request->input('search-tea-po');
         $profileTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
-//        var_dump($profileTeachers);
-        return view('profileGuruPO', compact( 'profileTeachers'));
+        $username = session('username');
+        $parent = StudentParent::where('username', $username)->first();
+        $data = $parent ? $parent->name : '';
+        $status = $data ? 'wali murid' : null;
+        return view('profileGuruPO', compact('profileTeachers', 'data', 'status'));
     }
 }

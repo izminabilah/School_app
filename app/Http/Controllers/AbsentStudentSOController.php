@@ -25,7 +25,7 @@ class AbsentStudentSOController extends Controller
             $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = $request->input('month', 'February');
+            $currentMonth = $request->input('month', 'January');
 
         $class_student = ClassStudent::where('name','LIKE', $nama_class)->first();
 
@@ -116,7 +116,7 @@ class AbsentStudentSOController extends Controller
             $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = $request->input('month', 'February');
+            $currentMonth = $request->input('month', 'January');
         }
 //        $search = $request->input('search-absent-so');
 //        session()->put('search-absent-so', $search);

@@ -24,7 +24,7 @@ class AbsentStudentController extends Controller
             $nama_class=null;
             $search = null;
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = ('February');
+            $currentMonth = ('January');
             $currentMonthIndex = array_search($currentMonth, $months);
 
             $previousMonth = $months[$currentMonthIndex - 1] ?? null;
@@ -110,8 +110,15 @@ class AbsentStudentController extends Controller
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
             ];
-            $years = ['2024', '2025', '2026'];
-            $absent = AbsentStudent::findOrFail($id);
+            $years = ['2026', '2027', '2028', '2030', '2031', '2032', '2033'];
+            $absent = AbsentStudent::where('student_id', $id)->first();
+            if (!$absent) {
+                $absent = new AbsentStudent();
+                $absent->student_id = $id;
+                $absent->month = 'January';
+                $absent->year = '2026';
+                $absent->save();
+            }
             return view('AbsentStudentEdit', compact('students', 'absent', 'months', 'years'));
         }
 
@@ -175,7 +182,7 @@ class AbsentStudentController extends Controller
     public function search(Request $request)
     {
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        $currentMonth = $request->input('month', 'February');
+        $currentMonth = $request->input('month', 'January');
 
         $search = $request->input('search-absent');
         session()->put('search-absent', $search);

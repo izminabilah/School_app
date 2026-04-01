@@ -259,7 +259,7 @@ class SubjectGradeController extends Controller
 
         if ($subject_table) {
             $subjectGrades = SubjectGrade::where('subject_id', $subject_table->id)->get();
-            $students = Student::whereIn('id', $subjectGrades->pluck('student_id'))->get();
+            $students = Student::all();
             return view('SubjectGrade', compact('subjectGrades', 'subject_table', 'students','subjects', 'search_results_available', 'nama_subject'));
         } else {
             return redirect()->route('subject-grade');

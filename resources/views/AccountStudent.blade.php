@@ -163,7 +163,13 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No data available</td>
+                                <td colspan="4" class="text-center py-4 text-gray-500">
+                                    @if(request()->has('search-stu'))
+                                        No students found matching "{{ request('search-stu') }}"
+                                    @else
+                                        No data available
+                                    @endif
+                                </td>
                             </tr>
                         @endforelse
                         </tbody>
@@ -206,8 +212,8 @@
                             </div>
                         </div>
                         <div class="mt-6 flex gap-4 absolute bottom-0 w-full ltr:left-0 rtl:right-0 p-6">
-                            <a type="button" class="btn btn-sm btn-outline-primary" href="{{route('edit-account-stu', ['id' => $accountStudent->id])}}">Edit</a>
-                            <a type="button" class="btn btn-outline-danger w-1/2" href="{{ route('delete-account-stu', ['id' => $accountStudent->id]) }}">Delete</a>
+                            <a type="button" class="btn btn-sm btn-outline-primary" :href="'/account/student/edit/' + contact.id">Edit</a>
+                            <a type="button" class="btn btn-outline-danger w-1/2" :href="'/account/student/delete/' + contact.id">Delete</a>
                         </div>
                     </div>
                 </template>

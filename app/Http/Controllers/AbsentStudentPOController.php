@@ -30,7 +30,7 @@ class AbsentStudentPOController extends Controller
             $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = ('February');
+            $currentMonth = ('January');
             $currentMonthIndex = array_search($currentMonth, $months);
 //            $search = null;
             $previousMonth = $months[$currentMonthIndex - 1] ?? null;
@@ -122,7 +122,7 @@ class AbsentStudentPOController extends Controller
             $status = $data ? 'wali murid' : null;
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = $request->input('month', 'February');
+            $currentMonth = $request->input('month', 'January');
 
             $parentId = $parent->id;
             $student = Student::where('parent_id', $parentId)->first();

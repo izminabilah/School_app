@@ -28,7 +28,7 @@ class AbsentStudentGOController extends Controller
             $note = null;
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = ('February');
+            $currentMonth = ('January');
             $currentMonthIndex = array_search($currentMonth, $months);
 
             $previousMonth = $months[$currentMonthIndex - 1] ?? null;
@@ -109,8 +109,19 @@ class AbsentStudentGOController extends Controller
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
-        $years = ['2024', '2025', '2026'];
-        $absent = AbsentStudent::findOrFail($id);
+        $years = ['2026', '2027', '2028', '2030', '2031', '2032', '2033'];
+
+        // Find or create an AbsentStudent record by student_id
+        $absent = AbsentStudent::where('student_id', $id)->first();
+        if (!$absent) {
+            $absent = new AbsentStudent();
+            $absent->student_id = $id;
+            $absent->month = 'January';
+            $absent->year = '2026';
+            $absent->day = 1;
+            $absent->description = '';
+            $absent->save();
+        }
 
         return view('AbsentStudentEditGO', compact('students',
             'absent', 'months', 'years'));
@@ -168,52 +179,6 @@ class AbsentStudentGOController extends Controller
         //
     }
 
-//    public function search(Request $request)
-//    {
-//        if(session()->exists('username')){
-//            $username = session('username');
-//            $teacher = Teacher::where('username', $username)->first();
-//            $data = $teacher->name;
-//            $status = $data ? 'guru' : null;
-//
-//            $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-//            $currentMonth = $request->input('month', 'February');
-//
-//
-//        }
-//        $search = $request->input('search-absent-go');
-//        session()->put('search-absent-go', $search);
-//        $class = session()->get('search-absent-go');
-//
-//        $class_student = ClassStudent::where('name', 'LIKE', "%$class%")->first();
-//
-//        if ($class_student) {
-//            $students = Student::where('class_student_id', $class_student->id)->get();
-//            $student_ids = $students->pluck('id');
-//            $absentStudents = AbsentStudent::whereIn('student_id', $student_ids)->get();
-//
-//            $currentMonthIndex = array_search($currentMonth, $months);
-//            $previousMonth = $months[$currentMonthIndex - 1] ?? null;
-//            $nextMonth = $months[$currentMonthIndex + 1] ?? null;
-//
-//        } else {
-//            $absentStudents = collect(); // return an empty collection if no matching class is found
-//        }
-//        /////
-////        $absents = AbsentStudent::all()->groupBy(['student_id', 'day']);
-//        $absents = AbsentStudent::where('month', $currentMonth)->get()->groupBy(['student_id', 'day']);
-//        // Ensure absents array is structured with the correct keys
-//        $absentsStructured = [];
-//        foreach ($absents as $student_id => $days) {
-//            foreach ($days as $day => $absent) {
-//                $absentsStructured[$student_id][$day] = $absent->first();
-//            }
-//        }
-//        ////
-//        $search_results_available = true;
-//
-//        return view('AbsentStudentGO', compact('absentStudents', 'students', 'search_results_available','absentsStructured', 'data', 'status', 'months', 'currentMonth', 'previousMonth', 'nextMonth'));
-//    }
     public function search(Request $request)
     {
         if(session()->exists('username')){
@@ -223,7 +188,7 @@ class AbsentStudentGOController extends Controller
             $status = $data ? 'guru' : null;
 
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $currentMonth = $request->input('month', 'February');
+            $currentMonth = $request->input('month', 'January');
         }
 
         $search = $request->input('search-absent-go');

@@ -22,7 +22,7 @@
                             </svg>
                         </a>
                     @endif
-                    <p class="text-xl font-medium">{{ $currentMonth }} 2024</p>
+                    <p class="text-xl font-medium">{{ $currentMonth }} 2026</p>
                     @if($nextMonth)
                         <a href="{{ route('search-absent-so', ['month' => $nextMonth]) }}" class="flex justify-center font-semibold p-2 rounded-full transition bg-white-light text-dark hover:text-white hover:bg-primary dark:text-white-light dark:bg-[#191e3a] dark:hover:bg-primary">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:rotate-180">
