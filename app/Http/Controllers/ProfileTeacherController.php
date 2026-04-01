@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClassStudent;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ProfileTeacherController extends Controller
@@ -41,7 +42,6 @@ class ProfileTeacherController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'subject_id'=>'required',
             'username'=>'required',
             'password'=>'required',
             'gender' => 'required',
@@ -52,7 +52,6 @@ class ProfileTeacherController extends Controller
         $profileTeacher->email = $request->input('email');
         $profileTeacher->gender = $request->input('gender');
         $profileTeacher->address = $request->input('address');
-        $profileTeacher->subject_id = $request->input('subject_id');
         $profileTeacher->username = $request->input('username');
         $profileTeacher->password = $request->input('password');
         $profileTeacher->save();
@@ -91,7 +90,6 @@ class ProfileTeacherController extends Controller
         $profileTeachers->email = $request->input('email');
         $profileTeachers->gender = $request->input('gender');
         $profileTeachers->address = $request->input('address');
-        $profileTeachers->subject_id = $request->input('subject_id');
         $profileTeachers->username = $request->input('username');
         $profileTeachers->password = $request->input('password');
         $profileTeachers->save();

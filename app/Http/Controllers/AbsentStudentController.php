@@ -111,7 +111,14 @@ class AbsentStudentController extends Controller
                 'July', 'August', 'September', 'October', 'November', 'December'
             ];
             $years = ['2026', '2027', '2028', '2030', '2031', '2032', '2033'];
-            $absent = AbsentStudent::findOrFail($id);
+            $absent = AbsentStudent::where('student_id', $id)->first();
+            if (!$absent) {
+                $absent = new AbsentStudent();
+                $absent->student_id = $id;
+                $absent->month = 'January';
+                $absent->year = '2026';
+                $absent->save();
+            }
             return view('AbsentStudentEdit', compact('students', 'absent', 'months', 'years'));
         }
 

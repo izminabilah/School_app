@@ -67,7 +67,7 @@
                     <div class="fixed inset-0 bg-[black]/60 z-[999] overflow-y-auto hidden" id="form-add-grade">
                         <div class="flex items-center justify-center min-h-screen px-4">
                             <div class="panel border-0 p-0 rounded-lg overflow-hidden md:w-full w-[90%] my-8">
-                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/go/activity/subject/grade'">
+                                <button type="button" class="absolute top-4 ltr:right-4 rtl:left-4 text-white-dark hover:text-dark" onclick="location.href='/activity/subject/grade'">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -80,7 +80,7 @@
                                 >Tambah Nilai Mapel
                                 </h3>
                                 <div class="p-5">
-                                    <form action="/go/activity/subject/grade/add" method="POST">
+                                    <form action="/activity/subject/grade/add" method="POST">
                                         @csrf
                                         <div class="mb-5">
                                             <label for="subject">Mata Pelajaran</label>
@@ -175,7 +175,7 @@
                                         </table>
                                         <div class="flex justify-end items-center mt-8">
                                             <button type="button" class="btn btn-outline-danger"
-                                                    onclick="location.href='/go/activity/subject/grade'">Cancel</button>
+                                                    onclick="location.href='/activity/subject/grade'">Cancel</button>
                                             <button type="submit" class="btn btn-primary ltr:ml-4 rtl:mr-4">Submit</button>
                                         </div>
                                     </form>
