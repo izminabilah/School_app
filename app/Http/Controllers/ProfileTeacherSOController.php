@@ -87,7 +87,11 @@ class ProfileTeacherSOController extends Controller
     public function search(Request $request){
         $search = $request->input('search-tea');
         $profileTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
-//        var_dump($profileTeachers);
-        return view('profileGuruSO', compact( 'profileTeachers'));
+        $username = session('username');
+        $student = Student::where('username', $username)->first();
+        $data = $student ? $student->name : '';
+        $class = $student ? $student->class_student_id : null;
+        $nama_class = ClassStudent::where('id', $class)->pluck('name')->first();
+        return view('profileGuruSO', compact('profileTeachers', 'data', 'nama_class'));
     }
 }

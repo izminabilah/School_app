@@ -114,7 +114,10 @@ class ProfileTeacherGOController extends Controller
     public function search(Request $request){
         $search = $request->input('search-tea-go');
         $profileTeachers = Teacher::where('name', 'LIKE', "$search%")->get();
-//        var_dump($profileTeachers);
-        return view('profileGuruGO', compact( 'profileTeachers'));
+        $username = session('username');
+        $teacher = Teacher::where('username', $username)->first();
+        $data = $teacher ? $teacher->name : '';
+        $status = $data ? 'guru' : null;
+        return view('profileGuruGO', compact('profileTeachers', 'data', 'status'));
     }
 }

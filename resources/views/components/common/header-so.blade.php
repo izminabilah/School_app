@@ -6,7 +6,7 @@
                     <img class="w-8 ltr:-ml-1 rtl:-mr-1 inline" src="/assets/images/Logo-School1.svg"
                          alt="image" />
                     <span
-                        class="text-l ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">SMAN 6 Depok</span>
+                        class="text-l ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle hidden md:inline dark:text-white-light transition-all duration-300">MAN DEPOK</span>
                 </a>
 
                 <a href="javascript:;"

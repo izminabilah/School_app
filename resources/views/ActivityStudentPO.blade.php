@@ -10,9 +10,10 @@
         </ul>
     </div>
     <div>
-        <div class="relative rounded-t-md bg-[url('/assets/images/visi-misi.png')] bg-contain bg-left-top bg-no-repeat px-5 py-10 dark:bg-black md:px-10">
-            <div class="absolute bottom-20 end-5 hidden text-[#DBE7FF] rtl:rotate-y-180 dark:text-[#1B2E4B] md:block  xl:end-10">
-                <img src="/assets/images/visimisi.png" alt="image" class="h-full w-full object-cover" />
+        <div class="relative rounded-t-md bg-primary-light bg-[url('/assets/images/knowledge/pattern.png')] bg-contain bg-left-top bg-no-repeat px-5 py-10 dark:bg-black md:px-10">
+            <div class="absolute -bottom-1 -end-6 hidden text-[#DBE7FF] rtl:rotate-y-180 dark:text-[#1B2E4B] lg:block xl:end-0">
+                <img :src="$store.app.theme === 'dark' || $store.app.isDarkMode ? '/assets/images/faq/faq-dark.svg' :
+                                            '/assets/images/faq/faq-light.svg'" alt="faqs" class="w-56 object-cover xl:w-80" />
             </div>
             <div class="relative">
                 <div class="flex flex-col items-center justify-center sm:-ms-32 sm:flex-row xl:-ms-60">

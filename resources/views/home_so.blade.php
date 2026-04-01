@@ -107,16 +107,16 @@
     <script>
         document.addEventListener("alpine:init", () => {
             Alpine.data("sales", () => ({
-                sakit: {{ $absentData['sakit'] }},
-                izin: {{ $absentData['izin'] }},
-                alpa: {{ $absentData['alpa'] }},
-                hadir: {{ $absentData['hadir'] }},
-                ppkn: {{ $finalGrades['ppkn'] }},
-                mtk_wajib:{{$finalGrades['mtk_wajib']}},
-                ekonomi: {{ $finalGrades['ekonomi'] }},
-                b_indonesia: {{ $finalGrades['b_indonesia'] }},
-                b_inggris: {{ $finalGrades['b_inggris'] }},
-                sejarah_indonesia: {{ $finalGrades['sejarah_indonesia'] }},
+                sakit: {{ $absentData['sakit'] ?? 0 }},
+                izin: {{ $absentData['izin'] ?? 0 }},
+                alpa: {{ $absentData['alpa'] ?? 0 }},
+                hadir: {{ $absentData['hadir'] ?? 0 }},
+                ppkn: {{ $finalGrades['ppkn'] ?? 0 }},
+                mtk_wajib:{{ $finalGrades['mtk_wajib'] ?? 0 }},
+                ekonomi: {{ $finalGrades['ekonomi'] ?? 0 }},
+                b_indonesia: {{ $finalGrades['b_indonesia'] ?? 0 }},
+                b_inggris: {{ $finalGrades['b_inggris'] ?? 0 }},
+                sejarah_indonesia: {{ $finalGrades['sejarah_indonesia'] ?? 0 }},
 
 
                 init() {
